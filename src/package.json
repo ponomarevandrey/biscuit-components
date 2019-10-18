@@ -1,6 +1,6 @@
 {
   "name": "biscuit-components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Biscuit Components is a components library based on BEM methodology and a mobile-first approach, intended for a quick start while developing websites. ",
   "main": "index.js",
   "scripts": {
