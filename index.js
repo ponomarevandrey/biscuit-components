@@ -9,7 +9,7 @@ function requireFiles(r) {
 /*************
  * CSS RESET *
  *************/
-import './src/_reset.scss';
+import './src/_biscuit-reset.scss';
 
 /**********
  * BLOCKS *

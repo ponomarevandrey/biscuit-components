@@ -1,3 +1,5 @@
+// Global SASS variables, mixins and functions
+
 // *************
 // * VARIABLES *
 // *************
@@ -5,7 +7,7 @@
 /* Typography */
 $root_font-size: 16px;
 
-$font-stack_sans-serif: Lato, Helvetica, Verdana, Arial, Tahoma, sans-serif;
+$font-stack_sans-serif: Lato, Helvetica, Tahoma, Arial, Verdana, sans-serif;
 $font-stack_serif: Georgia, 'Big Caslon', 'Hoefler Text', Garamond, Baskerville,
   'Palatino Linotype', 'Times New Roman', Times, serif;
 $font-stack_monospace: Consolas, 'Lucida Console', 'Lucida Sans Typewriter',

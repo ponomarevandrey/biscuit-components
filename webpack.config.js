@@ -100,7 +100,7 @@ module.exports = (env, options) => {
               options: {
                 sourceMap: true,
                 data:
-                  '@import "./_global-variables-mixins-functions.scss";',
+                  '@import "./_biscuit-global.scss";',
                 includePaths: [__dirname, 'src'],
               },
             },
