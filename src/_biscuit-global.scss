@@ -5,14 +5,6 @@
 // *************
 
 /* Typography */
-$root_font-size: 16px;
-
-$font-stack_sans-serif: Lato, Helvetica, Tahoma, Arial, Verdana, sans-serif;
-$font-stack_serif: Georgia, 'Big Caslon', 'Hoefler Text', Garamond, Baskerville,
-  'Palatino Linotype', 'Times New Roman', Times, serif;
-$font-stack_monospace: Consolas, 'Lucida Console', 'Lucida Sans Typewriter',
-  'Courier New', Courier, monospace;
-
 $font-size_h1: 3.052rem;
 $font-size_h2: 2.441rem;
 $font-size_h3: 1.953rem;
@@ -32,6 +24,7 @@ $color_gray_darkest: #1a1a1a;
 $color_black: black;
 
 // $color_primary:
+// ...
 // $color_secondary:
 $color_success: #329a32;
 $color_warning: #f3c50c;
@@ -82,31 +75,6 @@ $border_radius: 0.3em !default;
 // **********
 // * MIXINS *
 // **********
-
-// Typography
-@mixin font-face__regular {
-  font-family: Lato;
-  src: url('../../fonts/lato-regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@mixin font-face__italic {
-  font-family: Lato;
-  src: url('../../fonts/lato-italic.woff2') format('woff2');
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@mixin font-face__bold {
-  font-family: Lato;
-  src: url('../../fonts/lato-heavy.woff2') format('woff2');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
 
 // Hide visually and from screen readers
 @mixin hidden-complitely {
