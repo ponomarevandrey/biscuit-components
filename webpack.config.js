@@ -100,7 +100,7 @@ module.exports = (env, options) => {
               options: {
                 sourceMap: true,
                 data:
-                  '@import "./src/_biscuit-global.scss"; @import "./_global.scss";',
+                  '@import "./src/_global.scss";',
                 includePaths: [__dirname, 'src'],
               },
             },
@@ -149,9 +149,9 @@ module.exports = (env, options) => {
           use: [
             {
               loader: 'file-loader',
-              options: {
-                name: 'fonts/[name].[ext]',
-              },
+              /*options: {
+                name: 'src/[name].[ext]',
+              },*/
             },
           ],
         },

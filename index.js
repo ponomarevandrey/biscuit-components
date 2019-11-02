@@ -1,19 +1,22 @@
-/************
- * GRAPHICS *
- ************/
+/* 
+  HELPER FUNCTIONS
+*/
+
 // function for requiring images:
 function requireFiles(r) {
   r.keys().forEach(r);
 }
 
-/*************
- * CSS RESET *
- *************/
-import './src/_biscuit-reset.scss';
+/*
+  CSS RESET 
+*/
 
-/**********
- * BLOCKS *
- **********/
+import './src/_reset.scss';
+
+/* 
+  BLOCKS 
+*/
+
 /* To control the CSS cascade and inheritance while importing blocks into the project, all blocks divided into two main groups:
 
    1. **Parent blocks** (these blocks usually, although it's not obligatory, serve as parent containers for "Child blocks")
@@ -21,9 +24,16 @@ import './src/_biscuit-reset.scss';
 
 **Don't change the order of blocks!** Although, all blocks are self-sufficient and don't rely on cascade and inheritance, in some rare cases reordering of their imports may break minor details like link color or font-size, so to be safe try to maintain the current blocks' order. If you don't need a block in your bundle, comment it out, don't delete it from this file, you might need it in the future */
 
-/***************** Redefinition level 'blocks.biscuit-lib' *******************/
-
 // Parent blocks
+
+import './src/page/_page.scss';
+import './src/page/page.js';
+
+import './src/header/_header.scss';
+
+import './src/main/_main.scss';
+
+import './src/footer/_footer.scss';
 
 import './src/text/_text.scss';
 
@@ -42,9 +52,21 @@ import './src/comment/_comment.scss';
 
 import './src/grid-forms/_grid-forms.scss';
 
+import './src/grid-page-layout2/_grid-page-layout2.scss';
+
+import './src/grid-page-layout1/_grid-page-layout1.scss';
+
+import './src/grid-gallery/_grid-gallery.scss';
+
+import './src/grid-auto-col/_grid-auto-col.scss';
+
+import './src/fullscreen-bg/_fullscreen-bg.scss';
+
 // Child blocks
 
 import './src/img-raster/_img-raster.scss';
+
+import './src/img-svg/_img-svg.scss';
 
 import './src/tooltip/_tooltip.scss';
 
