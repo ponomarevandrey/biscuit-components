@@ -19,21 +19,14 @@ html(lang='en' class='page text text_size_root text_color_black')
     meta(name="msapplication-TileColor" content="#603cba")
     meta(name="theme-color" content="#ffffff")
 
-    meta(name='description' content='Description of the page less than 150 characters')
+    meta(name='description' content='component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach')
     //- Displayed in Google search results:
-    meta(name='keywords' content='web development, web applications, frontend')
+    meta(name='keywords' content='web development, bem, components, sass, javascript, pug, frontend')
     meta(name='author' content='Andrey Ponomarev')
     title Biscuit Components
       
     style. 
-
-      body { 
-
-      }
-
-      /* ------------------------------------------------------- */
-
-      /* Navigation */
+      /* Navigation ------------------------------------------------- */
 
       .navigation {
         padding: 1rem 20%;
@@ -54,9 +47,7 @@ html(lang='en' class='page text text_size_root text_color_black')
       }
 
 
-      /* ------------------------------------------------------- */
-
-      /* Demo block */      
+      /* Demo block ---------------------------------------------- */  
       
       .demo {
         display: grid;
@@ -144,8 +135,7 @@ html(lang='en' class='page text text_size_root text_color_black')
       
       } 
       
-      /* ---------------------------------------------------------------- */
-      /* Header */ 
+      /* About ---------------------------------------------------------- */
       
       .promo {
         display: flex;
@@ -181,6 +171,12 @@ html(lang='en' class='page text text_size_root text_color_black')
       .promo__logos {
         height: 20rem;
       }
+
+      .biscuit-categories {
+        list-style: none;
+        display: flex;
+        border: 1px solid red;
+      }
   
   body(class='page__body page__preload text text_line-height_lg text_font-stack_sans-serif') 
   
@@ -192,7 +188,6 @@ html(lang='en' class='page text text_size_root text_color_black')
 
 
 block header
-
 
   //- -------------------- Doc page layout -----------------------
 
@@ -264,16 +259,15 @@ block main
                 each mod in allMods
                   tr(class='table__row')
                     td(class='table__cell table__cell_type_main block__col1')
-                      code(class='code code_display_inline code_theme_black') #{mod.name}
+                      code(class='code code_display_inline code_theme_gray') #{mod.name}
                     td(class='table__cell table__cell_type_main block__col2')
                       - if (mod.values === undefined) 
                         span('text text_display_inline') —
                       - else 
                         each value in mod.values
-                          code(class='code code_display_inline code_theme_black') #{value}
+                          code(class='code code_display_inline code_theme_gray') #{value}
                     td(class='table__cell table__cell_type_main block__col3') #{mod.description}
       block        
-
 
 
 
@@ -283,30 +277,16 @@ block main
   //- ----------------- Biscuit Components: ----------------------
   //- ------------------------------------------------------------
 
-
-
   main(class='demo' id='demo')
     div
-      ul(class='list')
-        li Containers
-          ul
-            li Grid
-        li Content
-          ul
-            li Typography
-            li Code
-            li Images
-            li Tables
-        li Components
-        li Settings in Sass file
-
+      ul(class='biscuit-categories')
 
 
 
     //- heading
     +block(
       { name: 'heading',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/heading',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/heading',
         description: 'H1—H6 headings' },
 
       { name: 'size',
@@ -326,7 +306,7 @@ block main
     //- text
     +block(
       { name: 'text',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/text',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/text',
         description: 'Regular text' },
 
       { name: 'display',
@@ -364,7 +344,7 @@ block main
     //- img-raster
     +block(
       { name: 'img-raster',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/img-raster',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-raster',
         description: 'Raster image' },
 
       { name: 'align-self',
@@ -397,7 +377,7 @@ block main
     //- hr
     +block(
       { name: 'hr',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/hr',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/hr',
         description: 'Horizontal line' },
 
       { name: 'color',
@@ -413,7 +393,7 @@ block main
     //- list
     +block(
       { name: 'list',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/list',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/list',
         description: 'List' },
 
       { name: 'style',
@@ -439,7 +419,7 @@ block main
     //- link
     +block(
       { name: 'link',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/link',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/link',
         description: 'Link' },
 
       { name: 'anchor',
@@ -456,7 +436,7 @@ block main
     //- fullscreen-bg
     +block(
       { name: 'fullscreen-bg',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/fullscreen-bg',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/fullscreen-bg',
         description: 'Fullscreen background' },
 
       { name: 'content',
@@ -471,7 +451,7 @@ block main
     //- code
     +block(
       { name: 'code',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/code',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/code',
         description: 'Code' },
 
       { name: 'display',
@@ -479,7 +459,7 @@ block main
         description: 'Display code as a line or as a block' },
 
       { name: 'theme',
-        values: ['gray', 'black'],
+        values: ['gray'],
         description: 'Color themes' }
     )
 
@@ -498,7 +478,7 @@ block main
     //- btn
     +block(
       { name: 'btn',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/btn',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/btn',
         description: 'Button' },
 
       { name: 'theme',
@@ -539,7 +519,7 @@ block main
     //- grid-auto-col
     +block(
       { name: 'grid-auto-col',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/grid-auto-col',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-auto-col',
         description: 'Responsive columns grid' }
     )
 
@@ -617,7 +597,7 @@ block main
     //- grid-page-layout1 
     +block(
       { name: 'grid-page-layout1',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/grid-page-layout1',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout1',
         description: 'Grid page layout' }
     )
 
@@ -638,7 +618,7 @@ block main
     //- grid-gallery
     +block(
       { name: 'grid-gallery',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/grid-gallery',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-gallery',
         description: 'Grid gallery' }
     )
       //-
@@ -680,52 +660,14 @@ block main
           li
             figure
               img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22941_hires.jpg" alt="South Equatorial Belt Brown Barge Close-up")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22936_hires.jpg" alt="Earth-based Observation of Jupiter")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22937_hires.jpg" alt="Jupiter's South Tropical Disturbance")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22933_hires.jpg" alt="Jupiter's Southern Circumpolar Cyclones")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22906_hires.jpg" alt=" Juno Flyby Movie ")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22895_hires.jpg" alt="Swiss Cheese on a Red Planet")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA21211_hires.jpg" alt="Solar Active Region's Cameo Appearance")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22914_hires.jpg" alt="Bow Shock Around Young Star")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22695_hires.jpg" alt="Jupiter's North Equatorial Belt")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22770_hires.jpg" alt="Titan Mosaic: The Surface Under the Haze")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA18144_hires.jpg" alt="Reappearing Coronal Hole")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22820_hires.jpg" alt="NASA's ASTER Captures Lava Flow, Ash from Guatemala Volcano")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22869_hires.jpg" alt="Active Dunes in Wirtz Crater")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22569_hires.jpg" alt="Supernova Remnant G54")
+        
 
 
 
     //- grid-page-layout2
     +block(
       { name: 'grid-page-layout2',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/grid-page-layout2',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout2',
         description: 'Grid page layout' }
     )
 
@@ -743,7 +685,7 @@ block main
     //- img-svg
     +block(
       { name: 'img-svg',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/img-svg',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-svg',
         description: 'SVG image' }
       )
 
@@ -769,7 +711,7 @@ block main
     //- blockquote
     +block(
       { name: 'blockquote',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/blockquote',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/blockquote',
         description: 'Quote' },
 
       { name: 'theme',
@@ -789,7 +731,7 @@ block main
     //- badge
     +block(
       { name: 'badge',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/badge',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/badge',
         description: 'Badge' },
 
       { name: 'theme',
@@ -806,7 +748,7 @@ block main
     //- label
     +block(
       { name: 'label',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/label',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
         description: 'Label' },
 
       { name: 'theme',
@@ -824,7 +766,7 @@ block main
     //- pagination
     +block(
       { name: 'pagination',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/pagination',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/pagination',
         description: 'Pagination' }
     )
 
@@ -842,7 +784,7 @@ block main
     //- breadcrumbs
     +block(
       { name: 'breadcrumbs',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/breadcrumbs',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/breadcrumbs',
         description: 'Breadcrumbs' }
     )
 
@@ -861,7 +803,7 @@ block main
     //- icons
     +block(
       { name: 'icons',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/icons',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/icons',
         description: 'Social media icons' },
 
       { name: 'size',
@@ -968,7 +910,7 @@ block main
     //- tooltip
     +block(
       { name: 'tooltip',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/tooltip',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/tooltip',
         description: 'Tooltip' }
     )
 
@@ -988,7 +930,7 @@ block main
     //- embed (videos, ...)
     +block(
       { name: 'embed',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/label',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
         description: 'Embeded content (youtube videos, ...)' },
 
       { name: 'ratio',
@@ -1009,7 +951,7 @@ block main
     //- table
     +block(
       { name: 'table',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/table',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/table',
         description: 'Table' },
 
       { name: 'theme',
@@ -1069,7 +1011,7 @@ block main
     //- loader
     +block(
       { name: 'loader',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/loader',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/loader',
         description: 'Loader' }
     )
 
@@ -1081,7 +1023,7 @@ block main
     //- comment
     +block(
       { name: 'comment',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/comment ',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/comment ',
         description: 'Comment section' }
     )
 
@@ -1121,7 +1063,7 @@ block main
     //- control
     +block(
       { name: 'control',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/control',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/control',
         description: 'Custom controls' },
 
       { name: 'checkbox',
@@ -1272,7 +1214,7 @@ block main
     //- grid-forms
     +block(
       { name: 'grid-forms',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/grid-forms',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-forms',
         description: 'Grid-based form layout' }
     )
       //-
@@ -1290,7 +1232,7 @@ block main
     //- form-group
     +block(
       { name: 'form-group',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/form-group',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/tree/master/src/form-group',
         description: 'Form group' },
 
       { name: 'type',
@@ -1450,7 +1392,7 @@ block main
     //- select
     +block(
       { name: 'select',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/select',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/select',
         description: 'Custom select' }
     )
       //-
@@ -1472,7 +1414,7 @@ block main
     //- nav-fixed
     +block(
       { name: 'nav-fixed',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/nav-fixed',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav-fixed',
         description: 'Fixed navigation bar' }
     )
       //-
@@ -1499,7 +1441,7 @@ block main
     //- nav
     +block(
       { name: 'nav',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/nav',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav',
         description: 'Main navigation' }
     )
       //-
@@ -1517,7 +1459,7 @@ block main
     //- btn-close
     +block(
       { name: 'btn-close',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/btn-close',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/btn-close',
         description: 'Close button' }
     )
 
@@ -1531,7 +1473,7 @@ block main
     //- burger-menu
     +block(
       { name: 'burger-menu',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/burger-menu',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/burger-menu',
         description: 'Hamburger menu' }
     )
 
@@ -1542,7 +1484,7 @@ block main
     //- modal window
     +block(
       { name: 'modal',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/modal',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/modal',
         description: 'Modal window' }
     )
 
@@ -1553,7 +1495,7 @@ block main
     //- page
     +block(
       { name: 'page',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/page',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/page',
         description: "This is a service type of blog that defines styles for the whole page. It is already assigned to the necessary elements (<html> and <body>) in PUG templates, so don't modify or delete any 'page'-related classes. Also, this is the block, through which we import all custom fonts making them available in all SASS files" },
 
       { name: 'bg',
@@ -1567,7 +1509,7 @@ block main
     //- header
     +block(
       { name: 'header',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/header',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/header',
         description: 'Page header container' },
 
       { name: 'align-content',
@@ -1584,7 +1526,7 @@ block main
     //- main
     +block(
       { name: 'main',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/main',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/main',
         description: 'Main content container' }
     )
 
@@ -1595,7 +1537,7 @@ block main
     //- footer
     +block(
       { name: 'footer',
-        repository: 'https://github.com/ponomarevandrey/biscuit/tree/master/src/blocks.biscuit-lib/footer',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/footer',
         description: 'Page footer container' }
     )
 

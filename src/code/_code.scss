@@ -20,12 +20,7 @@
   }
 
   &_theme_gray {
-    background-color: $color_gray-lightest;
-    color: $color_black;
-  }
-
-  &_theme_black {
-    background-color: $color_black;
-    color: $color_white;
+    background-color: $color_code-bg;
+    color: $color_code-text;
   }
 }

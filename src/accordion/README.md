@@ -14,4 +14,4 @@ div(class='accordion')
   h2(class='accordion__header' tabindex='0') Pirate Draft
   div(class='accordion__content')
     p(class='text') Main sheet gunwalls tender Admiral of the Black Cat o'nine tails. Bring a spring upon her cable parrel gangplank pirate draft. Rutters bilge rat driver ballast swing the lead.
-  ```
+```

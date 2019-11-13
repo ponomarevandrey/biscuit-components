@@ -46,15 +46,16 @@
 
   &_theme_documentation {
     & th {
-      background-color: $color_black;
+      background-color: $color_gray-lightest;
       font-weight: bold;
+      color: $color_black;
     }
 
     & tr {
-      border-bottom: 1px solid $color_black;
+      border-bottom: 1px solid darken($color_gray-lightest, 1%);
     }
     & tr:hover {
-      background-color: $color_gray-lightest;
+      background-color: lighten($color_gray-lightest, 1%);
       transition: all 0.15s ease;
     }
   }
