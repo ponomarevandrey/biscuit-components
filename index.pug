@@ -26,16 +26,46 @@ html(lang='en' class='page text text_size_root text_color_black')
     title Biscuit Components
       
     style. 
-      
-      body { background-color: #eee; }
+
+      body { 
+
+      }
+
+      /* ------------------------------------------------------- */
+
+      /* Navigation */
+
+      .navigation {
+        padding: 1rem 20%;
+        margin: 0 auto;
+        justify-content: space-between;
+        background-color: white;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* Make flex items take content width, not width of parent container */
+        justify-items: center;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        justify-content: center;
+      }
+
+      .navigation__logo {
+        max-width: 14rem;
+      }
+
+
+      /* ------------------------------------------------------- */
+
+      /* Demo block */      
       
       .demo {
         display: grid;
         grid-row-gap: 1rem;
         padding: 3rem 3vw 3rem 3vw;
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: 750px;
         justify-content: center;  
         justify-items: center;
+        background-color: #eee;
       }
       
       .block {
@@ -46,6 +76,7 @@ html(lang='en' class='page text text_size_root text_color_black')
         background-color: white;
         box-sizing: border-box;
         width: 100%;
+        background-color: white;
       }
       
       .block__header {
@@ -82,10 +113,8 @@ html(lang='en' class='page text text_size_root text_color_black')
         .demo {
           grid-gap: 2rem;
           padding: 5rem 2rem 5rem 2rem;
-          grid-template-columns: repeat(auto-fill, minmax(750px, 1fr));
+          grid-template-columns: 750px;
           align-items: flex-start;
-          grid-auto-flow: row;
-          grid-auto-columns: minmax(750px, 1fr);
         }
         
         .block__example {
@@ -115,16 +144,13 @@ html(lang='en' class='page text text_size_root text_color_black')
       
       } 
       
+      /* ---------------------------------------------------------------- */
       /* Header */ 
       
       .promo {
         display: flex;
-        align-items: flex-start;
+        flex-flow: column;
         justify-content: center;
-        position: relative;
-        background-color: white;
-        align-content: flex-start;
-        height: 100%;    
       }
 
       @media screen and (min-width: 480px) {
@@ -134,57 +160,27 @@ html(lang='en' class='page text text_size_root text_color_black')
           }
       }
 
-      .promo__presentation {
-        display: grid;
-        grid-gap: 1rem;
-        width: 30rem;
-        height: calc(98%-2rem);
-        padding: 1rem 1rem 5rem 1rem;
-        grid-template-rows: auto 1fr auto;
-        align-content: center;
-      }
-
-
-      @media screen and (min-width: 480px) {
-        .promo__presentation {
-          height: auto;
-        }
-      }
-
       .promo__heading {
-        font-size: calc(2.441rem - 100%);
-        align-self: flex-start;
-      }
-        
-      @media screen and (min-width: 480px) {
-        .promo__heading {
-          font-size: 1.953rem;
-          line-height: 1.2;
-        }
+        padding: 2rem 0 0 0;
       }
 
-      .promo__logo {
-        max-width: 70%;
+      .promo__presentation {
+        margin: 0 auto;
+        max-width: 750px;
+        display: flex;
+        flex-flow: column wrap;
+        padding: 3rem 0;
+        align-items: center;
       }
 
-      .promo__buttons {
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-        grid-gap: 1rem;
+      .promo__text {
+        text-align: center;
+        padding-top: 1rem;
       }
 
-
-      .hamburger-menu {
-        display: inline-block;
+      .promo__logos {
+        height: 20rem;
       }
-
-      @media screen and (min-width: 480px) {
-       .hamburger-menu {
-          display: none;
-        }
-      }
-
   
   body(class='page__body page__preload text text_line-height_lg text_font-stack_sans-serif') 
   
@@ -200,19 +196,39 @@ block header
 
   //- -------------------- Doc page layout -----------------------
 
+  div(class='navigation')
+      img(
+        src='./src/_img/biscuit-logo-black.svg' 
+        alt='Biscuit Components'
+        title='Biscuit'
+        class='img-svg navigation__logo'
+      )
+      a(
+        href='https://github.com/ponomarevandrey' 
+        class='icons' 
+        aria-hidden='true'
+        focusable='false' 
+        title='Github'
+      )
+        span(class='icons__access-label') Github
+        svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+          use(xlink:href='./img/sprite.svg#github')
+      a(class='btn btn_theme_black btn_size_lg' href='https://github.com/ponomarevandrey') Download
 
   div(class='promo') 
-
     div(class='promo__presentation')
-      div(class='promo__mobile-nav-top')
-      //-
-        +img-svg('img', './../img/biscuit-logo-black.svg', 'Biscuit Logo', 'Biscuit', 'promo__logo')
-        nav(class='hamburger-menu') <!-- N -->
-      h1(class='heading heading_size_h2 promo__heading') Front-end framework for rapid web-develpment
-      div(class='promo__buttons')
-        a(class='btn btn_theme_black btn_size_lg' href='http://andreyponomarev.ru/biscuit/demo') Demo
-        a(class='btn btn_theme_empty btn_size_lg' href='https://github.com/ponomarevandrey') Download
-        a(class='btn btn_theme_empty btn_size_lg' href='#demo') Documentation
+      p(class='text') 
+        h(class='heading heading_size_h1 promo__heading') About
+        p(class='text text_display_block text_size_lg promo__text') Biscuit is a minimalist component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach.
+        p(class='text text_display_block text_size_lg promo__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
+        img(
+          src='./src/_img/logos.svg' 
+          alt='Biscuit Components'
+          title='Biscuit'
+          class='img-svg promo__logos'
+        )
+        h(class='heading heading_size_h1 promo__heading') Why I built it
+        p(class='text text_display_block text_size_lg promo__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to keep things simple and to have no redundant code. Also, I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.
 
 
 
@@ -270,6 +286,20 @@ block main
 
 
   main(class='demo' id='demo')
+    div
+      ul(class='list')
+        li Containers
+          ul
+            li Grid
+        li Content
+          ul
+            li Typography
+            li Code
+            li Images
+            li Tables
+        li Components
+        li Settings in Sass file
+
 
 
 

@@ -2,7 +2,7 @@
 
 The path inside `<use>` element should be relative to webpack `build` folder, not to `icons` component folder
 
-- pug
+- github
 ```pug
 a(
   href='https://github.com/ponomarevandrey' 
