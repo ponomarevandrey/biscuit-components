@@ -21,7 +21,8 @@
   ],
   "dependencies": {
     "jstransformer-markdown-it": "^2.1.0",
-    "npm": "^6.11.3"
+    "npm": "^6.11.3",
+    "prismjs": "^1.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

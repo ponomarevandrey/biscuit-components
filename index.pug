@@ -89,31 +89,38 @@ html(lang='en' class='page text text_size_root text_color_black')
 
       .line {
         height: 1px;
-        background-color: #e6e6e6;
+        background-color: #ccc;
       }
 
       /* About ---------------------------------------------------------- */
       
       .about {
-        display: flex;
-        flex-flow: column;
-        align-items: center;  
+        display: grid;
+        grid-template-columns: 1fr;
         padding: 2rem 3vw 0 3vw;
         margin: 0 auto;
       }
 
-      @media screen and (min-width: 480px) {
-        .about { max-width: 750px; }
+      @media screen and (min-width: 992px) {
+        .about { 
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-column-gap: 4rem;       
+          justify-content: center;
+          align-items: flex-start;   
+          max-width: 1200px;
+        }
       }
 
       .about__heading { padding: 1rem 0 0 0; }
 
       .about__text {
         padding-top: .5rem;
-        text-align: center;
       }
 
-      .about__logos { padding: 1rem 0 2.5rem 0; }
+      .about__logos { 
+        padding: 1rem 0 2.5rem 0; 
+      }
 
       /* Demo  -------------------------------------------------------- */  
       
@@ -181,14 +188,14 @@ html(lang='en' class='page text text_size_root text_color_black')
 
       .block__example > * {}
 
-      .block__description { padding-bottom: 1rem; }    
+      .block__description { 
+        padding-bottom: .5rem; 
+      }    
       
-
       /* Large screen layout */  
-
       @media screen and (min-width: 480px) {
         .demo {
-          padding: 2rem 2rem 0 2rem;
+          padding: 0 2rem 0 2rem;
           align-items: flex-start;
         }
         
@@ -209,7 +216,7 @@ html(lang='en' class='page text text_size_root text_color_black')
         }
 
         .block__description {
-          padding: 0rem 0 2rem 0;
+          padding: 0rem 0 1rem 0;
         }
 
         .block__table {  }
@@ -222,6 +229,12 @@ html(lang='en' class='page text text_size_root text_color_black')
 
       .block_active {
         display: flex;
+        animation: transitionEffect .5s;
+      }
+
+      @keyframes transitionEffect {
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       /* Demo  -------------------------------------------------------- */  
@@ -229,8 +242,12 @@ html(lang='en' class='page text text_size_root text_color_black')
       .bfilter {
         list-style: none;
         display: flex;
+        position: sticky;
+        top: 0;
+        margin: 2rem 0 0 0;
         flex-flow: row wrap;
         justify-content: center;
+        background-color: white;
       }
 
       .bfilter__item {
@@ -239,13 +256,23 @@ html(lang='en' class='page text text_size_root text_color_black')
         background-color: black;
         color: white;
         border-radius: .3rem;
+        transition: ease .3s;
       }
 
       .bfilter__item:hover {
-        background-color: #404040;
+        background-color: #804000;
         cursor: pointer;
       }
 
+      .bfilter_active {
+        background-color: #804000;
+      }
+
+      /* Misc  -------------------------------------------------------- */  
+
+      .bloc__code {
+        overflow-wrap: break-word;
+      }
 
   body(class='page__body page__preload text text_line-height_lg text_font-stack_sans-serif') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
@@ -262,6 +289,7 @@ block header
       <a class="github-button" href="https://github.com/ponomarevandrey/biscuit-components/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download ponomarevandrey/biscuit-components on GitHub">Download</a>
   div(class='line')
   div(class='about') 
+    section(class='about__col1')
       h3(class='heading heading_size_h3 about__heading') About
       p(class='text text_display_block text_size_lg about__text') Biscuit is a minimalist component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach.
       p(class='text text_display_block text_size_lg about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
@@ -271,10 +299,11 @@ block header
         title='Biscuit'
         class='img-svg about__logos'
       )
+    section(class='about__col2')
       h3(class='heading heading_size_h3 about__heading') Why I built it
-      p(class='text text_display_block text_size_lg about__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to keep things simple and to have no redundant code. Also, I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.
-
-
+      p(class='text text_display_block text_size_lg about__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.
+  div(class='line')
+  ul(class='bfilter')
 
 block main
   //- ------------------------------------------------------------
@@ -282,7 +311,6 @@ block main
   //- ------------------------------------------------------------
 
   main(class='demo' id='demo')
-    ul(class='bfilter')
 
     //- heading
     +block(
@@ -1653,54 +1681,50 @@ block main
 
 
     //- header
-    +block(
-      { name: 'header',
-        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/header',
-        category: 'containers',
-        description: 'Page header container' },
+      +block(
+        { name: 'header',
+          repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/header',
+          category: 'containers',
+          description: 'Page header container' },
 
-      { name: 'align-content',
-        values: ['center'],
-        description: "Align header content to center" }
-    )
+        { name: 'align-content',
+          values: ['center'],
+          description: "Align header content to center" }
+      )
 
-      div(class='block__example' style='overflow: hidden;')
-        div(class='block__preview')
-          div(class='header')
-        pre(class='block__code language-javascript')
-          code 
-            include:markdown-it ./src/header/README.md
+        div(class='block__example' style='overflow: hidden;')
+          div(class='block__preview')
+            div(class='header')
+          pre(class='block__code language-javascript')
+            code 
+              include:markdown-it ./src/header/README.md
 
 
 
     //- main
-    +block(
-      { name: 'main',
-        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/main',
-        category: 'containers',
-        description: 'Main content container' }
-    )
+      +block(
+        { name: 'main',
+          repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/main',
+          category: 'containers',
+          description: 'Main content container' }
+      )
 
-      div(class='block__example')
-        div(class='block__preview')
-        pre(class='block__code language-javascript')
-          code 
-            //- include:markdown-it ./src/main/README.md
+        div(class='block__example')
 
     //- footer
-    +block(
-      { name: 'footer',
-        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/footer',
-        category: 'containers',
-        description: 'Page footer container' }
-    )
+      +block(
+        { name: 'footer',
+          repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/footer',
+          category: 'containers',
+          description: 'Page footer container' }
+      )
 
-      div(class='block__example')
-        div(class='block__preview')
-          footer(class='footer') &copy; 2019
-        pre(class='block__code language-javascript')
-          code 
-            //- include:markdown-it ./src/footer/README.md
+        div(class='block__example')
+          div(class='block__preview')
+            footer(class='footer') &copy; 2019
+          pre(class='block__code language-javascript')
+            code 
+              //- include:markdown-it ./src/footer/README.md
 
 block footer
   footer(class='footer')
@@ -1719,28 +1743,42 @@ block footer
 block script
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   script.
-    class FilterComponent {
-      constructor(node, defaultTab = 'videos') {
+    class Filter {
+      constructor(node, defaultTab = 'typography') {
         // collect all blocks:
-        this._blockEls = document.querySelectorAll('[data-category]');
-        const frag = new DocumentFragment();
-        const sortedBlocks = this.sortBlocks();
+        let blocks = document.querySelectorAll('[data-category]');
 
-        console.log(sortedBlocks)
+        this.buildList(this.sortBlocks(blocks), node);
+        
+        node.addEventListener('click', e => this.filterBlocks(e, self, blocks));
+        // initialize filter (display default tab):
+        document.querySelector(`[data-category='${defaultTab}']`).click();
+      }
 
-        // display blocks based on selected category:
-        node.addEventListener('click', function(e) {
-          
-          sortedBlocks.forEach(block => {
-            if (block.dataset.category === e.target.dataset.category) {
-              block.classList.add('block_active');
-              console.log(block)
-            } else {
-              // cjamge tp .toggle
-              block.classList.remove('block_active');
-            }
-          });
+      filterBlocks(e, self, blocks) {
+        // if we occasionally clicked not on the button somewhere near it,
+        if (e.target === e.currentTarget) return;
+
+        // handle filters:
+        const filters = Array.from(document.querySelector('.bfilter').children);
+        filters.forEach(filter => {
+          if (filter.matches(`[data-category='${e.target.dataset.category}`)) {
+            filter.classList.add('bfilter_active');
+          } else {
+            filter.classList.remove('bfilter_active');
+          }
         });
+
+        // handle blocks:
+        blocks.forEach(block => {
+          if (block.dataset.category === e.target.dataset.category) {   
+            block.classList.add('block_active');
+          } else block.classList.remove('block_active');
+        });
+      }
+
+      buildList(sortedBlocks, node) {
+        const frag = new DocumentFragment();
 
         for (let prop in sortedBlocks) {
           if (sortedBlocks[prop] && sortedBlocks[prop].length > 0) {
@@ -1751,26 +1789,26 @@ block script
             frag.append(li)
           }
         }
-        
-        node.append(frag);        
+
+        node.append(frag);
       }
 
-      sortBlocks() {
-        const blocks = {};
+      sortBlocks(blocks) {
+        const sortedBlocks = {};
 
-        this._blockEls.forEach(el => {
-          if (!blocks[el.dataset.category]) {
-            blocks[el.dataset.category] = [];
+        blocks.forEach(block=> {
+          if (!sortedBlocks[block.dataset.category]) {
+            sortedBlocks[block.dataset.category] = [];
           }
-          
-          blocks[el.dataset.category].push(el);
+          sortedBlocks[block.dataset.category].push(block);
         });
 
-        return blocks;
+        return sortedBlocks;
       }
     }
 
-    const filterComponent = new FilterComponent(document.body.querySelector('.bfilter'));
+    new Filter(document.body.querySelector('.bfilter'));
 
-    document.querySelector("[data-category='videos']").click();
+    // fix for position: 'sticky':
+    // detect when then filter is in the viewport and attack class .fixed
     
