@@ -1,4 +1,21 @@
 /* 
+  PRIMS SYNYAX HIGHLIGHTER 
+*/
+// Import PrismJS package
+import Prism from 'prismjs';
+
+// Import PrismJS extensions
+import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/components/prism-scss';
+
+// Import Prism JS
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+
+// Highlight all matching syntax
+Prism.highlightAll();
+
+/* 
   HELPER FUNCTIONS
 */
 
@@ -73,7 +90,7 @@ import './src/tooltip/_tooltip.scss';
 import './src/icons/_icons.scss';
 requireFiles(require.context('./src/icons/', true, /(svg|png|jpg)$/));
 
-import './src/breadcrumb/_breadcrumb.scss';
+import './src/breadcrumbs/_breadcrumbs.scss';
 
 import './src/badge/_badge.scss';
 

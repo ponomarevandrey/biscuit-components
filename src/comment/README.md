@@ -3,7 +3,7 @@
 ```pug
 div(class='comment')
   img(src='./../blocks.biscuit-lib/comment/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
-  div(class='comment__text') 
+  div(class='comment__text')
     div(class='comment__header')
       span(class='comment__user-name') Mike Wolfson
       span(class='comment__time') august 19, 2019 17:48

@@ -116,9 +116,14 @@ module.exports = (env, options) => {
               options: {
                 name: '[name].[ext]',
                 context: 'src',
-                // eslint-disable-next-line no-unused-vars
+                
                 outputPath: (url, resourcePath, context) => {
-                  if (/favicon/.test(resourcePath)) return `img/favicon/${url}`;
+                  /*
+                  if (/favicon/.test(resourcePath)) {
+                    console.log('match')
+                    return `img/favicon/${url}`;
+                  }
+                  */
                   return `img/${url}`;
                 },
               },
@@ -205,6 +210,10 @@ module.exports = (env, options) => {
       new RunPostCSSAfterCompilationPlugin(
         path.resolve(__dirname, 'postcss.config.js')
       ),
+
+      // new CopyPlugin([{ from: 'src/favicon', to: '/' }]),
+      // copy files to root folder:
+      new CopyPlugin([{ from: 'src/_favicon' }]),
     ],
   };
 };

@@ -2,21 +2,20 @@
 
 ```pug
 figure(class='img-raster')
-  picture(class='img-raster__wrapper')   
+  picture(class='img-raster__wrapper')
     img(
-      class='img-raster__img' 
-      
-      src="./../img/animals_landscape_lg.jpg" 
-      
-      sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
-      
-      srcset="./../img/animals_landscape_sm.jpg 480w, ./../img/animals_landscape_md.jpg 768w, ./../img/animals_landscape_lg.jpg 992w, ./../img/animals_landscape_xl.jpg 1200w, ./../img/animals_landscape_xxl.jpg 1800w, ./../img/animals_landscape_xxxl.jpg 2000w" 
-      
+      class='img-raster__img'
+
+      src="./../img/animals_landscape_lg.jpg"
+
+      sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw"
+
+      srcset="./../img/animals_landscape_sm.jpg 480w, ./../img/animals_landscape_md.jpg 768w, ./../img/animals_landscape_lg.jpg 992w, ./../img/animals_landscape_xl.jpg 1200w, ./../img/animals_landscape_xxl.jpg 1800w, ./../img/animals_landscape_xxxl.jpg 2000w"
+
       alt='Ships in the Field')
   figcaption(class='img-raster__caption').
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
 ```
-
 
 In the code above:
 
@@ -43,7 +42,6 @@ If you need advanced responsive image (handling art direction problem and/or pro
 including of <img /> tag with 'srcset' attribute is sufficient, that's why I
 hide this block; uncomment and use it if you need; also check out
 https://stackoverflow.com/questions/31848576/html-picture-or-srcset-for-responsive-images):
-
 //- add more
 <source />
 tags if you need to provide alternative image types (WEBP for example) //-

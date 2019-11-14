@@ -1,3 +1,45 @@
+//- mixin for creating a block for each component of the library:
+mixin block(biscuitBlock, ...allMods)
+  section(class='block' data-category=`${biscuitBlock.category}` data-name=`${biscuitBlock.name}`)
+    div(class='block__about')
+      header(class='block__header') 
+        span(class='heading heading_size_h1 text text_font-stack_monospace') #{biscuitBlock.name}
+        a(
+          href=`${biscuitBlock.repository}`
+          class='icons' 
+          aria-hidden='true'
+          focusable='false' 
+          title='Github'
+        )
+          span(class='icons__access-label') Github
+          svg(class=`icons__img icons__img_size_lg icons__img_color_black`)
+            use(xlink:href='./img/sprite.svg#github')
+      div(class='block__description') 
+        span('text text_display_inline') #{biscuitBlock.description}
+      - if (allMods != false)
+        div(class='table block__table table_theme_documentation')
+          table(class='table__container')
+            thead
+              tr(class='table__row text text_color_white')
+                th(class='table__cell table__cell_type_header block__col1') Modifiers
+                th(class='table__cell table__cell_type_header block__col2') Values
+                th(class='table__cell table__cell_type_header block__col3') Description
+            tbody
+              each mod in allMods
+                tr(class='table__row')
+                  td(class='table__cell table__cell_type_main block__col1')
+                    code(class='code code_display_inline code_theme_gray') #{mod.name}
+                  td(class='table__cell table__cell_type_main block__col2')
+                    - if (mod.values === undefined) 
+                      span('text text_display_inline') —
+                    - else 
+                      each value in mod.values
+                        code(class='code code_display_inline code_theme_gray') #{value}
+                  td(class='table__cell table__cell_type_main block__col3') #{mod.description}
+    block    
+
+
+
 doctype html
 html(lang='en' class='page text text_size_root text_color_black')
 
@@ -26,50 +68,81 @@ html(lang='en' class='page text text_size_root text_color_black')
     title Biscuit Components
       
     style. 
-      /* Navigation ------------------------------------------------- */
+      /* bheader ------------------------------------------------- */
 
-      .navigation {
-        padding: 1rem 20%;
-        margin: 0 auto;
+      .bheader {
+        display: flex;
         justify-content: space-between;
-        background-color: white;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        /* Make flex items take content width, not width of parent container */
-        justify-items: center;
+        padding: 1.5rem 3vw;
+        margin: 0 auto;
         align-items: center;
-        border-bottom: 1px solid #ccc;
-        justify-content: center;
       }
 
-      .navigation__logo {
-        max-width: 14rem;
+      .bheader__logo { max-width: 40vw; }
+
+      @media screen and (min-width: 480px) {
+        .bheader { max-width: 750px; }
+        .bheader__logo { max-width: 14rem; }
       }
 
+      /* bline --------------------------------------------------- */
 
-      /* Demo block ---------------------------------------------- */  
+      .line {
+        height: 1px;
+        background-color: #e6e6e6;
+      }
+
+      /* About ---------------------------------------------------------- */
+      
+      .about {
+        display: flex;
+        flex-flow: column;
+        align-items: center;  
+        padding: 2rem 3vw 0 3vw;
+        margin: 0 auto;
+      }
+
+      @media screen and (min-width: 480px) {
+        .about { max-width: 750px; }
+      }
+
+      .about__heading { padding: 1rem 0 0 0; }
+
+      .about__text {
+        padding-top: .5rem;
+        text-align: center;
+      }
+
+      .about__logos { padding: 1rem 0 2.5rem 0; }
+
+      /* Demo  -------------------------------------------------------- */  
       
       .demo {
-        display: grid;
-        grid-row-gap: 1rem;
-        padding: 3rem 3vw 3rem 3vw;
-        grid-template-columns: 750px;
-        justify-content: center;  
-        justify-items: center;
-        background-color: #eee;
+        border-radius: .3rem;
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 2rem 3vw 0 3vw;
       }
-      
-      .block {
+
+      .demo__categories {
+        list-style: none;
         display: flex;
+      }
+
+      .block {
+        /* by default hide all block, later we will enable some of them through attaching .block__active class (in JS filter script) */
+        display: none;
         flex-flow: column nowrap;        
-        padding: 1rem;
         border-radius: .3rem;
         background-color: white;
         box-sizing: border-box;
-        width: 100%;
-        background-color: white;
+        margin: 2rem 0;
+        border: 1px solid #ccc;
+        box-shadow: -15px 15px 20px #eee;
       }
-      
+
+      .block__about { padding: 1rem; }
+
       .block__header {
         overflow: hidden;      
         display: flex;
@@ -78,215 +151,144 @@ html(lang='en' class='page text text_size_root text_color_black')
         align-items: center;
       }
 
-      .block__header .icons {
-        margin-bottom: .5rem;
-      }
+      .block__header .icons { margin-bottom: .5rem; }
       
       .block__example {
         display: flex;
         flex-flow: column nowrap;
-        padding: 1rem 0 0 0;
+        padding: 1rem;
         align-items: flex-start;
       }
 
-      .block__example > * {
-
+      .block__preview {
+        width: 100%; 
+        border: 1px solid #e6e6e6; 
+        border-top-left-radius: .3rem; 
+        border-top-right-radius: .3rem; 
+        box-sizing: border-box; 
+        padding: 1rem;
       }
 
-      .block__description {
-        padding-bottom: 1rem;
-      }    
+      .block__code {
+        width: 100%; 
+        border: 1px solid #e6e6e6; 
+        border-top: 0;
+        border-bottom-left-radius: .3rem; 
+        border-bottom-right-radius: .3rem;  
+        box-sizing: border-box; 
+        padding: 0;       
+      }
+
+      .block__example > * {}
+
+      .block__description { padding-bottom: 1rem; }    
       
 
       /* Large screen layout */  
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: 480px) {
         .demo {
-          grid-gap: 2rem;
-          padding: 5rem 2rem 5rem 2rem;
-          grid-template-columns: 750px;
+          padding: 2rem 2rem 0 2rem;
           align-items: flex-start;
         }
         
+        .block__about { padding: 1.5rem; }
+
         .block__example {
           display: flex;
           flex-flow: column nowrap;
-          padding: 2rem;
+          padding: 1.5rem;
+          align-items: center;
+          justify-content: center;
         }
 
         .block__header {
-          padding: 3rem 2rem 0 2rem;
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
-
         }
 
         .block__description {
-          padding: 0rem 2rem 2rem 2rem;
+          padding: 0rem 0 2rem 0;
         }
 
-        .block__table { padding: 0rem 2rem 2rem 2rem; }
+        .block__table {  }
         .block__col1 { width: 20%; }
         .block__col2 { width: 30%; }
         .block__col3 { width: 40%; }
 
         .block__icons a { padding: 1rem; }
-      
       } 
-      
-      /* About ---------------------------------------------------------- */
-      
-      .promo {
+
+      .block_active {
         display: flex;
-        flex-flow: column;
+      }
+
+      /* Demo  -------------------------------------------------------- */  
+
+      .bfilter {
+        list-style: none;
+        display: flex;
+        flex-flow: row wrap;
         justify-content: center;
       }
 
-      @media screen and (min-width: 480px) {
-        .promo {
-            align-items: center;
-            justify-content: center;
-          }
+      .bfilter__item {
+        padding: .5rem 1rem;
+        margin: .2rem;
+        background-color: black;
+        color: white;
+        border-radius: .3rem;
       }
 
-      .promo__heading {
-        padding: 2rem 0 0 0;
+      .bfilter__item:hover {
+        background-color: #404040;
+        cursor: pointer;
       }
 
-      .promo__presentation {
-        margin: 0 auto;
-        max-width: 750px;
-        display: flex;
-        flex-flow: column wrap;
-        padding: 3rem 0;
-        align-items: center;
-      }
 
-      .promo__text {
-        text-align: center;
-        padding-top: 1rem;
-      }
-
-      .promo__logos {
-        height: 20rem;
-      }
-
-      .biscuit-categories {
-        list-style: none;
-        display: flex;
-        border: 1px solid red;
-      }
-  
   body(class='page__body page__preload text text_line-height_lg text_font-stack_sans-serif') 
-  
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
 
 
-
-  //- -------------------- Doc page layout -----------------------
-
-
 block header
-
-  //- -------------------- Doc page layout -----------------------
-
-  div(class='navigation')
+  header(class='bheader')
       img(
         src='./src/_img/biscuit-logo-black.svg' 
+        alt='Biscuit Components Logo'
+        title='Biscuit'
+        class='img-svg bheader__logo'
+      )
+      <a class="github-button" href="https://github.com/ponomarevandrey/biscuit-components/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download ponomarevandrey/biscuit-components on GitHub">Download</a>
+  div(class='line')
+  div(class='about') 
+      h3(class='heading heading_size_h3 about__heading') About
+      p(class='text text_display_block text_size_lg about__text') Biscuit is a minimalist component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach.
+      p(class='text text_display_block text_size_lg about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
+      img(
+        src='./src/_img/logos.svg' 
         alt='Biscuit Components'
         title='Biscuit'
-        class='img-svg navigation__logo'
+        class='img-svg about__logos'
       )
-      a(
-        href='https://github.com/ponomarevandrey' 
-        class='icons' 
-        aria-hidden='true'
-        focusable='false' 
-        title='Github'
-      )
-        span(class='icons__access-label') Github
-        svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-          use(xlink:href='./img/sprite.svg#github')
-      a(class='btn btn_theme_black btn_size_lg' href='https://github.com/ponomarevandrey') Download
-
-  div(class='promo') 
-    div(class='promo__presentation')
-      p(class='text') 
-        h(class='heading heading_size_h1 promo__heading') About
-        p(class='text text_display_block text_size_lg promo__text') Biscuit is a minimalist component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach.
-        p(class='text text_display_block text_size_lg promo__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
-        img(
-          src='./src/_img/logos.svg' 
-          alt='Biscuit Components'
-          title='Biscuit'
-          class='img-svg promo__logos'
-        )
-        h(class='heading heading_size_h1 promo__heading') Why I built it
-        p(class='text text_display_block text_size_lg promo__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to keep things simple and to have no redundant code. Also, I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.
+      h3(class='heading heading_size_h3 about__heading') Why I built it
+      p(class='text text_display_block text_size_lg about__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to keep things simple and to have no redundant code. Also, I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.
 
 
 
 block main
-
-  //- mixin for creating a block for each component of the library:
-  mixin block(biscuitBlock, ...allMods)
-    section(class='block')
-      div(class='block__about')
-        header(class='block__header') 
-          span(class='heading heading_size_h1 text text_font-stack_monospace') #{biscuitBlock.name}
-          a(
-            href=`${biscuitBlock.repository}`
-            class='icons' 
-            aria-hidden='true'
-            focusable='false' 
-            title='Github'
-          )
-            span(class='icons__access-label') Github
-            svg(class=`icons__img icons__img_size_lg icons__img_color_black`)
-              use(xlink:href='./img/sprite.svg#github')
-        div(class='block__description') 
-          span('text text_display_inline') #{biscuitBlock.description}
-        - if (allMods != false)
-          div(class='table block__table table_theme_documentation')
-            table(class='table__container')
-              thead
-                tr(class='table__row text text_color_white')
-                  th(class='table__cell table__cell_type_header block__col1') Modifiers
-                  th(class='table__cell table__cell_type_header block__col2') Values
-                  th(class='table__cell table__cell_type_header block__col3') Description
-              tbody
-                each mod in allMods
-                  tr(class='table__row')
-                    td(class='table__cell table__cell_type_main block__col1')
-                      code(class='code code_display_inline code_theme_gray') #{mod.name}
-                    td(class='table__cell table__cell_type_main block__col2')
-                      - if (mod.values === undefined) 
-                        span('text text_display_inline') —
-                      - else 
-                        each value in mod.values
-                          code(class='code code_display_inline code_theme_gray') #{value}
-                    td(class='table__cell table__cell_type_main block__col3') #{mod.description}
-      block        
-
-
-
-
-
   //- ------------------------------------------------------------
   //- ----------------- Biscuit Components: ----------------------
   //- ------------------------------------------------------------
 
   main(class='demo' id='demo')
-    div
-      ul(class='biscuit-categories')
-
-
+    ul(class='bfilter')
 
     //- heading
     +block(
       { name: 'heading',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/heading',
+        category: 'typography',
         description: 'H1—H6 headings' },
 
       { name: 'size',
@@ -295,23 +297,27 @@ block main
     )
 
       div(class='block__example')
-        h1(class='heading heading_size_h1') Heading One
-        h1(class='heading heading_size_h2') Heading Two
-        h1(class='heading heading_size_h3') Heading Three
-        h1(class='heading heading_size_h4') Heading Four
-        h1(class='heading heading_size_h5') Heading Five
-        h1(class='heading heading_size_h6') Heading Six
-
-
+        div(class='block__preview')
+          h1(class='heading heading_size_h1') Heading One
+          h1(class='heading heading_size_h2') Heading Two
+          h1(class='heading heading_size_h3') Heading Three
+          h1(class='heading heading_size_h4') Heading Four
+          h1(class='heading heading_size_h5') Heading Five
+          h1(class='heading heading_size_h6') Heading Six
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/heading/README.md
+        
     //- text
     +block(
       { name: 'text',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/text',
+        category: 'typography',
         description: 'Regular text' },
 
       { name: 'display',
         values: ['inline', 'block'],
-        description: "Display text as a line, or as a block i.e. a paragraph" },
+        description: "Display text as an inline element or as a block element i.e. a paragraph" },
 
       { name: 'size',
         values: ['xs', 'sm', 'root', 'lg', 'xl'],
@@ -335,16 +341,20 @@ block main
     )
 
       div(class='block__example')
-        span(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
+        div(class='block__preview')
+          span(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
 
-        p(class=`text text_display_block text_size_xl`) Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the #[span(class=`text text_display_inline`) 1500s], when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+          p(class=`text text_display_block text_size_xl`) Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the #[span(class=`text text_display_inline`) 1500s], when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/text/README.md
 
-
-
+  
     //- img-raster
     +block(
       { name: 'img-raster',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-raster',
+        category: 'images',
         description: 'Raster image' },
 
       { name: 'align-self',
@@ -357,27 +367,31 @@ block main
     )
 
       div(class='block__example')
-        figure(class='img-raster')
-          picture(class='img-raster__wrapper')   
-            img(
-              class='img-raster__img' 
-              
-              src="./src/_img/animals_landscape_lg.jpg" 
-              
-              sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
-              
-              srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
-              
-              alt='Ships in the Field')
-          figcaption(class='img-raster__caption').
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
+        div(class='block__preview')
+          figure(class='img-raster')
+            picture(class='img-raster__wrapper')   
+              img(
+                class='img-raster__img' 
+                
+                src="./src/_img/animals_landscape_lg.jpg" 
+                
+                sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
+                
+                srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
+                
+                alt='Ships in the Field')
+            figcaption(class='img-raster__caption').
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/img-raster/README.md
 
 
     //- hr
     +block(
       { name: 'hr',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/hr',
+        category: 'typography',
         description: 'Horizontal line' },
 
       { name: 'color',
@@ -386,14 +400,18 @@ block main
     )
 
       div(class='block__example')
-        hr(class='hr hr_color_black')
-
+        div(class='block__preview')
+          hr(class='hr hr_color_black')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/hr/README.md
 
 
     //- list
     +block(
       { name: 'list',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/list',
+        category: 'typography',
         description: 'List' },
 
       { name: 'style',
@@ -402,24 +420,28 @@ block main
     )
 
       div(class='block__example')
-        ul(class='list list_style_unordered')
-          li(class='list__item') Fruit
-            ul(class='list list_style_unordered')
-              li(class='list__item') Bananas
-              li(class='list__item') Apples
-                ul(class='list list_style_ordered')
-                  li(class='list__item') Green
-                  li(class='list__item') Red
-              li(class='list__item') Pears
-          li(class='list__item') Vegetables
-          li(class='list__item') Meat
-
+        div(class='block__preview')
+          ul(class='list list_style_unordered')
+            li(class='list__item') Fruit
+              ul(class='list list_style_unordered')
+                li(class='list__item') Bananas
+                li(class='list__item') Apples
+                  ul(class='list list_style_ordered')
+                    li(class='list__item') Green
+                    li(class='list__item') Red
+                li(class='list__item') Pears
+            li(class='list__item') Vegetables
+            li(class='list__item') Meat
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/list/README.md
 
 
     //- link
     +block(
       { name: 'link',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/link',
+        category: 'typography',
         description: 'Link' },
 
       { name: 'anchor',
@@ -428,15 +450,19 @@ block main
     )
 
       div(class='block__example')
-        a(href='https://github.com/ponomarevandrey' class='link') Click me, man, I'm a true hyperlink!
-        a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, man, I'm an anchor link!
-
+        div(class='block__preview')
+          a(href='https://github.com/ponomarevandrey' class='link') Click me, man, I'm a true hyperlink!
+          a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, man, I'm an anchor link!
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/link/README.md
 
 
     //- fullscreen-bg
     +block(
       { name: 'fullscreen-bg',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/fullscreen-bg',
+        category: 'containers',
         description: 'Fullscreen background' },
 
       { name: 'content',
@@ -445,13 +471,17 @@ block main
     )
       //-
       div(class='block__example')
-        div(class='fullscreen-bg_content_solid-color')
-
+        div(class='block__preview')
+          div(class='fullscreen-bg_content_solid-color')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/fullscreen-bg/README.md
 
     //- code
     +block(
       { name: 'code',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/code',
+        category: 'typography',
         description: 'Code' },
 
       { name: 'display',
@@ -464,21 +494,25 @@ block main
     )
 
       div(class='block__example')
-        //- inline code
-        p(class='text text_display_block text_size_root text_color_black') It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum #[code(class='code code_display_inline text text_size_sm code_theme_gray') console.log( a ) !!!; ] it was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        //- code block
-        pre(class='code code_display_block text text_size_sm code_theme_gray')
-          code. 
-            window.addEventListener( 'load', => {
-              console.log('Ready');
-            })}
-
+        div(class='block__preview')
+          //- inline code
+          p(class='text text_display_block text_size_root text_color_black') It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum #[code(class='code code_display_inline text text_size_sm code_theme_gray') console.log( a ) !!!; ] it was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          //- code block
+          pre(class='code code_display_block text text_size_sm code_theme_gray')
+            code. 
+              window.addEventListener( 'load', => {
+                console.log('Ready');
+              })}
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/code/README.md
 
 
     //- btn
     +block(
       { name: 'btn',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/btn',
+        category: 'components',
         description: 'Button' },
 
       { name: 'theme',
@@ -495,101 +529,108 @@ block main
     )
 
       div(class='block__example')
-        button(type='button' class='btn btn_type_back-to-top' title='Go to top') Top
-        //- <a> button
-        //- enabled
-        a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Click me
-        //- disabled
-        a(class='btn btn_theme_black btn_size_md btn_disabled' href='https://github.com/ponomarevandrey') Click me
-      
-        //- <button> button
-        //- enabled
-        button(type='button' class='btn btn_theme_black btn_size_md') Click me
-        //- disabled
-        button(class='btn btn_theme_black btn_size_md btn_disabled' disabled) Click me
+        div(class='block__preview')
+          button(type='button' class='btn btn_type_back-to-top' title='Go to top') Top
+          //- <a> button
+          //- enabled
+          a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Click me
+          //- disabled
+          a(class='btn btn_theme_black btn_size_md btn_disabled' href='https://github.com/ponomarevandrey') Click me
+        
+          //- <button> button
+          //- enabled
+          button(type='button' class='btn btn_theme_black btn_size_md') Click me
+          //- disabled
+          button(class='btn btn_theme_black btn_size_md btn_disabled' disabled) Click me
 
-        //- <input> button
-        //- enabled
-        input(type='button' value='Click me' class='btn btn_theme_black btn_size_md')   
-        //- disabled
-        input(type='button' value='Click me' class='btn btn_theme_black btn_size_md btn_disabled' disabled) 
-
+          //- <input> button
+          //- enabled
+          input(type='button' value='Click me' class='btn btn_theme_black btn_size_md')   
+          //- disabled
+          input(type='button' value='Click me' class='btn btn_theme_black btn_size_md btn_disabled' disabled) 
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/btn/README.md
 
 
     //- grid-auto-col
     +block(
       { name: 'grid-auto-col',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-auto-col',
+        category: 'containers',
         description: 'Responsive columns grid' }
     )
 
       div(class='block__example')
-        div(class='grid-auto-col')
+        div(class='block__preview')
+          div(class='grid-auto-col')
 
-          div(class='grid-equal-col__item')
-            //- img-raster block
-            figure(class='img-raster')
-              picture(class='img-raster__wrapper')   
-                img(
-                  class='img-raster__img' 
-                  
-                  src="./src/_img/animals_landscape_lg.jpg" 
-                  
-                  sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
-                  
-                  srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
-                  
-                  alt='Ships in the Field')
-            h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
-            p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
-            a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
+            div(class='grid-equal-col__item')
+              //- img-raster block
+              figure(class='img-raster')
+                picture(class='img-raster__wrapper')   
+                  img(
+                    class='img-raster__img' 
+                    
+                    src="./src/_img/animals_landscape_lg.jpg" 
+                    
+                    sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
+                    
+                    srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
+                    
+                    alt='Ships in the Field')
+              h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
+              p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+              a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-          div(class='grid-equal-col__item')
-            //- img-raster block
-            figure(class='img-raster')
-              picture(class='img-raster__wrapper')   
-                img(
-                  class='img-raster__img' 
-                  
-                  src="./src/_img/animals_landscape_lg.jpg" 
-                  
-                  sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
-                  
-                  srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
-                  
-                  alt='Ships in the Field')
-            h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
-            p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
-            a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
+            div(class='grid-equal-col__item')
+              //- img-raster block
+              figure(class='img-raster')
+                picture(class='img-raster__wrapper')   
+                  img(
+                    class='img-raster__img' 
+                    
+                    src="./src/_img/animals_landscape_lg.jpg" 
+                    
+                    sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
+                    
+                    srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
+                    
+                    alt='Ships in the Field')
+              h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
+              p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+              a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-          div(class='grid-equal-col__item')
-            //- img-raster block
-            figure(class='img-raster')
-              picture(class='img-raster__wrapper')   
-                img(
-                  class='img-raster__img' 
-                  
-                  src="./src/_img/animals_landscape_lg.jpg" 
-                  
-                  sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
-                  
-                  srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
-                  
-                  alt='Ships in the Field')
-            h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
-            p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
-            a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
+            div(class='grid-equal-col__item')
+              //- img-raster block
+              figure(class='img-raster')
+                picture(class='img-raster__wrapper')   
+                  img(
+                    class='img-raster__img' 
+                    
+                    src="./src/_img/animals_landscape_lg.jpg" 
+                    
+                    sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw" 
+                    
+                    srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w" 
+                    
+                    alt='Ships in the Field')
+              h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
+              p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+              a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-          div(class='grid-auto-col__item') One
-          div(class='grid-auto-col__item') Two
-          div(class='grid-auto-col__item') Three
-          div(class='grid-auto-col__item') Four 
-          div(class='grid-auto-col__item') Five
-          div(class='grid-auto-col__item') Six
-          div(class='grid-auto-col__item') Seven
-          div(class='grid-auto-col__item') Eight
-          div(class='grid-auto-col__item') Nine
-
+            div(class='grid-auto-col__item') One
+            div(class='grid-auto-col__item') Two
+            div(class='grid-auto-col__item') Three
+            div(class='grid-auto-col__item') Four 
+            div(class='grid-auto-col__item') Five
+            div(class='grid-auto-col__item') Six
+            div(class='grid-auto-col__item') Seven
+            div(class='grid-auto-col__item') Eight
+            div(class='grid-auto-col__item') Nine
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/grid-auto-col/README.md
 
 
 
@@ -598,68 +639,78 @@ block main
     +block(
       { name: 'grid-page-layout1',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout1',
+        category: 'containers',
         description: 'Grid page layout' }
     )
 
       div(class='block__example' style="overflow: hidden;")
-        section(class='grid-page-layout1')
-          div(class='grid-page-layout1__header') Header
-          div(class='grid-page-layout1__news1') News. Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
-          div(class='grid-page-layout1__news2')
-            div hkjh
-            div(class='grid-page-layout1__article') Article. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            div(class='grid-page-layout1__info') Info
-          div(class='grid-page-layout1__ads-l') Space L
-          div(class='grid-page-layout1__ads-r') Space R  
-          div(class='grid-page-layout1__footer') Footer
-
+        div(class='block__preview')
+          section(class='grid-page-layout1')
+            div(class='grid-page-layout1__header') Header
+            div(class='grid-page-layout1__news1') News. Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+            div(class='grid-page-layout1__news2')
+              div hkjh
+              div(class='grid-page-layout1__article') Article. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              div(class='grid-page-layout1__info') Info
+            div(class='grid-page-layout1__ads-l') Space L
+            div(class='grid-page-layout1__ads-r') Space R  
+            div(class='grid-page-layout1__footer') Footer
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/grid-page-layout1/README.md
 
 
     //- grid-gallery
     +block(
       { name: 'grid-gallery',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-gallery',
+        category: 'containers',
         description: 'Grid gallery' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-gallery/README.md
       div(class='block__example')
-        ul(class='grid-gallery')
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22942_hires.jpg" alt="Juno's Latest Flyby of Jupiter Captures Two Massive Storms")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA23021_hires.jpg" alt="A first look at dunes")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA23002_hires.jpg" alt="K2-138 6 Planets Artwork (Artist's Illustration)")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA21212_hires.jpg" alt="Small Prominences")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22983_hires.jpg" alt="Ezinu Crater")
+        div(class='block__preview')
+          ul(class='grid-gallery')
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22942_hires.jpg" alt="Juno's Latest Flyby of Jupiter Captures Two Massive Storms")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA23021_hires.jpg" alt="A first look at dunes")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA23002_hires.jpg" alt="K2-138 6 Planets Artwork (Artist's Illustration)")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA21212_hires.jpg" alt="Small Prominences")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22983_hires.jpg" alt="Ezinu Crater")
 
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22990_hires.jpg" alt="Polar Ice")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22990_hires.jpg" alt="Polar Ice")
 
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22963_hires.jpg" alt="Jupiter")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22963_hires.jpg" alt="Jupiter")
 
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22918_hires.jpg" alt="Star Gaia 17pbi Seen by Spitzer")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22918_hires.jpg" alt="Star Gaia 17pbi Seen by Spitzer")
 
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22900_hires.jpg" alt="Another Cloudy Day")
-          li
-            figure
-              img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22941_hires.jpg" alt="South Equatorial Belt Brown Barge Close-up")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22900_hires.jpg" alt="Another Cloudy Day")
+            li
+              figure
+                img(src="https://www.jpl.nasa.gov/spaceimages/images/largesize/PIA22941_hires.jpg" alt="South Equatorial Belt Brown Barge Close-up")
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/grid-gallery/README.md
+
         
 
 
@@ -668,50 +719,59 @@ block main
     +block(
       { name: 'grid-page-layout2',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout2',
+        category: 'containers',
         description: 'Grid page layout' }
     )
 
       div(class='block__example' style="overflow: hidden;")
-        section(class='grid-page-layout2')
-          div(class='grid-page-layout2__one').
-            One One One One One One One One One One One One One One One
-          div(class='grid-page-layout2__two') Two 
-          div(class='grid-page-layout2__three') Three 
-          div(class='grid-page-layout2__four') Four 
-          div(class='grid-page-layout2__five') Five Five Five Five Five
-
+        div(class='block__preview')
+          section(class='grid-page-layout2')
+            div(class='grid-page-layout2__one').
+              One One One One One One One One One One One One One One One
+            div(class='grid-page-layout2__two') Two 
+            div(class='grid-page-layout2__three') Three 
+            div(class='grid-page-layout2__four') Four 
+            div(class='grid-page-layout2__five') Five Five Five Five Five
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/grid-page-layout2/README.md
 
 
     //- img-svg
     +block(
       { name: 'img-svg',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-svg',
+        category: 'images',
         description: 'SVG image' }
       )
 
       div(class='block__example')
-        //- as <img>
-        img(
-          src='./src/_img/logo.svg' 
-          alt='Logoipsum logo'
-          title='Logoipsum'
-          class='img-svg'
-        )
-        //- as CSS background-image
-        div(class='img-svg img-svg_bg')
-        //- and if you need interactivity, use SVG with the help of <object> tag
-        object(
-          type="image/svg+xml" 
-          data='./src/_img/logo.svg'
-          class=`img-svg ${classList}`
-        ) Your browser does not support SVG
-
+        div(class='block__preview')
+          //- as <img>
+          img(
+            src='./src/_img/logo.svg' 
+            alt='Logoipsum logo'
+            title='Logoipsum'
+            class='img-svg'
+          )
+          //- as CSS background-image
+          div(class='img-svg img-svg_bg')
+          //- and if you need interactivity, use SVG with the help of <object> tag
+          object(
+            type="image/svg+xml" 
+            data='./src/_img/logo.svg'
+            class=`img-svg ${classList}`
+          ) Your browser does not support SVG
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/img-svg/README.md
 
 
     //- blockquote
     +block(
       { name: 'blockquote',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/blockquote',
+        category: 'typography',
         description: 'Quote' },
 
       { name: 'theme',
@@ -720,18 +780,22 @@ block main
     )
 
       div(class='block__example')
-        blockquote(class='blockquote text text_size_xl blockquote_theme_default') 
-          p(class='blockquote__body') Big type, even huge type, can be beautiful and useful. But poise is usually far more important than size – and poise consists primarily of emptiness. Typographically, poise is made of white&space.
-          footer(class='blockquote__footer') Robert Bringhurst —
-            cite(class='blockquote__source') 
-              a(class='blockquote__link' href='https://github.com/ponomarevandrey') &nbsp;The Elements of Typographic Style
-
+        div(class='block__preview')
+          blockquote(class='blockquote text text_size_xl blockquote_theme_default') 
+            p(class='blockquote__body') Big type, even huge type, can be beautiful and useful. But poise is usually far more important than size – and poise consists primarily of emptiness. Typographically, poise is made of white&space.
+            footer(class='blockquote__footer') Robert Bringhurst —
+              cite(class='blockquote__source') 
+                a(class='blockquote__link' href='https://github.com/ponomarevandrey') &nbsp;The Elements of Typographic Style
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/blockquote/README.md
 
 
     //- badge
     +block(
       { name: 'badge',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/badge',
+        category: 'components',
         description: 'Badge' },
 
       { name: 'theme',
@@ -740,15 +804,19 @@ block main
     )
 
       div(class='block__example')
-        span(class='badge badge_theme_black') NEW!
-        span(class='badge badge_theme_white') NEW!
-
+        div(class='block__preview')
+          span(class='badge badge_theme_black') NEW!
+          span(class='badge badge_theme_white') NEW!
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/badge/README.md
 
 
     //- label
     +block(
       { name: 'label',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
+        category: 'components',
         description: 'Label' },
 
       { name: 'theme',
@@ -757,53 +825,65 @@ block main
     )
 
       div(class='block__example')
-        a(href='http://google.com' class='label label_theme_white') Recursion
-        a(href='http://google.com' class='label label_theme_white') Callback
-        a(href='http://google.com' class='label label_theme_white') Prototypes
-
+        div(class='block__preview')
+          a(href='http://google.com' class='label label_theme_white') Recursion
+          a(href='http://google.com' class='label label_theme_white') Callback
+          a(href='http://google.com' class='label label_theme_white') Prototypes
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/label/README.md
 
 
     //- pagination
     +block(
       { name: 'pagination',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/pagination',
+        category: 'components',
         description: 'Pagination' }
     )
 
       div(class='block__example')
-        div(class='pagination')
-          a(href='#wq##' class='pagination__item') &laquo;
-          a(href='##fd#' class='pagination__item') 1
-          a(href='##s#' class='pagination__item pagination__item_active') 2
-          a(href='https://github.com/ponomarevandrey' class='pagination__item') 3
-          a(href='#da##' class='pagination__item') 4
-          a(href='#fd##' class='pagination__item') &raquo;
-
+        div(class='block__preview')
+          div(class='pagination')
+            a(href='#wq##' class='pagination__item') &laquo;
+            a(href='##fd#' class='pagination__item') 1
+            a(href='##s#' class='pagination__item pagination__item_active') 2
+            a(href='https://github.com/ponomarevandrey' class='pagination__item') 3
+            a(href='#da##' class='pagination__item') 4
+            a(href='#fd##' class='pagination__item') &raquo;
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/pagination/README.md
 
 
     //- breadcrumbs
     +block(
       { name: 'breadcrumbs',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/breadcrumbs',
+        category: 'components',
         description: 'Breadcrumbs' }
     )
 
       div(class='block__example')
-        ul(class='breadcrumb')
-          li(class='breadcrumb__item')
-            a(href='https://github.com/ponomarevandrey' class='link') Home
-          li(class='breadcrumb__item')
-            a(href='https://github.com/ponomarevandrey' class='link') Equipment
-          li(class='breadcrumb__item')
-            a(href='https://github.com/ponomarevandrey' class='link') Cooking Equipment
-          li(class='breadcrumb__item breadcrumb__item_active') Cooking Performance Group S60-G24-N Natural Gas 6 Burner 60" Range with 24" Griddle and 2 Standard Ovens - 280,000 BTU
-
+        div(class='block__preview')
+          ul(class='breadcrumb')
+            li(class='breadcrumb__item')
+              a(href='https://github.com/ponomarevandrey' class='link') Home
+            li(class='breadcrumb__item')
+              a(href='https://github.com/ponomarevandrey' class='link') Equipment
+            li(class='breadcrumb__item')
+              a(href='https://github.com/ponomarevandrey' class='link') Cooking Equipment
+            li(class='breadcrumb__item breadcrumb__item_active') Cooking Performance Group S60-G24-N Natural Gas 6 Burner 60" Range with 24" Griddle and 2 Standard Ovens - 280,000 BTU
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/breadcrumbs/README.md
 
 
     //- icons
     +block(
       { name: 'icons',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/icons',
+        category: 'components',
         description: 'Social media icons' },
 
       { name: 'size',
@@ -816,121 +896,128 @@ block main
     )
 
       div(class='block__example block__icons')
-      
-        a(
-          href='https://github.com/ponomarevandrey' 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Github'
-        )
-          span(class='icons__access-label') Github
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#github')
+        div(class='block__preview')
+          a(
+            href='https://github.com/ponomarevandrey' 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Github'
+          )
+            span(class='icons__access-label') Github
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#github')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Facebook'
-        )
-          span(class='icons__access-label') Facebook
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#facebook')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Facebook'
+          )
+            span(class='icons__access-label') Facebook
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#facebook')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Instagram'
-        )
-          span(class='icons__access-label') Instagram
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#instagram')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Instagram'
+          )
+            span(class='icons__access-label') Instagram
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#instagram')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Odnoklassniki'
-        )
-          span(class='icons__access-label') Odnoklassniki
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#odnoklassniki')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Odnoklassniki'
+          )
+            span(class='icons__access-label') Odnoklassniki
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#odnoklassniki')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Telegram'
-        )
-          span(class='icons__access-label') Telegram
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#telegram')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Telegram'
+          )
+            span(class='icons__access-label') Telegram
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#telegram')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='Twitter'
-        )
-          span(class='icons__access-label') Twitter
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#twitter')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='Twitter'
+          )
+            span(class='icons__access-label') Twitter
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#twitter')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='YouTube'
-        )
-          span(class='icons__access-label') YouTube
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#youtube')
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='YouTube'
+          )
+            span(class='icons__access-label') YouTube
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#youtube')
 
-        a(
-          href=`https://github.com/ponomarevandrey` 
-          class='icons' 
-          aria-hidden='true'
-          focusable='false' 
-          title='VKontakte'
-        )
-          span(class='icons__access-label') VKontakte
-          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
-            use(xlink:href='./img/sprite.svg#vkontakte')
-
+          a(
+            href=`https://github.com/ponomarevandrey` 
+            class='icons' 
+            aria-hidden='true'
+            focusable='false' 
+            title='VKontakte'
+          )
+            span(class='icons__access-label') VKontakte
+            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+              use(xlink:href='./img/sprite.svg#vkontakte')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/icons/README.md
 
 
     //- tooltip
     +block(
       { name: 'tooltip',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/tooltip',
+        category: 'components',
         description: 'Tooltip' }
     )
 
       div(class='block__example')
-        div
-          p(class='text text_display_inline') ... some text, 
-            span(class='tooltip') hoverthepointer
+        div(class='block__preview')
+          div
+            p(class='text text_display_inline') ... some text, 
+              span(class='tooltip') hover the pointer
+                span(class='tooltip__content') Your text
+
+            br
+
+            span(class='tooltip' style='display: inline-block; width: 50px; height: 50px; background-color: black; border-radius: 10000px;')
               span(class='tooltip__content') Your text
-
-          br
-
-          span(class='tooltip' style='display: inline-block; width: 50px; height: 50px; background-color: black; border-radius: 10000px;')
-            span(class='tooltip__content') Your text
-
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/tooltip/README.md
 
  
     //- embed (videos, ...)
     +block(
       { name: 'embed',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
+        category: 'videos',
         description: 'Embeded content (youtube videos, ...)' },
 
       { name: 'ratio',
@@ -939,19 +1026,23 @@ block main
     )
 
       div(class='block__example')
-        div(class='embed') 
-          iframe(
-            src='https://www.youtube.com/embed/oRkNaF0QvnI'
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullsc
-          )
-              
+        div(class='block__preview')
+          div(class='embed') 
+            iframe(
+              src='https://www.youtube.com/embed/oRkNaF0QvnI'
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullsc
+            )
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/embed/README.md                
 
 
     //- table
     +block(
       { name: 'table',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/table',
+        category: 'tables',
         description: 'Table' },
 
       { name: 'theme',
@@ -960,110 +1051,122 @@ block main
     )
 
       div(class='block__example' style='overflow: scroll;')
-        div(class='table table_theme_light')
-          table(class='table__container')
-            caption(class='table__caption') Table 1.1 Playlist
-            thead
-              tr(class='table__row text text_color_white')
-                th(class='table__cell table__cell_type_header') Date
-                th(class='table__cell table__cell_type_header') Artist
-                th(class='table__cell table__cell_type_header') Title
-                th(class='table__cell table__cell_type_header') Album
-                th(class='table__cell table__cell_type_header') Label
-                th(class='table__cell table__cell_type_header') Genres
-                th(class='table__cell table__cell_type_header') Duration
-            tbody
-              tr(class='table__row')
-                td(class='table__cell table__cell_type_main') 1971
-                td(class='table__cell table__cell_type_main') Gil Scott-Heron
-                td(class='table__cell table__cell_type_main') Save The Children
-                td(class='table__cell table__cell_type_main') Pieces Of A Man
-                td(class='table__cell table__cell_type_main') Flying Dutchman
-                td(class='table__cell table__cell_type_main') Soul, Funk, Jazz
-                td(class='table__cell table__cell_type_main') 4:55
-              tr(class='table__row')
-                td(class='table__cell table__cell_type_main') 1975
-                td(class='table__cell table__cell_type_main') Rufus Featuring Chaka Khan
-                td(class='table__cell table__cell_type_main') Sweet Thing
-                td(class='table__cell table__cell_type_main') Rufus Featuring Chaka Khan
-                td(class='table__cell table__cell_type_main') ABC Records
-                td(class='table__cell table__cell_type_main') Soul, Funk, Disco
-                td(class='table__cell table__cell_type_main') 3:18
-              tr(class='table__row')
-                td(class='table__cell table__cell_type_main') 1994
-                td(class='table__cell table__cell_type_main') Adam F ‎
-                td(class='table__cell table__cell_type_main') Sea Of Destiny
-                td(class='table__cell table__cell_type_main') Stronger Than Ever
-                td(class='table__cell table__cell_type_main') Lucky Spin Recordings
-                td(class='table__cell table__cell_type_main') Jungle, Drum'n'Bass
-                td(class='table__cell table__cell_type_main') 6:47
-              tr(class='table__row')
-                td(class='table__cell table__cell_type_main') 2000
-                td(class='table__cell table__cell_type_main') Soulsearcher ‎
-                td(class='table__cell table__cell_type_main') Can't Get Enough (Vocal Club Mix)
-                td(class='table__cell table__cell_type_main') Various ‎- Disco Kandi
-                td(class='table__cell table__cell_type_main') Hed Kandi 
-                td(class='table__cell table__cell_type_main') Garage House, Disco
-                td(class='table__cell table__cell_type_main') 7:19
-
+        div(class='block__preview')
+          div(class='table table_theme_light')
+            table(class='table__container')
+              caption(class='table__caption') Table 1.1 Playlist
+              thead
+                tr(class='table__row text text_color_white')
+                  th(class='table__cell table__cell_type_header') Date
+                  th(class='table__cell table__cell_type_header') Artist
+                  th(class='table__cell table__cell_type_header') Title
+                  th(class='table__cell table__cell_type_header') Album
+                  th(class='table__cell table__cell_type_header') Label
+                  th(class='table__cell table__cell_type_header') Genres
+                  th(class='table__cell table__cell_type_header') Duration
+              tbody
+                tr(class='table__row')
+                  td(class='table__cell table__cell_type_main') 1971
+                  td(class='table__cell table__cell_type_main') Gil Scott-Heron
+                  td(class='table__cell table__cell_type_main') Save The Children
+                  td(class='table__cell table__cell_type_main') Pieces Of A Man
+                  td(class='table__cell table__cell_type_main') Flying Dutchman
+                  td(class='table__cell table__cell_type_main') Soul, Funk, Jazz
+                  td(class='table__cell table__cell_type_main') 4:55
+                tr(class='table__row')
+                  td(class='table__cell table__cell_type_main') 1975
+                  td(class='table__cell table__cell_type_main') Rufus Featuring Chaka Khan
+                  td(class='table__cell table__cell_type_main') Sweet Thing
+                  td(class='table__cell table__cell_type_main') Rufus Featuring Chaka Khan
+                  td(class='table__cell table__cell_type_main') ABC Records
+                  td(class='table__cell table__cell_type_main') Soul, Funk, Disco
+                  td(class='table__cell table__cell_type_main') 3:18
+                tr(class='table__row')
+                  td(class='table__cell table__cell_type_main') 1994
+                  td(class='table__cell table__cell_type_main') Adam F ‎
+                  td(class='table__cell table__cell_type_main') Sea Of Destiny
+                  td(class='table__cell table__cell_type_main') Stronger Than Ever
+                  td(class='table__cell table__cell_type_main') Lucky Spin Recordings
+                  td(class='table__cell table__cell_type_main') Jungle, Drum'n'Bass
+                  td(class='table__cell table__cell_type_main') 6:47
+                tr(class='table__row')
+                  td(class='table__cell table__cell_type_main') 2000
+                  td(class='table__cell table__cell_type_main') Soulsearcher ‎
+                  td(class='table__cell table__cell_type_main') Can't Get Enough (Vocal Club Mix)
+                  td(class='table__cell table__cell_type_main') Various ‎- Disco Kandi
+                  td(class='table__cell table__cell_type_main') Hed Kandi 
+                  td(class='table__cell table__cell_type_main') Garage House, Disco
+                  td(class='table__cell table__cell_type_main') 7:19
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/table/README.md
 
 
     //- loader
     +block(
       { name: 'loader',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/loader',
+        category: 'components',
         description: 'Loader' }
     )
 
       div(class='block__example')
-        div(class='loader')
-
+        div(class='block__preview')
+          div(class='loader')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/loader/README.md
 
 
     //- comment
     +block(
       { name: 'comment',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/comment ',
+        category: 'components',
         description: 'Comment section' }
     )
 
       div(class='block__example')
-        div(class='comment')
-          img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
-          div(class='comment__text') 
-            div(class='comment__header')
-              span(class='comment__user-name') Mike Wolfson
-              span(class='comment__time') august 19, 2019 17:48
-            p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-            div(class='comment__button')
-              a(href='https://github.com/ponomarevandrey' class='link') Reply
+        div(class='block__preview')
+          div(class='comment')
+            img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
+            div(class='comment__text') 
+              div(class='comment__header')
+                span(class='comment__user-name') Mike Wolfson
+                span(class='comment__time') august 19, 2019 17:48
+              p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+              div(class='comment__button')
+                a(href='https://github.com/ponomarevandrey' class='link') Reply
 
-        div(class='comment')
-          img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
-          div(class='comment__text') 
-            div(class='comment__header')
-              span(class='comment__user-name') Mike Wolfson
-              span(class='comment__time') august 19, 2019 17:48
-            p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-            div(class='comment__button')
-              a(href='https://github.com/ponomarevandrey' class='link') Reply
+          div(class='comment')
+            img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
+            div(class='comment__text') 
+              div(class='comment__header')
+                span(class='comment__user-name') Mike Wolfson
+                span(class='comment__time') august 19, 2019 17:48
+              p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+              div(class='comment__button')
+                a(href='https://github.com/ponomarevandrey' class='link') Reply
 
-        div(class='comment')
-          img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
-          div(class='comment__text') 
-            div(class='comment__header')
-              span(class='comment__user-name') Mike Wolfson
-              span(class='comment__time') august 19, 2019 17:48
-            p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-            div(class='comment__button')
-              a(href='https://github.com/ponomarevandrey' class='link') Reply
-
+          div(class='comment')
+            img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
+            div(class='comment__text') 
+              div(class='comment__header')
+                span(class='comment__user-name') Mike Wolfson
+                span(class='comment__time') august 19, 2019 17:48
+              p(class='comment__content') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+              div(class='comment__button')
+                a(href='https://github.com/ponomarevandrey' class='link') Reply
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/comment/README.md
             
 
     //- control
     +block(
       { name: 'control',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/control',
+        category: 'forms',
         description: 'Custom controls' },
 
       { name: 'checkbox',
@@ -1088,151 +1191,159 @@ block main
     )
 
       div(class='block__example')
-        div
-          //- checkbox:
+        div(class='block__preview')
+          div
+            //- checkbox:
 
-          //- checkbox default:
-          div(class='control') 
-            input(
-              class='control__system-control' 
-              type='checkbox' 
-              id='lastname1')
-            label(
-              class='control__label control__label_checkbox' 
-              for='lastname1') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
+            //- checkbox default:
+            div(class='control') 
+              input(
+                class='control__system-control' 
+                type='checkbox' 
+                id='lastname1')
+              label(
+                class='control__label control__label_checkbox' 
+                for='lastname1') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
 
-          //- checkbox _validation modifier:
-          div(class='control') 
-            input(
-              class='control__system-control control__system-control_validation' 
-              type='checkbox' 
-              id='lastname2')
-            label(
-              class='control__label control__label_checkbox' 
-              for='lastname2') Milk
-            div(class='control__tip text text_line-height_lg text_color_danger text_size_sm') Teip text Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+            //- checkbox _validation modifier:
+            div(class='control') 
+              input(
+                class='control__system-control control__system-control_validation' 
+                type='checkbox' 
+                id='lastname2')
+              label(
+                class='control__label control__label_checkbox' 
+                for='lastname2') Milk
+              div(class='control__tip text text_line-height_lg text_color_danger text_size_sm') Teip text Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
 
-          //- checkbox _disabled modifier:
-          div(class='control') 
-            input(
-              class='control__system-control control__system-control_disabled' 
-              type='checkbox' 
-              id='lastname3' disabled)
-            label(
-              class='control__label control__label_checkbox' 
-              for='lastname3') Milk
-            div(class='control__tip text text_line-height_lg text_color_disabled text_size_sm') Teip text Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
-
-
-
-
-          //- radio
-          //- default checked:
-          div(class='control') 
-            input(
-              class='control__system-control'
-              id='radio1' 
-              type='radio'  
-              name='radio' 
-              value='' 
-              checked='checked')
-            label(
-              class='control__label control__label_radio' 
-              for='radio1') Milk
-            div(class='control__tip  text text_line-height_lg text_color_gray-light text_size_sm') Text text text
-
-          //- validation modifier
-          div(class='control') 
-            input(
-              class='control__system-control control__system-control_validation' 
-              type='radio' 
-              id='radio2' 
-              name='radio')
-            label(
-              class='control__label control__label_radio' 
-              for='radio2') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-          //- disabled modifier
-          div(class='control') 
-            input(
-              class='control__system-control control__system-control_disabled'
-              id='radio3'  
-              type='radio' 
-              name='radio'
-              disabled)
-            label(
-              class='control__label control__label_radio' 
-              for='radio3') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
+            //- checkbox _disabled modifier:
+            div(class='control') 
+              input(
+                class='control__system-control control__system-control_disabled' 
+                type='checkbox' 
+                id='lastname3' disabled)
+              label(
+                class='control__label control__label_checkbox' 
+                for='lastname3') Milk
+              div(class='control__tip text text_line-height_lg text_color_disabled text_size_sm') Teip text Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
 
 
 
 
+            //- radio
+            //- default checked:
+            div(class='control') 
+              input(
+                class='control__system-control'
+                id='radio1' 
+                type='radio'  
+                name='radio' 
+                value='' 
+                checked='checked')
+              label(
+                class='control__label control__label_radio' 
+                for='radio1') Milk
+              div(class='control__tip  text text_line-height_lg text_color_gray-light text_size_sm') Text text text
+
+            //- validation modifier
+            div(class='control') 
+              input(
+                class='control__system-control control__system-control_validation' 
+                type='radio' 
+                id='radio2' 
+                name='radio')
+              label(
+                class='control__label control__label_radio' 
+                for='radio2') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+            //- disabled modifier
+            div(class='control') 
+              input(
+                class='control__system-control control__system-control_disabled'
+                id='radio3'  
+                type='radio' 
+                name='radio'
+                disabled)
+              label(
+                class='control__label control__label_radio' 
+                for='radio3') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
 
 
-          //- switch
-          div(class='control control_switch')
-            input(
-              class='control__system-control' 
-              id='switch1'
-              type='checkbox'
-              name='switch')
-            label(
-              class='control__label control__label_switch' 
-              for='switch1') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
 
-          //- switch validation modifier
-          div(class='control control_switch')
-            input(
-              class='control__system-control control__system-control_validation' 
-              id='switch2'
-              type='checkbox'
-              name='switch')
-            label(
-              class='control__label control__label_switch' 
-              for='switch2') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
 
-          //- switch validation modifier
-          div(class='control control_switch')
-            input(
-              class='control__system-control control__system-control_disabled' 
-              id='switch3'
-              type='checkbox'
-              name='switch'
-              disabled)
-            label(
-              class='control__label control__label_switch' 
-              for='switch3') Milk
-            div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
 
+
+            //- switch
+            div(class='control control_switch')
+              input(
+                class='control__system-control' 
+                id='switch1'
+                type='checkbox'
+                name='switch')
+              label(
+                class='control__label control__label_switch' 
+                for='switch1') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+
+            //- switch validation modifier
+            div(class='control control_switch')
+              input(
+                class='control__system-control control__system-control_validation' 
+                id='switch2'
+                type='checkbox'
+                name='switch')
+              label(
+                class='control__label control__label_switch' 
+                for='switch2') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+
+            //- switch validation modifier
+            div(class='control control_switch')
+              input(
+                class='control__system-control control__system-control_disabled' 
+                id='switch3'
+                type='checkbox'
+                name='switch'
+                disabled)
+              label(
+                class='control__label control__label_switch' 
+                for='switch3') Milk
+              div(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/control/README.md
 
 
     //- grid-forms
     +block(
       { name: 'grid-forms',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-forms',
+        category: 'forms',
         description: 'Grid-based form layout' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-forms/README.md
       div(class='block__example')
-        form(class='grid-forms' action='./action_page.php' method='post')
-          div(style='background-color: red;') a 
-          div(style='background-color: blue;') b 
-          div(style='background-color: green;') c 
-          div(style='background-color: pink;') d
-
+        div(class='block__preview')
+          form(class='grid-forms' action='./action_page.php' method='post')
+            div(style='background-color: red;') a 
+            div(style='background-color: blue;') b 
+            div(style='background-color: green;') c 
+            div(style='background-color: pink;') d
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/grid-forms/README.md
 
 
     //- form-group
     +block(
       { name: 'form-group',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/tree/master/src/form-group',
+        category: 'forms',
         description: 'Form group' },
 
       { name: 'type',
@@ -1255,229 +1366,253 @@ block main
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-forms/README.md
       div(class='block__example')
-        div(class='form-group')
-          label(
-            class='form-group__label' 
-            for='form1') A long sentence you're forced to read to understand what this stupid form wants from you
-          div(class='form-group__container')
-            input(
-              class='form-group__input' 
-              type='text' 
-              id='form1' 
-              name='name' 
-              placeholder='Your name')
-            div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
-
-        div(class='form-group form-group_row')
+        div(class='block__preview')
+          div(class='form-group')
             label(
               class='form-group__label' 
-              for='form2') Phone/Mobile
+              for='form1') A long sentence you're forced to read to understand what this stupid form wants from you
             div(class='form-group__container')
               input(
                 class='form-group__input' 
                 type='text' 
-                id='form2' 
+                id='form1' 
                 name='name' 
                 placeholder='Your name')
               div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
 
-        div(class='form-group form-group_row')
-            label(
-              class='form-group__label' 
-              for='form3') Textarea
-            div(class='form-group__container')
-              textarea(
-                class='form-group__input form-group__input_type_textarea' 
-                id='form3' 
-                name='story'
-                placeholder='Placholder text...')
-              div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
-
-        //- form validation error
-        div(class='form-group form-group_validation_error form-group_row text')
-            label(
-              class='form-group__label' 
-              for='form4') Textarea
-            div(class='form-group__container')
-              textarea(
-                class='form-group__input form-group__input_type_textarea' 
-                id='form4' 
-                name='message') Default text
-              div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
-
-        //- form validation success
-        div(class='form-group form-group_validation_success form-group_row text')
-            label(
-              class='form-group__label' 
-              for='form5') Textarea
-            div(class='form-group__container')
-              textarea(
-                class='form-group__input form-group__input_type_textarea' 
-                id='form5' 
-                name='story') Default text
-              div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
-
-        //- form-group disabled
-        div(class='form-group form-group_row form-group_disabled')
-            label(
-              class='form-group__label' 
-              for='form6') First name
-            div(class='form-group__container')
-              input(
-                class='form-group__input' 
-                type='text' 
-                id='form6' 
-                name='name' 
-                placeholder='Your name'
-                disabled)
-              div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
-
-        //- form-group search
-        div(class='form-group form-group_row' style='width: 100%;')
-            label(
-              class='form-group__label' 
-              for='search') Search
-            div(class='form-group__container')
-              input(
-                class='form-group__input form-group__input_type_search' 
-                type='text' 
-                id='search' 
-                name='name' 
-                placeholder='Search...')
-
-        //- fieldset
-        fieldset(class='form-group-wrapper')
-          legend(class='form-group form-group_row')
-            span(class='form-group__label') First name:
-
-            span
-              span(class='form-group__container control')
+          div(class='form-group form-group_row')
+              label(
+                class='form-group__label' 
+                for='form2') Phone/Mobile
+              div(class='form-group__container')
                 input(
-                  class='control__system-control'
-                  id='a1' 
-                  type='radio'
-                  value='1'  
-                  name='group1')
-                label(
-                  class='control__label control__label_radio' 
-                  for='a1') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting !!!
-                span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
+                  class='form-group__input' 
+                  type='text' 
+                  id='form2' 
+                  name='name' 
+                  placeholder='Your name')
+                div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
 
-              span(class='form-group__container control')
+          div(class='form-group form-group_row')
+              label(
+                class='form-group__label' 
+                for='form3') Textarea
+              div(class='form-group__container')
+                textarea(
+                  class='form-group__input form-group__input_type_textarea' 
+                  id='form3' 
+                  name='story'
+                  placeholder='Placholder text...')
+                div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
+
+          //- form validation error
+          div(class='form-group form-group_validation_error form-group_row text')
+              label(
+                class='form-group__label' 
+                for='form4') Textarea
+              div(class='form-group__container')
+                textarea(
+                  class='form-group__input form-group__input_type_textarea' 
+                  id='form4' 
+                  name='message') Default text
+                div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
+
+          //- form validation success
+          div(class='form-group form-group_validation_success form-group_row text')
+              label(
+                class='form-group__label' 
+                for='form5') Textarea
+              div(class='form-group__container')
+                textarea(
+                  class='form-group__input form-group__input_type_textarea' 
+                  id='form5' 
+                  name='story') Default text
+                div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
+
+          //- form-group disabled
+          div(class='form-group form-group_row form-group_disabled')
+              label(
+                class='form-group__label' 
+                for='form6') First name
+              div(class='form-group__container')
                 input(
-                  class='control__system-control'
-                  id='a2' 
-                  type='radio'  
-                  value='2'
-                  name='group1')
-                label(
-                  class='control__label control__label_radio' 
-                  for='a2') Milk
-                span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting
+                  class='form-group__input' 
+                  type='text' 
+                  id='form6' 
+                  name='name' 
+                  placeholder='Your name'
+                  disabled)
+                div(class='form-group__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galle
 
-              span(class='form-group__container control')
+          //- form-group search
+          div(class='form-group form-group_row' style='width: 100%;')
+              label(
+                class='form-group__label' 
+                for='search') Search
+              div(class='form-group__container')
                 input(
-                  class='control__system-control'
-                  id='a3' 
-                  type='radio' 
-                  value='3' 
-                  name='group1')
-                label(
-                  class='control__label control__label_radio'
-                  for='a3') Milk
-                span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text       
+                  class='form-group__input form-group__input_type_search' 
+                  type='text' 
+                  id='search' 
+                  name='name' 
+                  placeholder='Search...')
 
+          //- fieldset
+          fieldset(class='form-group-wrapper')
+            legend(class='form-group form-group_row')
+              span(class='form-group__label') First name:
+
+              span
+                span(class='form-group__container control')
+                  input(
+                    class='control__system-control'
+                    id='a1' 
+                    type='radio'
+                    value='1'  
+                    name='group1')
+                  label(
+                    class='control__label control__label_radio' 
+                    for='a1') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting !!!
+                  span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text
+
+                span(class='form-group__container control')
+                  input(
+                    class='control__system-control'
+                    id='a2' 
+                    type='radio'  
+                    value='2'
+                    name='group1')
+                  label(
+                    class='control__label control__label_radio' 
+                    for='a2') Milk
+                  span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Help text Lorem Ipsum is Lorem Ipsum is simply dummy text of the printing and typesetting
+
+                span(class='form-group__container control')
+                  input(
+                    class='control__system-control'
+                    id='a3' 
+                    type='radio' 
+                    value='3' 
+                    name='group1')
+                  label(
+                    class='control__label control__label_radio'
+                    for='a3') Milk
+                  span(class='control__tip text text_line-height_lg text_color_gray-light text_size_sm') Text text text       
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/form-group/README.md
 
 
     //- select
     +block(
       { name: 'select',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/select',
+        category: 'components',
         description: 'Custom select' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/select/README.md
       div(class='block__example')
-        div(class='form-group form-group_row')
-          label(
-            for='selectbox1' 
-            class='form-group__label') Color
-          div(class='form-group__container')
-            select(class='form-group__selectbox' id='selectbox1' name='country')
-              option(value='australia') Red
-              option(value='canada') Green
-              option(value='usa') Blue
-
+        div(class='block__preview')
+          div(class='form-group form-group_row')
+            label(
+              for='selectbox1' 
+              class='form-group__label') Color
+            div(class='form-group__container')
+              select(class='form-group__selectbox' id='selectbox1' name='country')
+                option(value='australia') Red
+                option(value='canada') Green
+                option(value='usa') Blue
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/select/README.md
       
 
     //- nav-fixed
     +block(
       { name: 'nav-fixed',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav-fixed',
+        category: 'components',
         description: 'Fixed navigation bar' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/label/README.md
       div(class='block__example')
-        div(class='nav-fixed' style='position: relative; width: calc(100% - 2em)')
-          div(class='nav-fixed__logo')
-            img(
-              src='./src/_img/biscuit-logo-white.svg' 
-              alt='Logoipsum logo'
-              title='Logoipsum'
-              class='img-svg'
-            )
-          div(class='nav-fixed__items')
-            a(href='#main' class='nav-fixed__item') Main
-            a(href='#portfolio' class='nav-fixed__item') Portfolio
-            a(href='#blog' class='nav-fixed__item') Blog
-            a(href='#about' class='nav-fixed__item nav-fixed__item_active') About
-            a(href='#contacts' class='nav-fixed__item') Contacts
-
+        div(class='block__preview')
+          div(class='nav-fixed' style='position: relative; width: calc(100% - 2em)')
+            div(class='nav-fixed__logo')
+              img(
+                src='./src/_img/biscuit-logo-white.svg' 
+                alt='Logoipsum logo'
+                title='Logoipsum'
+                class='img-svg'
+              )
+            div(class='nav-fixed__items')
+              a(href='#main' class='nav-fixed__item') Main
+              a(href='#portfolio' class='nav-fixed__item') Portfolio
+              a(href='#blog' class='nav-fixed__item') Blog
+              a(href='#about' class='nav-fixed__item nav-fixed__item_active') About
+              a(href='#contacts' class='nav-fixed__item') Contacts
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/nav-fixed/README.md
 
 
     //- nav
     +block(
       { name: 'nav',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav',
+        category: 'components',
         description: 'Main navigation' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/nav/README.md
       div(class='block__example')
-        div(class='nav')
-          a(href='#main' class='nav__item') Main
-          a(href='#main' class='nav__item') Portfolio
-          a(href='#about' class='nav__item nav__item_active') About
-          a(href='#contacts' class='nav__item') Contacts
-
+        div(class='block__preview')
+          div(class='nav')
+            a(href='#main' class='nav__item') Main
+            a(href='#main' class='nav__item') Portfolio
+            a(href='#about' class='nav__item nav__item_active') About
+            a(href='#contacts' class='nav__item') Contacts
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/nav/README.md
 
 
     //- btn-close
     +block(
       { name: 'btn-close',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/btn-close',
+        category: 'components',
         description: 'Close button' }
     )
 
       div(class='block__example')
-        <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-
+        div(class='block__preview')
+          <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        pre(class='block__code language-javascript')
+          code 
+            //- include:markdown-it ./src/btn-close/README.md
 
 
     //- burger-menu
     +block(
       { name: 'burger-menu',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/burger-menu',
+        category: 'components',
         description: 'Hamburger menu' }
     )
 
       div(class='block__example')
+        div(class='block__preview')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/burger-menu/README.md
 
 
 
@@ -1485,17 +1620,23 @@ block main
     +block(
       { name: 'modal',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/modal',
+        category: 'components',
         description: 'Modal window' }
     )
 
       div(class='block__example')
-
-
+        div(class='block__preview')
+        pre(class='block__code language-javascript')
+          code 
+            //- include:markdown-it ./src/modal/README.md
     
+
+
     //- page
     +block(
       { name: 'page',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/page',
+        category: 'containers',
         description: "This is a service type of blog that defines styles for the whole page. It is already assigned to the necessary elements (<html> and <body>) in PUG templates, so don't modify or delete any 'page'-related classes. Also, this is the block, through which we import all custom fonts making them available in all SASS files" },
 
       { name: 'bg',
@@ -1504,12 +1645,18 @@ block main
     )
 
       div(class='block__example')
+        div(class='block__preview')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/page/README.md
+
 
 
     //- header
     +block(
       { name: 'header',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/header',
+        category: 'containers',
         description: 'Page header container' },
 
       { name: 'align-content',
@@ -1518,8 +1665,11 @@ block main
     )
 
       div(class='block__example' style='overflow: hidden;')
-        div(class='header')
-
+        div(class='block__preview')
+          div(class='header')
+        pre(class='block__code language-javascript')
+          code 
+            include:markdown-it ./src/header/README.md
 
 
 
@@ -1527,30 +1677,100 @@ block main
     +block(
       { name: 'main',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/main',
+        category: 'containers',
         description: 'Main content container' }
     )
 
       div(class='block__example')
-
-
+        div(class='block__preview')
+        pre(class='block__code language-javascript')
+          code 
+            //- include:markdown-it ./src/main/README.md
 
     //- footer
     +block(
       { name: 'footer',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/footer',
+        category: 'containers',
         description: 'Page footer container' }
     )
 
       div(class='block__example')
-        footer(class='footer') &copy; 2019
+        div(class='block__preview')
+          footer(class='footer') &copy; 2019
+        pre(class='block__code language-javascript')
+          code 
+            //- include:markdown-it ./src/footer/README.md
 
 block footer
-  footer(class='footer') &copy; 2019
+  footer(class='footer')
+    a(
+      href='https://github.com/ponomarevandrey' 
+      class='icons' 
+      aria-hidden='true'
+      focusable='false' 
+      title='Github'
+    )
+      span(class='icons__access-label') Github
+      svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+        use(xlink:href='./img/sprite.svg#github')
 
+  
 block script
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
   script.
+    class FilterComponent {
+      constructor(node, defaultTab = 'videos') {
+        // collect all blocks:
+        this._blockEls = document.querySelectorAll('[data-category]');
+        const frag = new DocumentFragment();
+        const sortedBlocks = this.sortBlocks();
 
-    
+        console.log(sortedBlocks)
 
-    
+        // display blocks based on selected category:
+        node.addEventListener('click', function(e) {
+          
+          sortedBlocks.forEach(block => {
+            if (block.dataset.category === e.target.dataset.category) {
+              block.classList.add('block_active');
+              console.log(block)
+            } else {
+              // cjamge tp .toggle
+              block.classList.remove('block_active');
+            }
+          });
+        });
+
+        for (let prop in sortedBlocks) {
+          if (sortedBlocks[prop] && sortedBlocks[prop].length > 0) {
+            const li = document.createElement('li');
+            li.classList.add('bfilter__item');
+            li.dataset.category = prop
+            li.textContent = prop;
+            frag.append(li)
+          }
+        }
+        
+        node.append(frag);        
+      }
+
+      sortBlocks() {
+        const blocks = {};
+
+        this._blockEls.forEach(el => {
+          if (!blocks[el.dataset.category]) {
+            blocks[el.dataset.category] = [];
+          }
+          
+          blocks[el.dataset.category].push(el);
+        });
+
+        return blocks;
+      }
+    }
+
+    const filterComponent = new FilterComponent(document.body.querySelector('.bfilter'));
+
+    document.querySelector("[data-category='videos']").click();
     

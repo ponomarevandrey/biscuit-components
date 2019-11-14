@@ -3,12 +3,13 @@
 The path inside `<use>` element should be relative to webpack `build` folder, not to `icons` component folder
 
 - github
+
 ```pug
 a(
-  href='https://github.com/ponomarevandrey' 
-  class='icons' 
+  href='https://github.com/ponomarevandrey'
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='Github'
 )
   span(class='icons__access-label') Github
@@ -17,12 +18,13 @@ a(
 ```
 
 - facebook
+
 ```pug
 a(
-href=`https://github.com/ponomarevandrey` 
-class='icons' 
+href=`https://github.com/ponomarevandrey`
+class='icons'
 aria-hidden='true'
-focusable='false' 
+focusable='false'
 title='Facebook'
 )
 span(class='icons__access-label') Facebook
@@ -31,12 +33,13 @@ svg(class=`icons__img icons__img_size_md icons__img_color_black`)
 ```
 
 - instagram
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='Instagram'
 )
   span(class='icons__access-label') Instagram
@@ -45,12 +48,13 @@ a(
 ```
 
 - odnoklassniki
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='Odnoklassniki'
 )
   span(class='icons__access-label') Odnoklassniki
@@ -58,14 +62,14 @@ a(
     use(xlink:href='./img/sprite.svg#odnoklassniki')
 ```
 
-
 - telegram
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='Telegram'
 )
   span(class='icons__access-label') Telegram
@@ -73,14 +77,14 @@ a(
     use(xlink:href='./img/sprite.svg#telegram')
 ```
 
-
 - twitter
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='Twitter'
 )
   span(class='icons__access-label') Twitter
@@ -88,14 +92,14 @@ a(
     use(xlink:href='./img/sprite.svg#twitter')
 ```
 
-
 - youtube
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='YouTube'
 )
   span(class='icons__access-label') YouTube
@@ -104,12 +108,13 @@ a(
 ```
 
 - vkontakte
+
 ```pug
 a(
-  href=`https://github.com/ponomarevandrey` 
-  class='icons' 
+  href=`https://github.com/ponomarevandrey`
+  class='icons'
   aria-hidden='true'
-  focusable='false' 
+  focusable='false'
   title='VKontakte'
 )
   span(class='icons__access-label') VKontakte
