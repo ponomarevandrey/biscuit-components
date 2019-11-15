@@ -14,7 +14,7 @@
   &__header {
     grid-row: row1-start;
     grid-column: 1 / span 14; /* it's also possible to put here grid-line names. But in the current case we used repeat() function so we have only implicitly named grid lines, thus we can refer to them by implicitly defined namees (1, 2, 3, ...) */
-    background-color: yellow;
+    //background-color: yellow;
 
     display: flex;
     justify-content: center;
@@ -25,21 +25,21 @@
     grid-row: row2-start / row3-end;
     grid-column: 14;
 
-    background-color: violet;
+    //background-color: violet;
     z-index: 10000;
-    opacity: 0.5;
+    //opacity: 0.5;
   }
 
   &__news1 {
     grid-row: row2-start;
     grid-column: 2 / span 4;
-    background-color: turquoise;
+    //background-color: turquoise;
   }
 
   &__news2 {
     grid-row: row2-start;
     grid-column: 6 / span 8;
-    background-color: yellowgreen;
+    //background-color: yellowgreen;
 
     /* Now, lets make new grid out of grid item */
     display: grid;
@@ -54,18 +54,18 @@
 
   &__article {
     grid-column: col2-start / col2-end;
-    background-color: fuchsia;
+    // background-color: fuchsia;
   }
 
   &__info {
     grid-column: col3-start / col3-end;
-    background-color: peachpuff;
+    //background-color: peachpuff;
   }
 
   &__footer {
     grid-row: row3-start;
     grid-column: 1 / span 14;
-    background-color: orange;
+    //background-color: orange;
 
     display: flex;
     justify-content: center;

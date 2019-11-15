@@ -1,8 +1,8 @@
 # About
 
-**Biscuit** is a minimalist component library/boilerplate for developing websites/apps based on BEM methodology and a mobile-first approach.
+**Biscuit** is a UI component/pattern library for developing websites based on BEM methodology and a mobile-first approach.
 
-Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are 'accordion', 'btn', 'text', 'heading', 'form-group', 'grid-gallery', 'select', 'nav', ...
+Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are 'accordion', 'btn', 'text', 'heading', 'select', 'nav', ...
 
 ## Why I built it
 

@@ -59,7 +59,9 @@ import './src/heading/_heading.scss';
 import './src/list/_list.scss';
 
 import './src/btn/_btn.scss';
-import './src/btn/btn.js';
+
+import './src/btn-back-to-top/_btn-back-to-top.scss';
+import './src/btn-back-to-top/btn-back-to-top.js';
 
 import './src/link/_link.scss';
 
