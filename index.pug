@@ -1757,15 +1757,15 @@ block script
   script.
     class Filter {
       constructor(rootNode, defaultTab = 'typography') {
-        this._rootNode = rootNode;
+        this._init = false; // flag to prevent scrolling on first load
+        this._rootNodeInitialPisition = rootNode.getBoundingClientRect().top + pageYOffset;
+
         // collect blocks
         let blocks = document.querySelectorAll('[data-category]'); 
-        this._rootNodeInitialPisition =  this._rootNode.getBoundingClientRect().top + pageYOffset;
 
         this.buildFilter(this.sortBlocks(blocks), rootNode);
         
         rootNode.addEventListener('click', e => this.handleClick(e, blocks));
-        // make rootNode sticky while scrolling:
         window.addEventListener('scroll', e => this.handleScroll(e, rootNode));
 
         // initialize filter, display default tab:
@@ -1777,8 +1777,6 @@ block script
 
         // if we occasionally clicked not on the button somewhere near it:
         if (e.target === e.currentTarget) return;
-
-        scrollTo(0, this._rootNodeInitialPisition );
 
         // handle filters:
         const filters = Array.from(document.querySelector('.bfilter').children);
@@ -1796,6 +1794,11 @@ block script
             block.classList.add('block_active');
           } else block.classList.remove('block_active');
         });
+
+
+        console.log(this._rootNodeInitialPisition)
+        if (!this._init) this._init = true;
+        else scrollTo(0, this._rootNodeInitialPisition);
       }
 
       buildFilter(sortedBlocks, node) {
@@ -1829,6 +1832,7 @@ block script
         return sortedBlocks;
       }
 
+      // make rootNode sticky while scrolling:
       handleScroll(e, rootNode) {
         const rootNodeCoords = rootNode.getBoundingClientRect();
         // get next sibling element for implementing sticky behavior on scroll:
