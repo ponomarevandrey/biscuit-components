@@ -67,7 +67,8 @@ html(lang='en' class='page text text_size_root')
     meta(name='author' content='Andrey Ponomarev')
     title Biscuit Components
       
-    style. 
+    style.  
+
       /* bheader ------------------------------------------------- */
 
       .bheader {
@@ -98,7 +99,7 @@ html(lang='en' class='page text text_size_root')
         display: grid;
         grid-template-columns: 1fr;
         padding: 1rem 4vw 1rem 4vw;
-        margin: 0 auto;
+        margin: 0 auto 2rem auto;
         background-color: #f9f2ec;
         border-radius: 0
       }
@@ -113,6 +114,7 @@ html(lang='en' class='page text text_size_root')
           justify-content: center;
           align-items: flex-start;   
           max-width:1200px;
+          margin-bottom: 2rem;
         }
       }
 
@@ -134,7 +136,7 @@ html(lang='en' class='page text text_size_root')
         border-radius: .5rem;
         max-width: 750px;
         margin: 0 auto;
-        padding: 2rem 3vw 0 3vw;
+        padding: 0 3vw 0 3vw;
       }
 
       .demo__categories {
@@ -263,14 +265,22 @@ html(lang='en' class='page text text_size_root')
       /* Demo  -------------------------------------------------------- */  
 
       .bfilter {
+        padding: 1rem 0;
         list-style: none;
         display: flex;
-        position: sticky;
         top: 0;
-        margin: 2rem 0 0 0;
         flex-flow: row wrap;
         justify-content: center;
         background-color: white;
+      }
+
+      .bfilter_stick {
+        position: fixed;
+        margin: 0 auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1031;
       }
 
       .bfilter__item {
@@ -297,19 +307,19 @@ html(lang='en' class='page text text_size_root')
         overflow-wrap: break-word;
       }
 
-  body(class='page__body page__preload text text_color_gray-dark text_line-height_lg text_font-stack_serif') 
+  body(class='page__body page__preload text text_color_gray-dark text_line-height_lg text_font-stack_serif' style='margin: 0 2vw;') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
 
 
 block header
   header(class='bheader')
-      img(
-        src='./src/_img/biscuit-logo-black.svg' 
-        alt='Biscuit Components Logo'
-        title='Biscuit'
-        class='img-svg bheader__logo'
-      )
-      <a class="github-button" href="https://github.com/ponomarevandrey/biscuit-components/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download ponomarevandrey/biscuit-components on GitHub">Download</a>
+    img(
+      src='./src/_img/biscuit-logo-black.svg' 
+      alt='Biscuit Components Logo'
+      title='Biscuit'
+      class='img-svg bheader__logo'
+    )
+    <a class="github-button" href="https://github.com/ponomarevandrey/biscuit-components/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download ponomarevandrey/biscuit-components on GitHub">Download</a>
   div(class='about') 
     section(class='about__col1')
       h3(class='heading heading_size_h3 about__heading') About
@@ -1779,19 +1789,21 @@ block script
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   script.
     class Filter {
-      constructor(node, defaultTab = 'typography') {
-        // collect all blocks:
-        let blocks = document.querySelectorAll('[data-category]');
-
-        this.buildList(this.sortBlocks(blocks), node);
+      constructor(rootNode, defaultTab = 'typography') {
+        // collect blocks
+        let blocks = document.querySelectorAll('[data-category]'); 
         
-        node.addEventListener('click', e => this.filterBlocks(e, self, blocks));
-        // initialize filter (display default tab):
+        this.buildFilter(this.sortBlocks(blocks), rootNode);
+        rootNode.addEventListener('click', e => this.filterBlocks(e, blocks));
+        // make rootNode sticky while scrolling:
+        window.addEventListener('scroll', e => this.handleScroll(e, rootNode));
+
+        // initialize filter, display default tab:
         document.querySelector(`[data-category='${defaultTab}']`).click();
       }
 
-      filterBlocks(e, self, blocks) {
-        // if we occasionally clicked not on the button somewhere near it,
+      filterBlocks(e, blocks) {
+        // if we occasionally clicked not on the button somewhere near it:
         if (e.target === e.currentTarget) return;
 
         // handle filters:
@@ -1812,7 +1824,8 @@ block script
         });
       }
 
-      buildList(sortedBlocks, node) {
+      buildFilter(sortedBlocks, node) {
+        // build list:
         const frag = new DocumentFragment();
 
         for (let prop in sortedBlocks) {
@@ -1835,15 +1848,39 @@ block script
           if (!sortedBlocks[block.dataset.category]) {
             sortedBlocks[block.dataset.category] = [];
           }
+
           sortedBlocks[block.dataset.category].push(block);
         });
 
         return sortedBlocks;
       }
+
+      handleScroll(e, rootNode) {
+        // get next sibling element for implementing sticky behavior on scroll:
+        const rootNodeNextSibling = rootNode.nextElementSibling;
+        const rootNodeCoords = rootNode.getBoundingClientRect();
+        const rootNodeNextSiblingCoords = rootNodeNextSibling.getBoundingClientRect();
+
+        /* 
+        //For debugging:
+        console.log(rootNodeCoords.top, rootNodeNextSiblingCoords.top);
+        if (rootNodeCoords.top === 0) console.log('rootNodeCoords.top === 0')
+        */
+
+        if (rootNodeCoords.top <= 0) {
+          // console.log('first if')
+          rootNode.classList.add('bfilter_stick');
+          document.querySelector('.demo').style.paddingTop = `${rootNodeCoords.height}px`;
+        } 
+        
+        if (rootNodeNextSiblingCoords.top >= 0 && rootNodeCoords.top === 0) {
+          // console.log('second if')
+          rootNode.classList.remove('bfilter_stick');
+          document.querySelector('.demo').style.paddingTop = '';
+        }
+      }
     }
 
-    new Filter(document.body.querySelector('.bfilter'));
-
-    // fix for position: 'sticky':
-    // detect when then filter is in the viewport and attack class .fixed
+    new Filter(document.body.querySelector('.bfilter')); 
     
+   
