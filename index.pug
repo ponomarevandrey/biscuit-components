@@ -274,7 +274,7 @@ html(lang='en' class='page text text_size_root')
       }
 
 
-  body(class='page__body page_doc page__preload text text_color_gray-dark text_line-height_lg text_font-stack_serif') 
+  body(class='page__body page_doc page__preload text text_color_gray-dark text_line-height_lg text_font-stack_sans-serif') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
 
 
@@ -1760,8 +1760,10 @@ block script
         this._rootNode = rootNode;
         // collect blocks
         let blocks = document.querySelectorAll('[data-category]'); 
-        
+        this._rootNodeInitialPisition =  this._rootNode.getBoundingClientRect().top + pageYOffset;
+
         this.buildFilter(this.sortBlocks(blocks), rootNode);
+        
         rootNode.addEventListener('click', e => this.handleClick(e, blocks));
         // make rootNode sticky while scrolling:
         window.addEventListener('scroll', e => this.handleScroll(e, rootNode));
@@ -1776,10 +1778,7 @@ block script
         // if we occasionally clicked not on the button somewhere near it:
         if (e.target === e.currentTarget) return;
 
-        const rootNodeCoords = this._rootNode.getBoundingClientRect();
-        const rootNodeNextSibling = this._rootNode.nextElementSibling;
-        const rootNodeNextSiblingCoords = rootNodeNextSibling.getBoundingClientRect();
-        scrollTo(0, rootNodeCoords.bottom);
+        scrollTo(0, this._rootNodeInitialPisition );
 
         // handle filters:
         const filters = Array.from(document.querySelector('.bfilter').children);
@@ -1856,5 +1855,5 @@ block script
       }
     }
 
-    new Filter(document.body.querySelector('.bfilter')); 
+    window.addEventListener('load', () => new Filter(document.body.querySelector('.bfilter'))); 
     
