@@ -24,6 +24,8 @@ function requireFiles(r) {
   r.keys().forEach(r);
 }
 
+requireFiles(require.context('./src/_img/', true, /(svg|png|jpg)$/));
+
 /*
   CSS RESET 
 */
