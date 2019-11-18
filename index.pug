@@ -17,25 +17,25 @@ mixin block(biscuitBlock, ...allMods)
       div(class='block__description') 
         span('text text_display_inline') #{biscuitBlock.description}
       - if (allMods != false)
-        div(class='table block__table table_theme_documentation')
-          table(class='table__container')
+        div(class='btable')
+          table(class='btable__container')
             thead
-              tr(class='table__row text text_color_white')
-                th(class='table__cell table__cell_type_header block__col1') Modifiers
-                th(class='table__cell table__cell_type_header block__col2') Values
-                th(class='table__cell table__cell_type_header block__col3') Description
+              tr(class='btable__row text text_color_white')
+                th(class='btable__cell btable__cell_type_header btable__col1') Modifiers
+                th(class='btable__cell btable__cell_type_header btable__col2') Values
+                th(class='btable__cell btable__cell_type_header btable__col3') Description
             tbody
               each mod in allMods
-                tr(class='table__row')
-                  td(class='table__cell table__cell_type_main block__col1')
+                tr(class='btable__row')
+                  td(class='btable__cell btable__cell_type_main btable__col1')
                     code(class='code code_display_inline code_theme_gray') #{mod.name}
-                  td(class='table__cell table__cell_type_main block__col2')
+                  td(class='btable__cell btable__cell_type_main btable__col2')
                     - if (mod.values === undefined) 
                       span('text text_display_inline') —
                     - else 
                       each value in mod.values
                         code(class='code code_display_inline code_theme_gray') #{value}
-                  td(class='table__cell table__cell_type_main block__col3') #{mod.description}
+                  td(class='btable__cell table__cell_type_main btable__col3') #{mod.description}
     block    
 
 
@@ -138,13 +138,6 @@ html(lang='en' class='page text text_size_root')
 
       /* large screen layout */  
 
-      @media screen and (min-width: 480px) {
-        .block { box-shadow: -15px 15px #f3e5d8; }
-        .block__col1 { width: 20%; }
-        .block__col2 { width: 30%; }
-        .block__col3 { width: 40%; }
-      } 
-
       .demo {
         display: flex;
         flex-flow: column nowrap;
@@ -159,6 +152,10 @@ html(lang='en' class='page text text_size_root')
         background-color: #f9f2ec;
         box-sizing: border-box;
         margin: 2rem 0;
+      }
+
+      @media screen and (min-width: 480px) {
+        .block { box-shadow: -15px 15px #f3e5d8; }
       }
 
       .block_active {
@@ -203,7 +200,6 @@ html(lang='en' class='page text text_size_root')
         padding-bottom: .5rem; 
       }    
 
-      /* adjust some blocks' preview: */
       .block__preview {
         width: 100%; 
         background-color: white;
@@ -212,6 +208,9 @@ html(lang='en' class='page text text_size_root')
         box-sizing: border-box; 
         padding: 1rem;
       }
+
+
+      /* adjust some blocks' preview: */
       .block__preview_halign_space-evenly {
         display: flex; 
         flex-flow: row wrap; 
@@ -224,6 +223,7 @@ html(lang='en' class='page text text_size_root')
         justify-content: center;
         text-align: center;
       }
+
       .block__code {
         width: 100%;
         border: 1px solid #e6e6e6; 
@@ -236,6 +236,35 @@ html(lang='en' class='page text text_size_root')
       .block__icons a { 
         padding: 1rem; 
       }
+
+      .btable {
+        overflow-x: auto;
+      }
+      @media screen and (min-width: 480px) {
+        .btable__col1 { width: 20%; }
+        .btable__col2 { width: 30%; }
+        .btable__col3 { width: 40%; }
+      } 
+      .btable__container {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+      .btable__cell {
+        padding: 1rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      .btable__cell_type_header {
+        background-color: transparent;
+        color: black;
+        font-weight: bold;
+        border-bottom: 1px solid #595959
+      }
+      .btable__row {
+        border-bottom: 1px solid #595959;
+      }
+
 
       /* bfilter ---------------------------------------------------------- */  
 
@@ -277,6 +306,40 @@ html(lang='en' class='page text text_size_root')
         background-color: #804000;
       }
 
+      /* block button (preview & code) ------------------------------- */
+      .switch {
+        display: flex;
+        flew-flow: row wrap;
+        color: white;
+        min-width: 15rem;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: black;
+        border-radius: .5rem;
+        margin-bottom: 1rem;
+      }
+
+      .switch__preview, 
+      .switch__code {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 1rem;
+      }
+
+      .switch__preview_active {
+        background-color: #804000;
+        border-radius: .5rem 0 0 .5rem;
+      }
+      .switch__code_active {
+        background-color: #804000;
+        border-radius: 0 .5rem .5rem 0;
+      }
+      .switch__preview_disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
+      }     
 
   body(class='page__body page_doc page__preload text text_color_gray-dark text_line-height_lg text_font-stack_sans-serif') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
@@ -327,6 +390,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview block__preview_halign_center')
           h1(class='heading heading_size_h1') Heading One
           h1(class='heading heading_size_h2') Heading Two
@@ -371,6 +437,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           span(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
 
@@ -389,14 +458,17 @@ block main
 
       { name: 'align-self',
         values: ['center'],
-        description: "Center an image" },
+        description: "Center image" },
 
       { name: 'theme',
         values: ['black'],
-        description: "Place an image into black frame" }  
+        description: "Put image into black frame" }  
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           figure(class='img-raster')
             picture(class='img-raster__wrapper')   
@@ -430,6 +502,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           hr(class='hr hr_color_black')
         pre(class='block__code language-javascript')
@@ -450,6 +525,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview block__preview_halign_space-evenly')
           ul(class='list list_style_unordered')
             li(class='list__item') Fruit
@@ -480,9 +558,12 @@ block main
     )
 
       div(class='block__example')
-        div(class='block__preview')
-          a(href='https://github.com/ponomarevandrey' class='link') Click me, man, I'm a true hyperlink!
-          a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, man, I'm an anchor link!
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
+        div(class='block__preview block__preview_halign_space-evenly')
+          a(href='https://github.com/ponomarevandrey' class='link') Click me, I'm a hyperlink!
+          a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, I'm an anchor link!
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/link/README.md
@@ -506,6 +587,8 @@ block main
     )
       //-
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__code' data-code) Code
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/fullscreen-bg/README.md
@@ -519,14 +602,13 @@ block main
 
       { name: 'display',
         values: ['block', 'inline'],
-        description: 'Display code as a line or as a block' },
-
-      { name: 'theme',
-        values: ['gray'],
-        description: 'Color themes' }
+        description: 'Display code as a line or as a block' }
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           //- inline code
           p(class='text text_display_block text_size_root text_color_black') It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum #[code(class='code code_display_inline text text_size_sm code_theme_gray') console.log( a ) !!!; ] it was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -551,6 +633,8 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__code' data-code) Code
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/btn-back-to-top/README.md
@@ -579,6 +663,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview block__preview_halign_space-evenly')
           //- <a> button
           //- enabled
@@ -602,7 +689,7 @@ block main
             include:markdown-it ./src/btn/README.md
 
 
-    //- grid-auto-col
+  //- grid-auto-col
     +block(
       { name: 'grid-auto-col',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-auto-col',
@@ -787,7 +874,11 @@ block main
       { name: 'img-svg',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-svg',
         category: 'images',
-        description: 'SVG image' }
+        description: 'SVG image' },
+
+      { name: 'bg',
+        values: ['—'],
+        description: 'Implement SVG as background-image property' }
       )
 
       div(class='block__example')
@@ -1754,7 +1845,6 @@ block footer
       span(class='icons__access-label') Github
       svg(class=`icons__img icons__img_size_md icons__img_color_black`)
         use(xlink:href='./img/sprite.svg#github')
-
   
 block script
   <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -1800,7 +1890,7 @@ block script
         });
 
 
-        console.log(this._rootNodeInitialPisition)
+        //console.log(this._rootNodeInitialPisition)
         if (!this._init) this._init = true;
         else scrollTo(0, this._rootNodeInitialPisition);
       }
@@ -1865,3 +1955,75 @@ block script
 
     window.addEventListener('load', () => new Filter(document.body.querySelector('.bfilter'))); 
     
+
+    // Switch
+    
+    class SwitchBtn  {
+      constructor( rootNode ) {
+          
+        this._rootNode = rootNode;
+
+        this._blockPreview = document.querySelector('.block__preview');
+        this._blockCode = document.querySelector('.block__code');
+
+
+
+        document.addEventListener('click', e => this.handleClick(e));
+
+        // handle cases where there is no block__preview button ()just disable code button
+
+        let blocks = document.querySelectorAll('[data-name]'); 
+
+        blocks.forEach(block => {
+          if (block.querySelector('.block__preview')) {
+            block.querySelector('.switch__preview').click();
+          } else {
+            this._blockPreview.classList.add('.block__preview_disbaled')
+          }
+        });
+      }
+
+      handleClick(e) {
+        // replace dataset with <button name='code'> elements
+        const [name] = Object.keys(e.target.dataset);
+        const currentBlockEl = e.target.closest('.block');
+
+        if (!currentBlockEl) return;
+        if (this.isClassActive(e.target.classList)) return;
+   
+        currentBlockEl.querySelectorAll('.switch__preview, .switch__code').forEach(button => {
+          this.removeModifier(button, 'active');
+        });
+        currentBlockEl.querySelectorAll('.block__preview, .block__code').forEach(contentBlock => contentBlock.hidden = true);
+        
+        
+        this.addModifier(e.target, e.target.className, 'active');
+        currentBlockEl.querySelector(`.block__${name}`).hidden = false;
+      }
+
+      isClassActive(classList) {
+        for (let className of classList) {
+          if (className.includes('active')) return true;
+        }
+      }
+
+      addModifier(node, targetClass, modifierName) {
+        node.classList.add(`${targetClass}_${modifierName}`);
+        //this._blockCode.hidden = true;
+      }
+
+      removeModifier(node, modifierName) {
+        let classes = node.classList;
+        for (let className of classes) {
+          if (className.includes('active')) {
+            classes.remove(className);
+            //this._blockCode.hidden = false;
+          }
+        }
+      }
+    } 
+   
+    window.addEventListener('load', () => {
+      let switchBtn = new SwitchBtn( document.querySelectorAll('.switch') );
+    });
+

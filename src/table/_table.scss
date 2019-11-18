@@ -13,53 +13,22 @@
     padding: 1rem;
   }
 
-  // Modifiers:
+  .table__cell {
+    padding: 1rem;
+    text-align: left;
+    vertical-align: top;
 
-  // theme_light
-
-  &_theme_light {
-    .table__cell {
-      padding: 1rem;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    & th {
+    &_type_header {
       background-color: $color_black;
       color: $color_white;
     }
-
-    & tr:nth-child(even) {
-      background-color: $color_gray-lightest;
-    }
-
-    & tr:hover {
-      background-color: $color_gray-lightest;
-    }
   }
 
-  // theme_documentation
+  &__row:nth-child(even) {
+    background-color: $color_gray-lightest;
+  }
 
-  &_theme_documentation {
-    .table__cell {
-      padding: 1rem 0 1rem 0;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    & th {
-      font-weight: bold;
-      color: $color_gray-dark;
-    }
-
-    & tr {
-      border-bottom: 1px solid #333;
-    }
-    /*
-    & tr:hover {
-      background-color: white;
-      transition: all 0.15s ease;
-    }
-    */
+  &__row:hover {
+    background-color: $color_gray-lighten;
   }
 }

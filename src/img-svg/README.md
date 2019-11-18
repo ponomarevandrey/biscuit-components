@@ -13,7 +13,7 @@ img(
 )
 ```
 
-- `<div>` tag with css `background-image`. If you need more then one `img-svg`, implement new instances of `img-svg` right in the SASS file, as block modifiers (`img-svg_bg1`, `img-svg_bg2`, ...) and use `classList` parameter of mixin to add new modifiers
+- `<div>` tag with css `background-image`. If you need more then one instance of `img-svg`, create new instances right in the SASS file, as block modifiers (`img-svg_bg1`, `img-svg_bg2`, ...)
 
 ```pug
 div(class='img-svg img-svg_bg')

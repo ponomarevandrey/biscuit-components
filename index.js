@@ -1,5 +1,5 @@
 /* 
-  PRIMS SYNYAX HIGHLIGHTER 
+  PRIMS SYNTAX HIGHLIGHTER 
 */
 // Import PrismJS package
 import Prism from 'prismjs';
