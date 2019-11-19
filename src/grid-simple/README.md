@@ -1,7 +1,7 @@
 # How to use
 
 ```pug
-div(class='grid-auto-col')
+div(class='grid-simple')
 
   div(class='grid-equal-col__item')
     //- img-raster block
@@ -57,13 +57,13 @@ div(class='grid-auto-col')
     p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
     a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-  div(class='grid-auto-col__item') One
-  div(class='grid-auto-col__item') Two
-  div(class='grid-auto-col__item') Three
-  div(class='grid-auto-col__item') Four
-  div(class='grid-auto-col__item') Five
-  div(class='grid-auto-col__item') Six
-  div(class='grid-auto-col__item') Seven
-  div(class='grid-auto-col__item') Eight
-  div(class='grid-auto-col__item') Nine
+  div(class='grid-simple__item') One
+  div(class='grid-simple__item') Two
+  div(class='grid-simple__item') Three
+  div(class='grid-simple__item') Four
+  div(class='grid-simple__item') Five
+  div(class='grid-simple__item') Six
+  div(class='grid-simple__item') Seven
+  div(class='grid-simple__item') Eight
+  div(class='grid-simple__item') Nine
 ```

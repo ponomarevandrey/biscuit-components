@@ -325,6 +325,8 @@ html(lang='en' class='page text text_size_root')
         text-align: center;
         box-sizing: border-box;
         padding: 1rem;
+        cursor: pointer;
+        transition: ease .3s;
       }
 
       .switch__preview_active {
@@ -336,9 +338,11 @@ html(lang='en' class='page text text_size_root')
         border-radius: 0 .5rem .5rem 0;
       }
       .switch__preview_disabled {
-        opacity: 0.3;
+        color: #a6a6a6;
+        background-color: #595959;
         cursor: not-allowed;
         pointer-events: none;
+        border-radius: .5rem 0 0 .5rem;
       }     
 
   body(class='page__body page_doc page__preload text text_color_gray-dark text_line-height_lg text_font-stack_sans-serif') 
@@ -358,7 +362,7 @@ block header
     section(class='about__col1')
       h3(class='heading heading_size_h3 about__heading') About
       p(class='text text_display_block text_size_root about__text') Biscuit is a UI component/pattern library for developing websites based on BEM methodology and a mobile-first approach.
-      p(class='text text_display_block text_size_root about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Typical examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
+      p(class='text text_display_block text_size_root about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Common examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
       img(
         src='./src/_img/logos.svg' 
         alt='Biscuit Components'
@@ -588,6 +592,7 @@ block main
       //-
       div(class='block__example')
         div(class='switch')
+          div(class='switch__preview' data-preview) Preview
           div(class='switch__code' data-code) Code
         pre(class='block__code language-javascript')
           code 
@@ -634,6 +639,7 @@ block main
 
       div(class='block__example')
         div(class='switch')
+          div(class='switch__preview' data-preview) Preview
           div(class='switch__code' data-code) Code
         pre(class='block__code language-javascript')
           code 
@@ -689,19 +695,22 @@ block main
             include:markdown-it ./src/btn/README.md
 
 
-  //- grid-auto-col
+    //- grid-simple
     +block(
-      { name: 'grid-auto-col',
-        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-auto-col',
+      { name: 'grid-simple',
+        repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-simple',
         category: 'containers',
         description: 'Responsive columns grid' }
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
-          div(class='grid-auto-col')
+          div(class='grid-simple')
 
-            div(class='grid-equal-col__item')
+            div(class='grid-simple__item')
               //- img-raster block
               figure(class='img-raster')
                 picture(class='img-raster__wrapper')   
@@ -719,7 +728,7 @@ block main
               p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
               a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-            div(class='grid-equal-col__item')
+            div(class='grid-simple__item')
               //- img-raster block
               figure(class='img-raster')
                 picture(class='img-raster__wrapper')   
@@ -737,7 +746,7 @@ block main
               p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
               a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-            div(class='grid-equal-col__item')
+            div(class='grid-simple__item')
               //- img-raster block
               figure(class='img-raster')
                 picture(class='img-raster__wrapper')   
@@ -755,18 +764,27 @@ block main
               p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
               a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
 
-            div(class='grid-auto-col__item') One
-            div(class='grid-auto-col__item') Two
-            div(class='grid-auto-col__item') Three
-            div(class='grid-auto-col__item') Four 
-            div(class='grid-auto-col__item') Five
-            div(class='grid-auto-col__item') Six
-            div(class='grid-auto-col__item') Seven
-            div(class='grid-auto-col__item') Eight
-            div(class='grid-auto-col__item') Nine
+            div(class='grid-simple__item')
+              //- img-raster block
+              figure(class='img-raster')
+                picture(class='img-raster__wrapper')
+                  img(
+                    class='img-raster__img'
+
+                    src="./src/_img/animals_landscape_lg.jpg"
+
+                    sizes="(min-width: 1800px) 100vw, (min-width: 1200px) 100vw, (min-width: 992px) 100vw, (min-width: 768px) 100vw, (min-width: 480px) 100vw, (min-width: 0) 100vw, 100vw"
+
+                    srcset="./src/_img/animals_landscape_sm.jpg 480w, ./src/_img/animals_landscape_md.jpg 768w, ./src/_img/animals_landscape_lg.jpg 992w, ./src/_img/animals_landscape_xl.jpg 1200w, ./src/_img/animals_landscape_xxl.jpg 1800w, ./src/_img/animals_landscape_xxxl.jpg 2000w"
+
+                    alt='Ships in the Field')
+              h1(class='heading heading_size_h3') Heading One Billions upon bil lions upon billions
+              p(class=`text text_display_block`) Made in the interiors of collapsing stars star stuff harvesting star light venture billions upon billions Drake Equation brain is the seed of intelligence?
+              a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') Visit Website
+
         pre(class='block__code language-javascript')
           code 
-            include:markdown-it ./src/grid-auto-col/README.md
+            include:markdown-it ./src/grid-simple/README.md
 
 
 
@@ -776,10 +794,13 @@ block main
       { name: 'grid-page-layout1',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout1',
         category: 'containers',
-        description: 'Grid page layout' }
+        description: 'Grid layout example. Use it as a starting point for building your own page layout, it is not a "ready-to-use" type of component' }
     )
 
       div(class='block__example' style="overflow: hidden;")
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='grid-page-layout1')
             div(class='grid-page-layout1__header') Header
@@ -788,8 +809,8 @@ block main
               div(class='grid-page-layout1__weather') Weather
               div(class='grid-page-layout1__article') Article. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
               div(class='grid-page-layout1__info') Info
-            div(class='grid-page-layout1__ads-l') Space L
-            div(class='grid-page-layout1__ads-r') Space R  
+            div(class='grid-page-layout1__ads-l') Space R
+            div(class='grid-page-layout1__ads-r') Space L  
             div(class='grid-page-layout1__footer') Footer
         pre(class='block__code language-javascript')
           code 
@@ -807,6 +828,9 @@ block main
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-gallery/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           ul(class='grid-gallery')
             li
@@ -852,18 +876,20 @@ block main
       { name: 'grid-page-layout2',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-page-layout2',
         category: 'containers',
-        description: 'Grid page layout' }
+        description: 'Grid layout example. Use it as a starting point for building your own page layout, it is not a "ready-to-use" type of component' }
     )
 
       div(class='block__example' style="overflow: hidden;")
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           section(class='grid-page-layout2')
-            div(class='grid-page-layout2__one').
-              One One One One One One One One One One One One One One One
+            div(class='grid-page-layout2__one') One 
             div(class='grid-page-layout2__two') Two 
             div(class='grid-page-layout2__three') Three 
             div(class='grid-page-layout2__four') Four 
-            div(class='grid-page-layout2__five') Five Five Five Five Five
+            div(class='grid-page-layout2__five') Five
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/grid-page-layout2/README.md
@@ -874,7 +900,7 @@ block main
       { name: 'img-svg',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-svg',
         category: 'images',
-        description: 'SVG image' },
+        description: 'SVG image. "img-svg" component can be implemented in one of three ways, see details in README.md on github' },
 
       { name: 'bg',
         values: ['—'],
@@ -882,6 +908,9 @@ block main
       )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           //- as <img>
           img(
@@ -916,6 +945,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           blockquote(class='blockquote text text_size_xl blockquote_theme_default') 
             p(class='blockquote__body') Big type, even huge type, can be beautiful and useful. But poise is usually far more important than size – and poise consists primarily of emptiness. Typographically, poise is made of white&space.
@@ -940,6 +972,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview' style='display: flex; flex-flow: row wrap; justify-content: space-evenly;')
           span(class='badge badge_theme_black') NEW!
           span(class='badge badge_theme_white') NEW!
@@ -961,6 +996,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview block__preview_halign_space-evenly')
           a(href='http://google.com' class='label label_theme_white') Recursion
           a(href='http://google.com' class='label label_theme_white') Callback
@@ -979,6 +1017,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview block__preview_halign_space-evenly')
           div(class='pagination')
             a(href='#wq##' class='pagination__item') &laquo;
@@ -1001,6 +1042,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           ul(class='breadcrumb')
             li(class='breadcrumb__item')
@@ -1032,7 +1076,10 @@ block main
     )
 
       div(class='block__example block__icons')
-        div(class='block__preview')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
+        div(class='block__preview block__preview_halign_space-evenly')
           a(
             href='https://github.com/ponomarevandrey' 
             class='icons' 
@@ -1041,7 +1088,7 @@ block main
             title='Github'
           )
             span(class='icons__access-label') Github
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_github`)
               use(xlink:href='./img/sprite.svg#github')
 
           a(
@@ -1052,7 +1099,7 @@ block main
             title='Facebook'
           )
             span(class='icons__access-label') Facebook
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_facebook`)
               use(xlink:href='./img/sprite.svg#facebook')
 
           a(
@@ -1063,7 +1110,7 @@ block main
             title='Instagram'
           )
             span(class='icons__access-label') Instagram
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_instagram`)
               use(xlink:href='./img/sprite.svg#instagram')
 
           a(
@@ -1074,7 +1121,7 @@ block main
             title='Odnoklassniki'
           )
             span(class='icons__access-label') Odnoklassniki
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_odnoklassniki`)
               use(xlink:href='./img/sprite.svg#odnoklassniki')
 
           a(
@@ -1085,7 +1132,7 @@ block main
             title='Telegram'
           )
             span(class='icons__access-label') Telegram
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_telegram`)
               use(xlink:href='./img/sprite.svg#telegram')
 
           a(
@@ -1096,7 +1143,7 @@ block main
             title='Twitter'
           )
             span(class='icons__access-label') Twitter
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_twitter`)
               use(xlink:href='./img/sprite.svg#twitter')
 
           a(
@@ -1107,7 +1154,7 @@ block main
             title='YouTube'
           )
             span(class='icons__access-label') YouTube
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_youtube`)
               use(xlink:href='./img/sprite.svg#youtube')
 
           a(
@@ -1118,7 +1165,7 @@ block main
             title='VKontakte'
           )
             span(class='icons__access-label') VKontakte
-            svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            svg(class=`icons__img icons__img_size_md icons__img_color_vkontakte`)
               use(xlink:href='./img/sprite.svg#vkontakte')
         pre(class='block__code language-javascript')
           code 
@@ -1134,7 +1181,10 @@ block main
     )
 
       div(class='block__example')
-        div(class='block__preview')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
+        div(class='block__preview block__preview_halign_center')
           div
             p(class='text text_display_inline') ... some text, 
               span(class='tooltip') hover the pointer
@@ -1162,6 +1212,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='embed') 
             iframe(
@@ -1187,6 +1240,9 @@ block main
     )
 
       div(class='block__example' style='overflow: noscroll;')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='table table_theme_light')
             table(class='table__container')
@@ -1263,6 +1319,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='comment')
             img(src='./src/_img/user-pic.svg' alt='Mike Wolfson' class='comment__user-pic')
@@ -1327,6 +1386,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div
             //- checkbox:
@@ -1458,12 +1520,15 @@ block main
       { name: 'grid-forms',
         repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/grid-forms',
         category: 'forms',
-        description: 'Grid-based form layout' }
+        description: 'Grid-based layout for forms' }
     )
       //-
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-forms/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           form(class='grid-forms' action='./action_page.php' method='post')
             div(style='background-color: red;') a 
@@ -1502,6 +1567,9 @@ block main
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/grid-forms/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='form-group')
             label(
@@ -1650,6 +1718,9 @@ block main
         div(class='block__readme') 
           include:markdown-it ./../blocks.biscuit-lib/select/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='form-group form-group_row')
             label(
@@ -1663,7 +1734,7 @@ block main
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/select/README.md
-      
+    
 
     //- nav-fixed
     +block(
@@ -1672,10 +1743,10 @@ block main
         category: 'components',
         description: 'Fixed navigation bar' }
     )
-      //-
-        div(class='block__readme') 
-          include:markdown-it ./../blocks.biscuit-lib/label/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='nav-fixed' style='position: relative; width: calc(100% - 2em)')
             div(class='nav-fixed__logo')
@@ -1703,10 +1774,10 @@ block main
         category: 'components',
         description: 'Main navigation' }
     )
-      //-
-        div(class='block__readme') 
-          include:markdown-it ./../blocks.biscuit-lib/nav/README.md
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           div(class='nav')
             a(href='#main' class='nav__item') Main
@@ -1727,6 +1798,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
           <button type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -1745,6 +1819,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
         pre(class='block__code language-javascript')
           code 
@@ -1761,11 +1838,14 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         div(class='block__preview')
         pre(class='block__code language-javascript')
           code 
             //- include:markdown-it ./src/modal/README.md
-    
+  
 
 
     //- page
@@ -1781,6 +1861,9 @@ block main
     )
 
       div(class='block__example')
+        div(class='switch')
+          div(class='switch__preview' data-preview) Preview
+          div(class='switch__code' data-code) Code
         pre(class='block__code language-javascript')
           code 
             include:markdown-it ./src/page/README.md
@@ -1956,46 +2039,32 @@ block script
     window.addEventListener('load', () => new Filter(document.body.querySelector('.bfilter'))); 
     
 
-    // Switch
     
     class SwitchBtn  {
-      constructor( rootNode ) {
-          
-        this._rootNode = rootNode;
-
-        this._blockPreview = document.querySelector('.block__preview');
-        this._blockCode = document.querySelector('.block__code');
-
-
-
-        document.addEventListener('click', e => this.handleClick(e));
-
-        // handle cases where there is no block__preview button ()just disable code button
-
+      constructor() {
         let blocks = document.querySelectorAll('[data-name]'); 
-
+        document.addEventListener('click', e => this.handleClick(e));      
         blocks.forEach(block => {
           if (block.querySelector('.block__preview')) {
             block.querySelector('.switch__preview').click();
           } else {
-            this._blockPreview.classList.add('.block__preview_disbaled')
+            block.querySelector('.switch__preview').classList.add('switch__preview_disabled');
+            block.querySelector('.switch__code').click();
           }
         });
       }
 
       handleClick(e) {
-        // replace dataset with <button name='code'> elements
         const [name] = Object.keys(e.target.dataset);
         const currentBlockEl = e.target.closest('.block');
+        // detect, whether we clicked a button or some other area around
+        const isButton = e.target.classList.contains('switch__preview') || e.target.classList.contains('switch__code');
 
-        if (!currentBlockEl) return;
-        if (this.isClassActive(e.target.classList)) return;
+        /* if we click outside the buttons, if we click outside the block, or if we click on an already clicked button: */
+        if (!currentBlockEl || !isButton || this.isClassActive(e.target.classList)) return;
    
-        currentBlockEl.querySelectorAll('.switch__preview, .switch__code').forEach(button => {
-          this.removeModifier(button, 'active');
-        });
+        currentBlockEl.querySelectorAll('.switch__preview, .switch__code').forEach(button => this.removeModifier(button, 'active'));
         currentBlockEl.querySelectorAll('.block__preview, .block__code').forEach(contentBlock => contentBlock.hidden = true);
-        
         
         this.addModifier(e.target, e.target.className, 'active');
         currentBlockEl.querySelector(`.block__${name}`).hidden = false;
@@ -2009,7 +2078,6 @@ block script
 
       addModifier(node, targetClass, modifierName) {
         node.classList.add(`${targetClass}_${modifierName}`);
-        //this._blockCode.hidden = true;
       }
 
       removeModifier(node, modifierName) {
@@ -2017,7 +2085,6 @@ block script
         for (let className of classes) {
           if (className.includes('active')) {
             classes.remove(className);
-            //this._blockCode.hidden = false;
           }
         }
       }

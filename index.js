@@ -1,17 +1,15 @@
 /* 
   PRIMS SYNTAX HIGHLIGHTER 
 */
+
 // Import PrismJS package
 import Prism from 'prismjs';
-
 // Import PrismJS extensions
 import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-scss';
-
 // Import Prism JS
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-
 // Highlight all matching syntax
 Prism.highlightAll();
 
@@ -79,7 +77,7 @@ import './src/grid-page-layout1/_grid-page-layout1.scss';
 
 import './src/grid-gallery/_grid-gallery.scss';
 
-import './src/grid-auto-col/_grid-auto-col.scss';
+import './src/grid-simple/_grid-simple.scss';
 
 import './src/fullscreen-bg/_fullscreen-bg.scss';
 
