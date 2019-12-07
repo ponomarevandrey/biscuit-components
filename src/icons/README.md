@@ -2,6 +2,54 @@
 
 The path inside `<use>` element should be relative to webpack `build` folder, not to `icons` component folder
 
+- whatsapp
+
+```pug
+a(
+  href='https://github.com/ponomarevandrey'
+  class='icons'
+  aria-hidden='true'
+  focusable='false'
+  title='Viber'
+)
+  span(class='icons__access-label') Whatsapp
+  svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+    use(xlink:href='./img/sprite.svg#whatsapp')
+```
+
+
+- skype
+
+```pug
+a(
+  href='https://github.com/ponomarevandrey'
+  class='icons'
+  aria-hidden='true'
+  focusable='false'
+  title='Viber'
+)
+  span(class='icons__access-label') Skype
+  svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+    use(xlink:href='./img/sprite.svg#skype')
+```
+
+
+- viber
+
+```pug
+a(
+  href='https://github.com/ponomarevandrey'
+  class='icons'
+  aria-hidden='true'
+  focusable='false'
+  title='Viber'
+)
+  span(class='icons__access-label') Viber
+  svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+    use(xlink:href='./img/sprite.svg#viber')
+```
+
+
 - github
 
 ```pug

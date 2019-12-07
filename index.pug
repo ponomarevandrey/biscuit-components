@@ -41,10 +41,10 @@ mixin block(biscuitBlock, ...allMods)
 
 
 doctype html
-html(lang='en' class='page-doc text text_size_root')
+html(lang='en' class='page-doc')
 
   head
-    meta(charset='utf-8')
+    meta(charset='UTF-8')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
     meta(name='viewport' content='width=device-width, initial-scale=1,  viewport-fit=cover, shrink-to-fit=no')
     
@@ -83,6 +83,8 @@ html(lang='en' class='page-doc text text_size_root')
         background-position: -50%;
         height: 100%;
         background-attachment: fixed;
+        color: black;
+        line-height: 1.7;
       }
 
       /* header-doc ------------------------------------------------- */
@@ -290,7 +292,7 @@ html(lang='en' class='page-doc text text_size_root')
       /* menu ---------------------------------------------------------- */  
 
       .menu {
-        padding: 1rem 1rem;
+        padding: 0 1rem;
         list-style: none;
         display: flex;
         flex-flow: row wrap;
@@ -313,6 +315,7 @@ html(lang='en' class='page-doc text text_size_root')
       .menu_responsive {
         flex-flow: column nowrap;
         width: 100%;
+        padding: 0 1rem 1rem 1rem;
         box-sizing: border-box;
         background-color: white;
         animation: transitionEffect .5s;  
@@ -335,6 +338,10 @@ html(lang='en' class='page-doc text text_size_root')
         outline: none;
         transition: transform 0.2s ease, background-color 0.2s ease,     box-shadow 0.2s ease;
         border: 1px solid transparent;
+      }
+
+      .menu .menu__link_active, .menu_responsive .menu__link_active {
+        background-color: #804000;
       }
 
       @media screen and (min-width: 768px) {
@@ -372,12 +379,6 @@ html(lang='en' class='page-doc text text_size_root')
         box-shadow: red;
         transform: translate(0, 2px);
       }
-
-      .menu__link_active {
-        background-color: #804000;
-      }
-
-
 
 
       /* hamburger icon --------------------------------------------- */
@@ -454,7 +455,7 @@ html(lang='en' class='page-doc text text_size_root')
         order: 5;
       }
 
-  body(class='page-doc__body text text_color_gray-dark text_line-height_lg text_font-stack_sans-serif') 
+  body(class='page-doc__body') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.
 
 
@@ -710,10 +711,6 @@ block main
           repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-raster',
           category: 'images',
           description: 'Raster image' },
-
-        { name: 'align-self',
-          values: ['center'],
-          description: "Center image" },
 
         { name: 'theme',
           values: ['black'],
@@ -2147,9 +2144,7 @@ block script
       removeModifier(node, modifierName) {
         let classes = node.classList;
         for (let className of classes) {
-          if (className.includes('active')) {
-            classes.remove(className);
-          }
+          if (className.includes('active')) classes.remove(className);
         }
       }
     } 
