@@ -539,36 +539,16 @@ block main
 
         { name: 'display',
           values: ['inline', 'block'],
-          description: "Display text as an inline element or as a block element i.e. a paragraph" },
-
-        { name: 'size',
-          values: ['xs', 'sm', 'root', 'lg', 'xl'],
-          description: "Text size" },
-
-        { name: 'line-height',
-          values: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-          description: "Text line height" },
-
-        { name: 'color',
-          values: ['white', 'gray-lightest', 'gray-lighten', 'gray-light', 'gray', 'gray-dark', 'gray-darken', 'gray_darkest', 'black', 'primary', 'secondary', 'success', 'warning', 'danger', 'info', 'disabled'],
-          description: 'Text color' },
-
-        { name: 'style',
-          values: ['normal', 'bold', 'italic'],
-          description: 'Text style' },
-
-        { name: 'font-stack',
-          values: ['sans-serif', 'serif', 'monospace'],
-          description: 'Text font' }         
+          description: "Display text as an inline element or as a block element i.e. a paragraph" }     
       )
         div(class='block__example')
           ul(class='switch')
             li(class='switch__preview' data-preview) Preview
             li(class='switch__code' data-code) Code
           div(class='block__preview')
-            span(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
+            p(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
 
-            p(class=`text text_display_block text_size_xl`) Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the #[span(class=`text text_display_inline`) 1500s], when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            span(class=`text text_display_block`) Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
           pre(class='block__code language-javascript')
             code 
               include:markdown-it ./src/text/README.md
@@ -643,7 +623,7 @@ block main
             li(class='switch__preview' data-preview) Preview
             li(class='switch__code' data-code) Code
           div(class='block__preview block__preview_halign_space-evenly')
-            a(href='https://github.com/ponomarevandrey' class='link') Click me, I'm a hyperlink!
+            a(href='https://github.com/ponomarevandrey' class='link') Click me, I'm a regular link!
             a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, I'm an anchor link!
           pre(class='block__code language-javascript')
             code 
@@ -702,6 +682,50 @@ block main
           pre(class='block__code language-javascript')
             code 
               include:markdown-it ./src/blockquote/README.md
+
+
+      //- lightbox
+      +block(
+        { name: 'lightbox',
+          repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/lightbox',
+          category: 'components',
+          description: 'Responsive lightbox gallery' }
+      )
+        div(class='block__example')
+          ul(class='switch')
+            li(class='switch__preview' data-preview) Preview
+            li(class='switch__code' data-code) Code
+          div(class='block__preview')
+
+            section(class='lightbox-preview') 
+              div(class='lightbox-preview__item')
+                img(class='lightbox-preview__thumbnail' data-lightbox='lightbox-image0' src='./src/_img/lightbox-img1-preview.jpg' alt='Short image description')
+              div(class='lightbox-preview__item')
+                img(class='lightbox-preview__thumbnail' data-lightbox='lightbox-image1' src='./src/_img/lightbox-img2-preview.jpg' alt='Short image description')
+              div(class='lightbox-preview__item')
+                img(class='lightbox-preview__thumbnail' data-lightbox='lightbox-image2' src='./src/_img/lightbox-img3-preview.jpg' alt='Short image description')
+              div(class='lightbox-preview__item')
+                img(class='lightbox-preview__thumbnail' data-lightbox='lightbox-image3' src='./src/_img/lightbox-img4-preview.jpg' alt='Short image description')
+
+
+            div(class='lightbox')
+              span(class='lightbox__close-btn') &times;
+
+              img(class='lightbox__dialog' id='lightbox-image0' src='./src/_img/lightbox-img1.jpg' alt='диплом')
+
+              img(class='lightbox__dialog' id='lightbox-image1' src='./src/_img/lightbox-img2.jpg' alt='диплом')
+
+              img(class='lightbox__dialog' id='lightbox-image2'  src='./src/_img/lightbox-img3.jpg' alt='сертификат')
+
+              img(class='lightbox__dialog' id='lightbox-image3'  src='./src/_img/lightbox-img4.jpg' alt='диплом')
+
+              div(class="prev" id='lightbox-btn-prev') &#10094;
+              div(class="next" id='lightbox-btn-next') &#10095;
+
+          pre(class='block__code language-javascript')
+            code 
+              include:markdown-it ./src/lightbox/README.md
+
 
 //-
     div(id='images')

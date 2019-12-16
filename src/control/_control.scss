@@ -33,7 +33,7 @@
     // create the foundation for the future checkbox/radio btn/switch:
     &:before {
       box-sizing: border-box;
-      content: '';
+      content: "";
       position: absolute;
       display: block;
       top: 0.25rem;
@@ -47,7 +47,7 @@
     // radio dot/checkmark//switch circle button:
     &:after {
       box-sizing: border-box;
-      content: '';
+      content: "";
       position: absolute;
       // by default, hide custrom control dot/checkmark:
       display: none;
@@ -73,7 +73,7 @@
     // add custom checkmark styles:
     &_checkbox:after {
       // center/50% means 'to center the image and scale it by 50%':
-      background: no-repeat center/50% url('./checkmark.svg');
+      background: no-repeat center/50% url("./checkmark.svg");
     }
 
     /****************
@@ -90,7 +90,7 @@
     &_radio:after {
       border-radius: 50%;
       // center/40% means 'to center the image and scale it by 40%':
-      background: no-repeat center/38% url('./dot.svg');
+      background: no-repeat center/38% url("./dot.svg");
     }
 
     /**********

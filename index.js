@@ -3,13 +3,13 @@
 */
 
 // Import PrismJS package
-import Prism from 'prismjs';
+import Prism from "prismjs";
 // Import PrismJS extensions
-import 'prismjs/themes/prism-tomorrow.css';
-import 'prismjs/components/prism-scss';
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-scss";
 // Import Prism JS
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 // Highlight all matching syntax
 Prism.highlightAll();
 
@@ -22,13 +22,13 @@ function requireFiles(r) {
   r.keys().forEach(r);
 }
 
-requireFiles(require.context('./src/_img/', true, /(svg|png|jpg)$/));
+requireFiles(require.context("./src/_img/", true, /(svg|png|jpg)$/));
 
 /*
   CSS RESET 
 */
 
-import './src/_reset.scss';
+import "./src/_reset.scss";
 
 /* 
   BLOCKS 
@@ -43,83 +43,86 @@ import './src/_reset.scss';
 
 // Parent blocks
 
-import './src/page/_page.scss';
-import './src/page/page.js';
+import "./src/page/_page.scss";
+import "./src/page/page.js";
 
-import './src/header/_header.scss';
+import "./src/header/_header.scss";
 
-import './src/main/_main.scss';
+import "./src/main/_main.scss";
 
-import './src/footer/_footer.scss';
+import "./src/footer/_footer.scss";
 
-import './src/text/_text.scss';
+import "./src/text/_text.scss";
 
-import './src/heading/_heading.scss';
+import "./src/heading/_heading.scss";
 
-import './src/list/_list.scss';
+import "./src/list/_list.scss";
 
-import './src/btn/_btn.scss';
+import "./src/btn/_btn.scss";
 
-import './src/btn-back-to-top/_btn-back-to-top.scss';
-import './src/btn-back-to-top/btn-back-to-top.js';
+import "./src/btn-back-to-top/_btn-back-to-top.scss";
+import "./src/btn-back-to-top/btn-back-to-top.js";
 
-import './src/link/_link.scss';
+import "./src/link/_link.scss";
 
-import './src/pagination/_pagination.scss';
+import "./src/pagination/_pagination.scss";
 
-import './src/comment/_comment.scss';
+import "./src/comment/_comment.scss";
 
-import './src/grid-forms/_grid-forms.scss';
+import "./src/grid-forms/_grid-forms.scss";
 
-import './src/grid-page-layout2/_grid-page-layout2.scss';
+import "./src/grid-page-layout2/_grid-page-layout2.scss";
 
-import './src/grid-page-layout1/_grid-page-layout1.scss';
+import "./src/grid-page-layout1/_grid-page-layout1.scss";
 
-import './src/grid-gallery/_grid-gallery.scss';
+import "./src/grid-gallery/_grid-gallery.scss";
 
-import './src/grid-simple/_grid-simple.scss';
+import "./src/grid-simple/_grid-simple.scss";
 
-import './src/fullscreen-bg/_fullscreen-bg.scss';
+import "./src/fullscreen-bg/_fullscreen-bg.scss";
 
 // Child blocks
 
-import './src/img-raster/_img-raster.scss';
+import "./src/img-raster/_img-raster.scss";
 
-import './src/img-svg/_img-svg.scss';
+import "./src/img-svg/_img-svg.scss";
 
-import './src/tooltip/_tooltip.scss';
+import "./src/tooltip/_tooltip.scss";
 
-import './src/icons/_icons.scss';
-requireFiles(require.context('./src/icons/', true, /(svg|png|jpg)$/));
+import "./src/icons/_icons.scss";
+requireFiles(require.context("./src/icons/", true, /(svg|png|jpg)$/));
 
-import './src/breadcrumbs/_breadcrumbs.scss';
+import "./src/breadcrumbs/_breadcrumbs.scss";
 
-import './src/badge/_badge.scss';
+import "./src/badge/_badge.scss";
 
-import './src/blockquote/_blockquote.scss';
+import "./src/blockquote/_blockquote.scss";
 
-import './src/code/_code.scss';
+import "./src/code/_code.scss";
 
-import './src/hr/_hr.scss';
+import "./src/hr/_hr.scss";
 
-import './src/label/_label.scss';
+import "./src/label/_label.scss";
 
-import './src/embed/_embed.scss';
+import "./src/embed/_embed.scss";
 
-import './src/table/_table.scss';
+import "./src/table/_table.scss";
 
-import './src/loader/_loader.scss';
+import "./src/loader/_loader.scss";
 
-import './src/control/_control.scss';
+import "./src/control/_control.scss";
 
-import './src/form-group/_form-group.scss';
+import "./src/form-group/_form-group.scss";
 
-import './src/nav/_nav.scss';
-import './src/nav/nav.js';
+import "./src/nav/_nav.scss";
+import "./src/nav/nav.js";
 
-import './src/nav-fixed/_nav-fixed.scss';
+import "./src/nav-fixed/_nav-fixed.scss";
 
-import './src/select/_select.scss';
+import "./src/select/_select.scss";
 
-import './src/accordion/_accordion.scss';
-import './src/accordion/accordion.js';
+import "./src/accordion/_accordion.scss";
+import "./src/accordion/accordion.js";
+
+import "./src/lightbox/_lightbox.scss";
+import "./src/lightbox/lightbox.js";

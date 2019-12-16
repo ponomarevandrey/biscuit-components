@@ -1,20 +1,20 @@
-'use strict';
+"use strict";
 /* Accordion v2 */
 
 class Accordion {
   constructor(single = false) {
-    let headers = document.querySelectorAll('.accordion .accordion__header');
+    let headers = document.querySelectorAll(".accordion .accordion__header");
 
     if (headers.length > 0) {
       if (single) {
         headers.forEach(header => {
-          header.addEventListener('click', this.singleOpen);
-          header.addEventListener('focus', this.singleOpen);
+          header.addEventListener("click", this.singleOpen);
+          header.addEventListener("focus", this.singleOpen);
         });
       } else {
         headers.forEach(header => {
-          header.addEventListener('click', this.open);
-          header.addEventListener('keyup', this.open);
+          header.addEventListener("click", this.open);
+          header.addEventListener("keyup", this.open);
         });
       }
     }
@@ -24,13 +24,13 @@ class Accordion {
      'init' invoked with default value 'false': init() */
   open(eventObj) {
     // if we press 'Enter' or if we click:
-    if (eventObj.keyCode === 13 || eventObj.type === 'click') {
+    if (eventObj.keyCode === 13 || eventObj.type === "click") {
       let content = this.nextElementSibling;
 
-      if (content.style.maxHeight) content.style.maxHeight = '';
+      if (content.style.maxHeight) content.style.maxHeight = "";
       else content.style.maxHeight = `${content.scrollHeight}px`;
 
-      this.classList.toggle('accordion__header_active');
+      this.classList.toggle("accordion__header_active");
     }
   }
 
@@ -40,18 +40,18 @@ class Accordion {
     // reset state of all panels:
 
     // 1) close all panels:
-    let contents = this.parentElement.querySelectorAll('.accordion__content');
+    let contents = this.parentElement.querySelectorAll(".accordion__content");
 
     if (contents.length > 0) {
-      contents.forEach(content => (content.style.maxHeight = ''));
+      contents.forEach(content => (content.style.maxHeight = ""));
     }
 
     // 2) reset color of all panels:
-    let headers = this.parentElement.querySelectorAll('.accordion__header');
+    let headers = this.parentElement.querySelectorAll(".accordion__header");
     if (headers.length > 0) {
       headers.forEach(header => {
-        if (header.classList.contains('accordion__header_active')) {
-          header.classList.remove('accordion__header_active');
+        if (header.classList.contains("accordion__header_active")) {
+          header.classList.remove("accordion__header_active");
         }
       });
     }
@@ -61,15 +61,15 @@ class Accordion {
     // 1) get content under current header
     let content = this.nextElementSibling;
 
-    if (content.style.maxHeight) content.style.maxHeight = '';
+    if (content.style.maxHeight) content.style.maxHeight = "";
     else content.style.maxHeight = `${content.scrollHeight}px`;
 
     // 2) change opened header color:
-    this.classList.toggle('accordion__header_active');
+    this.classList.toggle("accordion__header_active");
   }
 }
 
-window.addEventListener('load', function() {
+window.addEventListener("load", function() {
   new Accordion(true);
 });
 

@@ -9,7 +9,7 @@
   }
 
   &__item + &__item:before {
-    content: '/\00a0';
+    content: "/\00a0";
     color: black;
     padding: 0.2rem;
   }
