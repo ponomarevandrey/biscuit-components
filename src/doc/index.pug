@@ -1,0 +1,164 @@
+doctype html
+html(lang='en' class='doc-html')
+
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='x-ua-compatible' content='ie=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1,  viewport-fit=cover, shrink-to-fit=no')
+    
+    meta(name='format-detection', content='telephone=no')
+    meta(name='format-detection', content='date=no')
+    meta(name='format-detection', content='address=no')
+    meta(name='format-detection', content='email=no')
+    
+    link(rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png")
+    link(rel="manifest" href="./site.webmanifest")
+    link(rel="mask-icon" href="./safari-pinned-tab.svg" color="#aa4400")
+    meta(name="msapplication-TileColor" content="#603cba")
+    meta(name="theme-color" content="#ffffff")
+
+    meta(name='description' content='component library/boilerplate for developing websites based on BEM methodology and a mobile-first approach')
+    //- Displayed in Google search results:
+    meta(name='keywords' content='web development, bem, components, sass, javascript, pug, frontend')
+    meta(name='author' content='Andrey Ponomarev')
+    title Biscuit Components
+      
+  body(class='doc-html__body') 
+    noscript Your browser doesn't support JavaScript or you have disabled JavaScript.   
+     
+    div(class="doc-nav")
+      img(src='./img/biscuit-logo-white.svg' alt='Biscuit Logo' title='Biscuit' class='img-svg doc-nav__logo')
+      div(class='doc-nav__section') 
+        span(class='doc-nav__heading') Typography
+        a(class='doc-nav__link' href='#heading') heading
+        a(class='doc-nav__link' href='#text') text
+        a(class='doc-nav__link' href='#hr') hr
+        a(class='doc-nav__link' href='#list') list
+        a(class='doc-nav__link' href='#link') link
+        a(class='doc-nav__link' href='#code') code
+        a(class='doc-nav__link' href='#blockquote') blockquote
+
+      div(class='doc-nav__section' href='#images') 
+        span(class='doc-nav__heading') Images
+        a(class='doc-nav__link' href='#img-raster') img-raster
+        a(class='doc-nav__link' href='#img-svg') img-svg
+
+      div(class='doc-nav__section' href='#videos') 
+        span(class='doc-nav__heading') Videos
+        a(class='doc-nav__link' href='#embed') embed
+
+      div(class='doc-nav__section' href='#containers')
+        span(class='doc-nav__heading') Containers
+        a(class='doc-nav__link' href='#fulscreen-bg') fullscreen-bg
+        a(class='doc-nav__link' href='#grid-simple') grid-simple
+        a(class='doc-nav__link' href='#grid-page-layout1') grid-page-layout1
+        a(class='doc-nav__link' href='#grid-page-layout2') grid-page-layout2
+        a(class='doc-nav__link' href='#grid-gallery') grid-gallery
+        a(class='doc-nav__link' href='#page') page
+        a(class='doc-nav__link' href='#table') table
+
+      div(class='doc-nav__section' href='#components') 
+        span(class='doc-nav__heading') Components
+        a(class='doc-nav__link' href='#lightbox') lightbox
+        a(class='doc-nav__link' href='#btn-back-to-top') btn-back-to-top
+        a(class='doc-nav__link' href='#btn-close.') btn-close.
+        a(class='doc-nav__link' href='#btn') btn 
+        a(class='doc-nav__link' href='#badge') badge
+        a(class='doc-nav__link' href='#label') label
+        a(class='doc-nav__link' href='#pagination') pagination
+        a(class='doc-nav__link' href='#comment') comment
+        a(class='doc-nav__link' href='#select') select
+        a(class='doc-nav__link' href='#nav') nav
+        a(class='doc-nav__link' href='#burger-menu') burger-menu
+        a(class='doc-nav__link' href='#modal') modal
+        a(class='doc-nav__link' href='#breadcrumbs') breadcrumbs
+        a(class='doc-nav__link' href='#icons') icons
+
+      div(class='doc-nav__section' href='#forms') 
+        span(class='doc-nav__heading') Forms
+        a(class='doc-nav__link' href='#control') control
+        a(class='doc-nav__link' href='#grid-forms') grid-forms
+        a(class='doc-nav__link' href='#form-group') form-group
+
+      div(class='doc-nav__section' href='#config') 
+        span(class='doc-nav__heading') Config
+        a(class='doc-nav__link' href='#scss-config') SCSS Config
+
+    main(class='doc-content' id='demo')
+      div(class='doc-about')
+        h3(class='heading heading_size_h2 doc-about__heading') About
+        p(class='text text_display_block text_size_root about__text') Biscuit is a UI component/pattern library for developing websites based on BEM methodology and a mobile-first approach.
+        p(class='text text_display_block text_size_root about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Common examples of such blocks are #[code(class='code code_display_inline code_theme_gray') accordion], #[code(class='code code_display_inline code_theme_gray') btn], #[code(class='code code_display_inline code_theme_gray') text], #[code(class='code code_display_inline code_theme_gray') heading], #[code(class='code code_display_inline code_theme_gray') form-group], #[code(class='code code_display_inline code_theme_gray') grid-gallery], #[code(class='code code_display_inline code_theme_gray') select], #[code(class='code code_display_inline code_theme_gray') nav], ...
+        img(
+          src='./img/logos.svg' 
+          alt='Biscuit Components'
+          title='Biscuit'
+          class='img-svg doc-about__logos'
+        )
+
+        h3(class='heading heading_size_h2 doc-about__heading') Why I built it
+        p(class='text text_display_block text_size_root about__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.   Actually, I had many goals: I wanted to recall CSS fundamentals, I wanted to learn more about HTML forms, Flexbox, CSS Grid, I wanted to deepen my knowledge in CSS preprocessors, HTML templating engines and JS module bundlers. I like BEM so I also wanted to try its component approach to project organization (not the original full-stack BEM, but only its CSS-part). In addition, while I've been building some components I thought It's a great chance to learn the basics of OOP. So some components implemented as ES6 classes.
+      //-
+      div(class='blocks__typography')
+        include ./blocks/heading.pug
+        include ./blocks/text.pug
+        include ./blocks/hr.pug
+        include ./blocks/list.pug
+        include ./blocks/link.pug
+        include ./blocks/code.pug
+        include ./blocks/blockquote.pug
+    
+      div(class='blocks__images')
+        include ./blocks/img-raster.pug
+        include ./blocks/img-svg.pug
+
+      div(class='blocks__videos')
+        include ./blocks/embed.pug
+
+      div(class='blocks__containers')
+        include ./blocks/fullscreen-bg.pug
+        include ./blocks/grid-simple.pug
+        include ./blocks/grid-page-layout1
+        include ./blocks/grid-page-layout2
+        include ./blocks/grid-gallery
+        include ./blocks/page
+        include ./blocks/table
+
+      div(class='blocks__components')
+        include ./blocks/lightbox.pug
+        include ./blocks/btn-back-to-top.pug
+        include ./blocks/btn-close.pug
+        include ./blocks/btn.pug
+        include ./blocks/badge.pug
+        include ./blocks/label.pug
+        include ./blocks/pagination.pug
+        include ./blocks/comment.pug
+        include ./blocks/select.pug
+        include ./blocks/nav.pug
+        include ./blocks/burger-menu.pug
+        include ./blocks/modal.pug
+        include ./blocks/breadcrumbs.pug
+        include ./blocks/icons.pug
+
+      div(class='blocks__forms')
+        include ./blocks/control.pug
+        include ./blocks/grid-forms.pug
+        include ./blocks/form-group.pug
+
+      div(class='blocks__config' id='scss-config')
+        include ./blocks/config.pug
+
+      footer(class='doc-content__footer')
+        a(
+          href='https://github.com/ponomarevandrey' 
+          class='icons' 
+          aria-hidden='true'
+          focusable='false' 
+          title='Github'
+        )
+          span(class='icons__access-label') Github
+          svg(class=`icons__img icons__img_size_md icons__img_color_black`)
+            use(xlink:href='./img/sprite.svg#github')
+  

@@ -1,0 +1,17 @@
+include ./../block-mixin.pug
+
++block(
+  { name: 'text',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/text',
+    category: 'typography',
+    description: 'Regular text' },
+
+  { name: 'display',
+    values: ['inline', 'block'],
+    description: "Display text as an inline element or as a block element i.e. a paragraph" }     
+)
+  div(class='block__example')
+    div(class='block__preview')
+      p(class=`text_display_inline`) Lorem Ipsum is simply dummy text of the printing and typesetting industry
+
+      span(class=`text text_display_block`) Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.

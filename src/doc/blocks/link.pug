@@ -1,0 +1,16 @@
+include ./../block-mixin.pug
+
++block(
+  { name: 'link',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/link',
+    category: 'typography',
+    description: '' },
+
+  { name: 'anchor',
+    values: undefined,
+    description: 'Anchor link. Adds small anchor icon after link' }
+)
+  div(class='block__example')
+    div(class='block__preview block__preview_halign_space-evenly')
+      a(href='https://github.com/ponomarevandrey' class='link') Click me, I'm a regular link!
+      a(href='https://github.com/ponomarevandrey' class='link link_anchor') Click me, I'm an anchor link!

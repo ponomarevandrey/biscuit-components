@@ -17,7 +17,6 @@ a(
     use(xlink:href='./img/sprite.svg#whatsapp')
 ```
 
-
 - skype
 
 ```pug
@@ -33,7 +32,6 @@ a(
     use(xlink:href='./img/sprite.svg#skype')
 ```
 
-
 - viber
 
 ```pug
@@ -48,7 +46,6 @@ a(
   svg(class=`icons__img icons__img_size_md icons__img_color_black`)
     use(xlink:href='./img/sprite.svg#viber')
 ```
-
 
 - github
 

@@ -21,8 +21,7 @@
   ],
   "dependencies": {
     "jstransformer-markdown-it": "^2.1.0",
-    "npm": "^6.11.3",
-    "prismjs": "^1.15.0"
+    "npm": "^6.13.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -33,7 +32,7 @@
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "biscuit-components": "^1.0.2",
-    "copy-webpack-plugin": "^5.0.4",
+    "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
@@ -52,7 +51,6 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.17.0",
     "prettier-webpack-plugin": "^1.2.0",
-    "prismjs": "^1.17.1",
     "pug": "^2.0.3",
     "pug-cli": "^1.0.0-alpha6",
     "pug-html-loader": "^1.1.5",

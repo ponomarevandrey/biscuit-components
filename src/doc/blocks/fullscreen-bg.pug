@@ -1,0 +1,16 @@
+include ./../block-mixin.pug
+
+  +block(
+    { name: 'fullscreen-bg',
+      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/fullscreen-bg',
+      category: 'containers',
+      description: 'Fullscreen background' },
+
+    { name: 'color',
+      values: ['black', 'white'],
+      description: 'Background color' },
+
+    { name: 'media',
+      values: ['img'],
+      description: 'Full screen background image' }
+  )

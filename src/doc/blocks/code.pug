@@ -1,0 +1,22 @@
+include ./../block-mixin.pug
+
++block(
+  { name: 'code',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/code',
+    category: 'typography',
+    description: '' },
+
+  { name: 'display',
+    values: ['block', 'inline'],
+    description: 'Display code as a line or as a block' }
+)
+  div(class='block__example')
+    div(class='block__preview')
+      //- inline code
+      p(class='text text_display_block text_size_root text_color_black') It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum #[code(class='code code_display_inline text text_size_sm code_theme_gray') console.log( a ) !!!;] it was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      //- code block
+      pre(class='code code_display_block text text_size_sm code_theme_gray')
+        code. 
+          window.addEventListener( 'load', => {
+            console.log('Ready');
+          })}

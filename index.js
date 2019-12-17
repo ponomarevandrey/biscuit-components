@@ -1,38 +1,30 @@
-/* 
-  PRIMS SYNTAX HIGHLIGHTER 
-*/
-
-// Import PrismJS package
-import Prism from "prismjs";
-// Import PrismJS extensions
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-scss";
-// Import Prism JS
-import "prismjs/plugins/line-numbers/prism-line-numbers";
-import "prismjs/plugins/line-numbers/prism-line-numbers.css";
-// Highlight all matching syntax
-Prism.highlightAll();
-
-/* 
-  HELPER FUNCTIONS
-*/
+/*
+ * HELPER FUNCTIONS
+ */
 
 // function for requiring images:
 function requireFiles(r) {
   r.keys().forEach(r);
 }
 
-requireFiles(require.context("./src/_img/", true, /(svg|png|jpg)$/));
+requireFiles(require.context("./src/doc/img/", true, /(svg|png|jpg)$/));
 
 /*
-  CSS RESET 
-*/
+ * CSS RESET
+ */
 
-import "./src/_reset.scss";
+import "./src/blocks/_reset.scss";
 
-/* 
-  BLOCKS 
-*/
+/*
+ *  DOCUMENTATION STYLES
+ */
+
+import "./src/doc/_index.scss";
+// import "./src/doc/index.js";
+
+/*
+ * BLOCKS
+ */
 
 /* To control the CSS cascade and inheritance while importing blocks into the project, all blocks divided into two main groups:
 
@@ -43,86 +35,82 @@ import "./src/_reset.scss";
 
 // Parent blocks
 
-import "./src/page/_page.scss";
-import "./src/page/page.js";
+import "./src/blocks/page/_page.scss";
+import "./src/blocks/page/page.js";
 
-import "./src/header/_header.scss";
+import "./src/blocks/header/_header.scss";
 
-import "./src/main/_main.scss";
+import "./src/blocks/main/_main.scss";
 
-import "./src/footer/_footer.scss";
+import "./src/blocks/footer/_footer.scss";
 
-import "./src/text/_text.scss";
+import "./src/blocks/text/_text.scss";
 
-import "./src/heading/_heading.scss";
+import "./src/blocks/heading/_heading.scss";
 
-import "./src/list/_list.scss";
+import "./src/blocks/list/_list.scss";
 
-import "./src/btn/_btn.scss";
+import "./src/blocks/btn/_btn.scss";
 
-import "./src/btn-back-to-top/_btn-back-to-top.scss";
-import "./src/btn-back-to-top/btn-back-to-top.js";
+import "./src/blocks/btn-back-to-top/_btn-back-to-top.scss";
+import "./src/blocks/btn-back-to-top/btn-back-to-top.js";
 
-import "./src/link/_link.scss";
+import "./src/blocks/link/_link.scss";
 
-import "./src/pagination/_pagination.scss";
+import "./src/blocks/pagination/_pagination.scss";
 
-import "./src/comment/_comment.scss";
+import "./src/blocks/comment/_comment.scss";
 
-import "./src/grid-forms/_grid-forms.scss";
+import "./src/blocks/grid-forms/_grid-forms.scss";
 
-import "./src/grid-page-layout2/_grid-page-layout2.scss";
+import "./src/blocks/grid-page-layout2/_grid-page-layout2.scss";
 
-import "./src/grid-page-layout1/_grid-page-layout1.scss";
+import "./src/blocks/grid-page-layout1/_grid-page-layout1.scss";
 
-import "./src/grid-gallery/_grid-gallery.scss";
+import "./src/blocks/grid-gallery/_grid-gallery.scss";
 
-import "./src/grid-simple/_grid-simple.scss";
+import "./src/blocks/grid-simple/_grid-simple.scss";
 
-import "./src/fullscreen-bg/_fullscreen-bg.scss";
+import "./src/blocks/fullscreen-bg/_fullscreen-bg.scss";
 
 // Child blocks
 
-import "./src/img-raster/_img-raster.scss";
+import "./src/blocks/img-raster/_img-raster.scss";
 
-import "./src/img-svg/_img-svg.scss";
+import "./src/blocks/img-svg/_img-svg.scss";
 
-import "./src/tooltip/_tooltip.scss";
+import "./src/blocks/icons/_icons.scss";
+requireFiles(require.context("./src/blocks/icons/", true, /(svg|png|jpg)$/));
 
-import "./src/icons/_icons.scss";
-requireFiles(require.context("./src/icons/", true, /(svg|png|jpg)$/));
+import "./src/blocks/breadcrumbs/_breadcrumbs.scss";
 
-import "./src/breadcrumbs/_breadcrumbs.scss";
+import "./src/blocks/badge/_badge.scss";
 
-import "./src/badge/_badge.scss";
+import "./src/blocks/blockquote/_blockquote.scss";
 
-import "./src/blockquote/_blockquote.scss";
+import "./src/blocks/code/_code.scss";
 
-import "./src/code/_code.scss";
+import "./src/blocks/hr/_hr.scss";
 
-import "./src/hr/_hr.scss";
+import "./src/blocks/label/_label.scss";
 
-import "./src/label/_label.scss";
+import "./src/blocks/embed/_embed.scss";
 
-import "./src/embed/_embed.scss";
+import "./src/blocks/table/_table.scss";
 
-import "./src/table/_table.scss";
+import "./src/blocks/loader/_loader.scss";
 
-import "./src/loader/_loader.scss";
+import "./src/blocks/control/_control.scss";
 
-import "./src/control/_control.scss";
+import "./src/blocks/form-group/_form-group.scss";
 
-import "./src/form-group/_form-group.scss";
+import "./src/blocks/nav/_nav.scss";
+import "./src/blocks/nav/nav.js";
 
-import "./src/nav/_nav.scss";
-import "./src/nav/nav.js";
+import "./src/blocks/select/_select.scss";
 
-import "./src/nav-fixed/_nav-fixed.scss";
+import "./src/blocks/accordion/_accordion.scss";
+import "./src/blocks/accordion/accordion.js";
 
-import "./src/select/_select.scss";
-
-import "./src/accordion/_accordion.scss";
-import "./src/accordion/accordion.js";
-
-import "./src/lightbox/_lightbox.scss";
-import "./src/lightbox/lightbox.js";
+import "./src/blocks/lightbox/_lightbox.scss";
+import "./src/blocks/lightbox/lightbox.js";

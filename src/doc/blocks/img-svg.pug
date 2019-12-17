@@ -1,0 +1,29 @@
+include ./../block-mixin.pug
+
++block(
+  { name: 'img-svg',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/img-svg',
+    category: 'images',
+    description: 'SVG image. "img-svg" component can be implemented in one of three ways, see details in README.md on github' },
+
+  { name: 'bg',
+    values: ['—'],
+    description: 'Implement SVG as background-image property' }
+  )
+  div(class='block__example')
+    div(class='block__preview')
+      //- as <img>
+      img(
+        src='./img/logo.svg' 
+        alt='Logoipsum logo'
+        title='Logoipsum'
+        class='img-svg'
+      )
+      //- as CSS background-image
+      div(class='img-svg img-svg_bg')
+      //- and if you need interactivity, use SVG with the help of <object> tag
+      object(
+        type="image/svg+xml" 
+        data='./img/logo.svg'
+        class=`img-svg ${classList}`
+      ) Your browser does not support SVG

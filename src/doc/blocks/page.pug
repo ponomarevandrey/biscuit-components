@@ -1,0 +1,12 @@
+include ./../block-mixin.pug
+
+  +block(
+    { name: 'page',
+      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/page',
+      category: 'containers',
+      description: "This is a service type of blog that defines styles for the whole page. It is already assigned to the necessary elements (<html> and <body>) in PUG templates, so don't modify or delete any 'page'-related classes. Also, this is the block, through which we import all custom fonts making them available in all SASS files" },
+
+    { name: 'bg',
+      values: ['solid', 'gradient', 'img'],
+      description: "(apply to 'page__body' element) Apllies fixed background to the full page height" }
+  )

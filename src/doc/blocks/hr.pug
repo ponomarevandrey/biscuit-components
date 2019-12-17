@@ -1,0 +1,15 @@
+include ./../block-mixin.pug
+
++block(
+  { name: 'hr',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/hr',
+    category: 'typography',
+    description: 'Horizontal line' },
+
+  { name: 'color',
+    values: ['black', 'white'],
+    description: 'Line color' }
+)
+  div(class='block__example')
+    div(class='block__preview')
+      hr(class='hr hr_color_black')

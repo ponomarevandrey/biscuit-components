@@ -1,0 +1,18 @@
+include ./../block-mixin.pug
+
+  +block(
+    { name: 'label',
+      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
+      category: 'components',
+      description: 'Label' },
+
+    { name: 'theme',
+      values: ['black', 'white'],
+      description: 'Clickable label' }
+  )
+    div(class='block__example')
+      div(class='block__preview block__preview_halign_space-evenly')
+        a(href='http://google.com' class='label label_theme_white') Recursion
+        a(href='http://google.com' class='label label_theme_white') Callback
+        a(href='http://google.com' class='label label_theme_white') Prototypes
+

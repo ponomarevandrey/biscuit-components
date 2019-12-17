@@ -1,0 +1,14 @@
+include ./../block-mixin.pug
+
+  +block(
+    { name: 'btn-close',
+      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/btn-close',
+      category: 'components',
+      description: 'Close button' }
+  )
+
+    div(class='block__example')
+      div(class='block__preview')
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
