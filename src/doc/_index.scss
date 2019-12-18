@@ -11,6 +11,8 @@ $color_brand_blue_light: #424857;
   scroll-behavior: auto;
 
   &__body {
+    max-width: 100%;
+
     line-height: 1.7;
     color: black;
 
@@ -22,19 +24,25 @@ $color_brand_blue_light: #424857;
 }
 
 .doc-nav {
+  position: fixed;
+  height: 100%;
+  width: 280px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
   box-sizing: border-box;
   padding: 0 0 0 2rem;
 
   list-style: none;
-  background-color: $color_brand_blue-dark;
 
-  height: 100%;
-  width: 280px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
+  background-color: $color_brand_blue-dark;
   overflow-x: hidden;
+
+  &__logo {
+    margin: 1em 1em 0 0;
+    max-width: 10em;
+  }
 
   &__section {
     display: block;
@@ -91,13 +99,8 @@ $color_brand_blue_light: #424857;
     }
 
     &:hover {
-      color: $color_brand_pink;
+      color: $color_brand_brown-lightest;
       cursor: pointer;
-    }
-
-    &__logo {
-      margin: 1em 1em 0 0;
-      max-width: 10em;
     }
 
     /*
@@ -120,7 +123,7 @@ $color_brand_blue_light: #424857;
     & &__link_active,
     &_responsive &__link_active {
       padding-left: 1rem;
-      border-left: 0.5rem solid $color_brand_pink;
+      border-left: 0.5rem solid $color_brand_brown-lightest;
     }
   }
 }
@@ -141,7 +144,7 @@ $color_brand_blue_light: #424857;
 }
 
 .doc-content {
-  margin: 2em 2em 0 280px;
+  margin: 2em 2em 0 310px; // padding from menu (sidebar)
   display: grid;
   grid-auto-columns: rows;
   grid-gap: 4rem;

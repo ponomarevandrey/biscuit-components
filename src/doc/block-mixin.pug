@@ -1,7 +1,7 @@
 //- mixin for creating a block for each component of the library:
 
 mixin block(biscuitBlock, ...mods)
-  section(class='block')
+  section(class='block' id=`${biscuitBlock.name}`)
     div(class='block__about')
       header(class='block__header') 
         span(class='heading heading_size_h1') #{biscuitBlock.name}
@@ -30,4 +30,4 @@ mixin block(biscuitBlock, ...mods)
                       each value in mod.values
                         code(class='code code_display_inline code_theme_gray') #{value}
                   td(class='doc-table__cell table__cell_type_main doc-table__col3') #{mod.description}
-    block    
+    block

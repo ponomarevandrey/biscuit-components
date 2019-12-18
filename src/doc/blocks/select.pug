@@ -1,24 +1,23 @@
 include ./../block-mixin.pug
 
-  //- select
-  +block(
-    { name: 'select',
-      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/select',
-      category: 'components',
-      description: 'Custom select' }
-  )
-    //-
-      div(class='block__readme') 
-        include:markdown-it ./../blocks.biscuit-lib/select/README.md
-    div(class='block__example')
-      div(class='block__preview')
-        div(class='form-group form-group_row')
-          label(
-            for='selectbox1' 
-            class='form-group__label') Color
-          div(class='form-group__container')
-            select(class='form-group__selectbox' id='selectbox1' name='country')
-              option(value='australia') Red
-              option(value='canada') Green
-              option(value='usa') Blue
++block(
+  { name: 'select',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/select',
+    category: 'components',
+    description: 'Custom select' }
+)
+  //-
+    div(class='block__readme') 
+      include:markdown-it ./../blocks.biscuit-lib/select/README.md
+  div(class='block__example')
+    div(class='block__preview')
+      div(class='form-group form-group_row')
+        label(
+          for='selectbox1' 
+          class='form-group__label') Color
+        div(class='form-group__container')
+          select(class='form-group__selectbox' id='selectbox1' name='country')
+            option(value='australia') Red
+            option(value='canada') Green
+            option(value='usa') Blue
 

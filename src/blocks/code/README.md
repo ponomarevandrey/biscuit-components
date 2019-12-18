@@ -3,13 +3,13 @@
 - inline code:
 
 ```pug
-code(class='code code_display_inline text text_size_sm code_theme_gray') console.log( a ) !!!;
+code(class='code code_display_inline') console.log( a ) !!!;
 ```
 
 - block code:
 
 ```pug
-pre(class='code code_display_block text text_size_sm code_theme_gray')
+pre(class='code code_display_block')
   code.
     window.addEventListener( 'load', => {
       console.log('Ready');

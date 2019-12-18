@@ -1,15 +1,15 @@
 include ./../block-mixin.pug
 
-  +block(
-    { name: 'nav',
-      repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav',
-      category: 'components',
-      description: 'Main navigation' }
-  )
-    div(class='block__example')
-      div(class='block__preview')
-        div(class='nav')
-          a(href='#main' class='nav__item') Main
-          a(href='#main' class='nav__item') Portfolio
-          a(href='#about' class='nav__item nav__item_active') About
-          a(href='#contacts' class='nav__item') Contacts
++block(
+  { name: 'nav',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/nav',
+    category: 'components',
+    description: 'Main navigation' }
+)
+  div(class='block__example')
+    div(class='block__preview')
+      div(class='nav')
+        a(href='#main' class='nav__item') Main
+        a(href='#main' class='nav__item') Portfolio
+        a(href='#about' class='nav__item nav__item_active') About
+        a(href='#contacts' class='nav__item') Contacts
