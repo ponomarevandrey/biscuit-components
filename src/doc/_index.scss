@@ -24,9 +24,10 @@ $color_brand_blue_light: #424857;
 }
 
 .doc-nav {
+  //display: none;
   position: fixed;
   height: 100%;
-  width: 280px;
+  width: 260px;
   z-index: 1;
   top: 0;
   left: 0;
@@ -38,6 +39,10 @@ $color_brand_blue_light: #424857;
 
   background-color: $color_brand_blue-dark;
   overflow-x: hidden;
+
+  @media screen and (min-width: 768px) {
+    display: block;
+  }
 
   &__logo {
     margin: 1em 1em 0 0;
@@ -102,33 +107,40 @@ $color_brand_blue_light: #424857;
       color: $color_brand_brown-lightest;
       cursor: pointer;
     }
-
     /*
-  &_responsive &__link {
-    display: block;
-  padding: 0.5rem 1rem;
-    margin: 0.2rem;
-  
-    text-decoration: none;
-    color: white;
-  
-    background-color: #333;
-    border-radius: 0.5rem;
-    outline: none;
-    transition: transform 0.2s ease, background-color 0.2s ease,
-      box-shadow 0.2s ease;
-    border: 1px solid transparent;
-  }
-  */
+    &_responsive &__link {
+      display: block;
+      padding: 0.5rem 1rem;
+      margin: 0.2rem;
+
+      text-decoration: none;
+      color: white;
+
+      background-color: #333;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: transform 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease;
+      border: 1px solid transparent;
+    }
+
     & &__link_active,
     &_responsive &__link_active {
       padding-left: 1rem;
       border-left: 0.5rem solid $color_brand_brown-lightest;
     }
+    */
   }
 }
 
-.doc-about {
+.doc-content {
+  margin: 2em 0 0 0; // padding from menu (sidebar)
+  padding: 1em;
+
+  @media screen and (min-width: 768px) {
+    margin: 2em 2em 0 280px; // padding from menu (sidebar)
+  }
+
   &__heading {
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
@@ -141,13 +153,6 @@ $color_brand_blue_light: #424857;
     max-width: 500px;
     padding: 1rem 0 2.5rem 0;
   }
-}
-
-.doc-content {
-  margin: 2em 2em 0 310px; // padding from menu (sidebar)
-  display: grid;
-  grid-auto-columns: rows;
-  grid-gap: 4rem;
 
   &__footer {
     padding: 2rem 2rem;
@@ -155,19 +160,9 @@ $color_brand_blue_light: #424857;
   }
 }
 
-.blocks__typography,
-.blocks__images,
-.blocks__videos,
-.blocks__components,
-.blocks__containers,
-.blocks__forms,
-.blocks__config {
-  display: grid;
-  grid-auto-columns: rows;
-  grid-gap: 4rem;
-}
-
 .block {
+  margin: 0 0 4em 0;
+
   &__header {
     display: flex;
     flex-flow: row wrap;
@@ -176,6 +171,11 @@ $color_brand_blue_light: #424857;
     font-family: $font-stack_consolas;
 
     overflow: hidden;
+
+    &__about {
+      max-width: 100%;
+      overflow: hidden;
+    }
 
     & .icons {
       display: flex;
@@ -186,22 +186,17 @@ $color_brand_blue_light: #424857;
   }
 
   &__example {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    margin-top: 2rem;
-  }
-
-  &__preview {
     width: 100%;
     box-sizing: border-box;
     padding: 1rem;
+    overflow: hidden;
+    margin-top: 1em;
 
     background-color: white;
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
 
-    /* adjust blocks' preview: */
+    // adjust blocks' preview:
     &_halign_space-evenly {
       display: flex;
       flex-flow: row wrap;
@@ -280,13 +275,14 @@ $color_brand_blue_light: #424857;
   }
 }
 
-.menu__icon {
+.doc-nav__icon {
   position: absolute;
   top: 1rem;
   right: 2vw;
 
   display: block;
 
+  border: 5px solid red;
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
@@ -312,50 +308,5 @@ $color_brand_blue_light: #424857;
   }
   &_animate &_item3 {
     transform: rotate(45deg) translate(-8px, -8px);
-  }
-}
-
-.switch {
-  display: flex;
-  flex-flow: row;
-  background-color: black;
-  list-style: none;
-  box-sizing: border-box;
-
-  color: white;
-  font-size: $font-size_sm;
-
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-
-  &__preview,
-  &__code {
-    max-width: 10em;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-
-    text-align: center;
-
-    cursor: pointer;
-    transition: ease 0.3s;
-  }
-
-  &__preview_active {
-    background-color: #804000;
-    border-radius: 0.5rem 0 0 0.5rem;
-  }
-
-  &__code_active {
-    background-color: #804000;
-    border-radius: 0 0.5rem 0.5rem 0;
-  }
-
-  &__preview_disabled {
-    color: #a6a6a6;
-
-    background-color: #595959;
-    cursor: not-allowed;
-    pointer-events: none;
-    border-radius: 0.5rem 0 0 0.5rem;
   }
 }

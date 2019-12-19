@@ -30,6 +30,8 @@ html(lang='en' class='doc-html')
   body(class='doc-html__body') 
     noscript Your browser doesn't support JavaScript or you have disabled JavaScript.   
      
+
+     
     div(class="doc-nav")
       img(src='./img/biscuit-logo-white.svg' alt='Biscuit Logo' title='Biscuit' class='img-svg doc-nav__logo')
       div(class='doc-nav__section') 
@@ -88,23 +90,23 @@ html(lang='en' class='doc-html')
         span(class='doc-nav__heading') Config
         a(class='doc-nav__link' href='https://github.com/ponomarevandrey/biscuit-components/blob/master/src/blocks/_global.scss') SCSS Config
 
+      a(class='doc-nav__icon')
+        div(class='doc-nav__icon_item1')
+        div(class='doc-nav__icon_item2')
+        div(class='doc-nav__icon_item3')
+
     main(class='doc-content' id='demo')
-      div(class='doc-about')
-        h3(class='heading heading_size_h2 doc-about__heading') About
-        p(class='text text_display_block text_size_root about__text') Biscuit is a UI component/pattern library for developing websites based on BEM methodology and a mobile-first approach.
-        p(class='text text_display_block text_size_root about__text') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Common examples of such blocks are #[code(class='code code_display_inline') accordion], #[code(class='code code_display_inline') btn], #[code(class='code code_display_inline') text], #[code(class='code code_display_inline') heading], #[code(class='code code_display_inline') form-group], #[code(class='code code_display_inline') grid-gallery], #[code(class='code code_display_inline') select], #[code(class='code code_display_inline') nav], ...
+      div(class='doc-content__about')
+        h3(class='heading heading_size_h2 doc-content__heading') About
+        p(class='text text_display_block') Biscuit is a UI component/pattern library for developing websites based on BEM methodology and a mobile-first approach.
+        p(class='text text_display_block') Biscuit splits up all page elements into reusable BEM-blocks (components) implemented in Sass/JavaScript/Pug. Examples of such blocks are #[code(class='code code_display_inline') accordion], #[code(class='code code_display_inline') btn], #[code(class='code code_display_inline') text], #[code(class='code code_display_inline') heading], #[code(class='code code_display_inline') form-group], #[code(class='code code_display_inline') grid-gallery], #[code(class='code code_display_inline') select], #[code(class='code code_display_inline') nav], ...
         img(
           src='./img/logos.svg' 
           alt='Biscuit Components'
           title='Biscuit'
-          class='img-svg doc-about__logos'
+          class='img-svg doc-content__logos'
         )
-      div(class='doc-about')
-        h3(class='heading heading_size_h2 doc-about__heading') Why I built it
-        p(class='text text_display_block text_size_root about__text') Sometimes there is a need to create just a simple landing page or a small website. Using CSS frameworks like Bootstrap or Foundation would be an obvious solution, but ... I like to understand how my tool (framework) works under the hood. That is why I built Biscuit. When I need to develop a small page/website I copy the entire component folder or chunks of code to my new project, add/edit some files and that's it.   Actually, I had many goals: I wanted to recall CSS fundamentals, I wanted to learn more about HTML forms, Flexbox, CSS Grid, I wanted to deepen my knowledge in CSS preprocessors, HTML templating engines and JS module bundlers. I like BEM so I also wanted to try its component approach to project organization (not the original full-stack BEM, but only its CSS-part). In addition, while I've been building some components I thought It's a great chance to learn the basics of OOP. So some components implemented as ES6 classes.
 
-
-      div(class='blocks__typography')
         include ./blocks/heading.pug
         include ./blocks/text.pug
         include ./blocks/hr.pug
@@ -112,12 +114,12 @@ html(lang='en' class='doc-html')
         include ./blocks/link.pug
         include ./blocks/code.pug
         include ./blocks/blockquote.pug
-    
-      div(class='blocks__images')
+  
         include ./blocks/img-raster.pug
         include ./blocks/img-svg.pug
 
-      div(class='blocks__containers')
+        include ./blocks/embed.pug
+
         include ./blocks/fullscreen-bg.pug
         include ./blocks/grid-simple.pug
         include ./blocks/grid-page-layout1.pug
@@ -126,7 +128,6 @@ html(lang='en' class='doc-html')
         include ./blocks/page.pug
         include ./blocks/table.pug
 
-      div(class='blocks__components')
         include ./blocks/lightbox.pug
         include ./blocks/btn-back-to-top.pug
         include ./blocks/btn-close.pug
@@ -142,7 +143,6 @@ html(lang='en' class='doc-html')
         include ./blocks/breadcrumbs.pug
         include ./blocks/icons.pug
 
-      div(class='blocks__forms')
         include ./blocks/control.pug
         include ./blocks/grid-forms
         include ./blocks/form-group.pug

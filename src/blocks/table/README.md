@@ -1,7 +1,7 @@
 # How to use
 
 ```pug
-div(class='table table_theme_light')
+div(class='table')
   table(class='table__container')
     caption(class='table__caption') Table 1.1 Playlist
     thead

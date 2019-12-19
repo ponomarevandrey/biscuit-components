@@ -10,9 +10,8 @@ include ./../block-mixin.pug
     div(class='block__readme') 
       include:markdown-it ./../blocks.biscuit-lib/grid-forms/README.md
   div(class='block__example')
-    div(class='block__preview')
-      form(class='grid-forms' action='./action_page.php' method='post')
-        div(style='background-color: red;') a 
-        div(style='background-color: blue;') b 
-        div(style='background-color: green;') c 
-        div(style='background-color: pink;') d
+    form(class='grid-forms' action='./action_page.php' method='post')
+      div(style='background-color: red;') a 
+      div(style='background-color: blue;') b 
+      div(style='background-color: green;') c 
+      div(style='background-color: pink;') d

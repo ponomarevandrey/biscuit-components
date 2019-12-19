@@ -20,7 +20,7 @@ import "./src/blocks/_reset.scss";
  */
 
 import "./src/doc/_index.scss";
-// import "./src/doc/index.js";
+import "./src/doc/index.js";
 
 /*
  * BLOCKS

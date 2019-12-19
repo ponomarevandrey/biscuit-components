@@ -19,22 +19,21 @@ include ./../block-mixin.pug
     description: 'Type of button' }
 )
 
-  div(class='block__example')
-    div(class='block__preview block__preview_halign_space-evenly')
-      //- <a> button
-      //- enabled
-      a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') a link
-      //- disabled
-      a(class='btn btn_theme_black btn_size_md btn_disabled' href='https://github.com/ponomarevandrey') a link
-    
-      //- <button> button
-      //- enabled
-      button(type='button' class='btn btn_theme_black btn_size_md') Button
-      //- disabled
-      button(class='btn btn_theme_black btn_size_md btn_disabled' disabled) Button
+  div(class='block__example block__preview_halign_space-evenly')
+    //- <a> button
+    //- enabled
+    a(class='btn btn_theme_black btn_size_md' href='https://github.com/ponomarevandrey') a link
+    //- disabled
+    a(class='btn btn_theme_black btn_size_md btn_disabled' href='https://github.com/ponomarevandrey') a link
+  
+    //- <button> button
+    //- enabled
+    button(type='button' class='btn btn_theme_black btn_size_md') Button
+    //- disabled
+    button(class='btn btn_theme_black btn_size_md btn_disabled' disabled) Button
 
-      //- <input> button
-      //- enabled
-      input(type='button' value='Input' class='btn btn_theme_black btn_size_md')   
-      //- disabled
-      input(type='button' value='Input' class='btn btn_theme_black btn_size_md btn_disabled' disabled) 
+    //- <input> button
+    //- enabled
+    input(type='button' value='Input' class='btn btn_theme_black btn_size_md')   
+    //- disabled
+    input(type='button' value='Input' class='btn btn_theme_black btn_size_md btn_disabled' disabled) 

@@ -9,9 +9,8 @@ include ./../block-mixin.pug
   { name: 'bg',
     values: undefined,
     description: 'Use SVG as background-image' }
-  )
+)
   div(class='block__example')
-    div(class='block__preview')
       //- as <img>
       img(
         src='./img/logo.svg' 
@@ -27,23 +26,3 @@ include ./../block-mixin.pug
         data='./img/logo.svg'
         class=`img-svg ${classList}`
       ) Your browser does not support SVG
-
-div(class='blocks__videos')
-+block(
-  { name: 'embed',
-    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/label',
-    category: 'videos',
-    description: 'Embeded content (youtube videos, ...)' },
-
-  { name: 'ratio',
-    values: ['4x3'],
-    description: 'Aspect ratio' }
-)
-  div(class='block__example')
-    div(class='block__preview')
-      div(class='embed') 
-        iframe(
-          src='https://www.youtube.com/embed/oRkNaF0QvnI'
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullsc
-        )
