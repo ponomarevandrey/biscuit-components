@@ -7,3 +7,9 @@ include ./../block-mixin.pug
     description: 'Modal window' }
 )
   div(class='block__example')
+
+    div(class='modal modal_confirm')
+      span(class='modal__close-btn') &times;
+
+      div(class='modal__dialog modal__dialog_confirm' id='confirm-order-dialog')
+        span(class='text text_display_inline') Content

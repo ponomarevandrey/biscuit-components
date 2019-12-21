@@ -96,15 +96,17 @@ class Lightbox {
   }
 }
 
-new Lightbox({
-  // class names used in HTML related to Lightbox window component:
-  classes: {
-    backdrop: "lightbox",
-    backdropStateModifier: "lightbox_visible",
-    dialogStateModifier: "lightbox__dialog_visible",
-    closeBtn: "lightbox__close-btn",
-    prevBtn: "lightbox-btn-prev",
-    nextBtn: "lightbox-btn-next",
-    video: "embed",
-  },
+window.addEventListener("load", function(e) {
+  new Lightbox({
+    // class names used in HTML related to Lightbox window component:
+    classes: {
+      backdrop: "lightbox",
+      backdropStateModifier: "lightbox_visible",
+      dialogStateModifier: "lightbox__dialog_visible",
+      closeBtn: "lightbox__close-btn",
+      prevBtn: "lightbox-btn-prev",
+      nextBtn: "lightbox-btn-next",
+      video: "embed",
+    },
+  });
 });

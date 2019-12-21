@@ -4,18 +4,19 @@
 // * VARIABLES *
 // *************
 
+// font-family
+$font-stack_lato: Lato, Helvetica, Tahoma, Arial, Verdana, sans-serif;
+$font-stack_georgia: Georgia, "Big Caslon", "Hoefler Text", Garamond,
+  Baskerville, "Palatino Linotype", "Times New Roman", Times, serif;
+$font-stack_consolas: Consolas, "Lucida Console", "Lucida Sans Typewriter",
+  "Courier New", Courier, monospace;
+
 // font size
 $font-size_root: 16px;
 $font-size_xs: 0.7rem;
 $font-size_sm: 0.87rem;
 $font-size_lg: 1.2rem;
 $font-size_xl: 1.4rem;
-
-$font-stack_lato: Lato, Helvetica, Tahoma, Arial, Verdana, sans-serif;
-$font-stack_georgia: Georgia, "Big Caslon", "Hoefler Text", Garamond,
-  Baskerville, "Palatino Linotype", "Times New Roman", Times, serif;
-$font-stack_consolas: Consolas, "Lucida Console", "Lucida Sans Typewriter",
-  "Courier New", Courier, monospace;
 
 $font-size_h1: 3.052rem;
 $font-size_h2: 2.441rem;
