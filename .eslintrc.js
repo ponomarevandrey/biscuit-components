@@ -18,6 +18,7 @@ module.exports = {
       'func-names': ['error', 'never'],
       'no-console': 'off',
       'prettier/prettier': ['error'],
-      'no-multiple-empty-lines': ['error', {'max': 4}]
+      'no-multiple-empty-lines': ['error', {'max': 4}],
     },
+    
 };

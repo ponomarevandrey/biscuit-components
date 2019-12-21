@@ -42,8 +42,8 @@
 
       &_md {
         /* Inherit the text’s size too. Also allows sizing the icon by changing its font-size. */
-        width: 1.7em;
-        height: 1.7em;
+        width: 1.85em;
+        height: 1.85em;
       }
 
       &_lg {
@@ -54,6 +54,18 @@
 
     &_color {
       // icons colored in brand colors:
+
+      &_viber {
+        fill: $color_viber;
+      }
+
+      &_skype {
+        fill: $color_skype;
+      }
+
+      &_whatsapp {
+        fill: $color_whatsapp;
+      }
 
       &_github {
         fill: $color_github;

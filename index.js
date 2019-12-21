@@ -19,8 +19,8 @@ import "./src/blocks/_reset.scss";
  *  DOCUMENTATION STYLES
  */
 
-import "./src/doc/_index.scss";
-import "./src/doc/index.js";
+import "./src/doc/_doc.scss";
+import "./src/doc/doc.js";
 
 /*
  * BLOCKS
@@ -104,9 +104,6 @@ import "./src/blocks/control/_control.scss";
 
 import "./src/blocks/form-group/_form-group.scss";
 
-import "./src/blocks/nav/_nav.scss";
-import "./src/blocks/nav/nav.js";
-
 import "./src/blocks/select/_select.scss";
 
 import "./src/blocks/accordion/_accordion.scss";
@@ -114,3 +111,6 @@ import "./src/blocks/accordion/accordion.js";
 
 import "./src/blocks/lightbox/_lightbox.scss";
 import "./src/blocks/lightbox/lightbox.js";
+
+import "./src/blocks/hamburger/_hamburger.scss";
+import "./src/blocks/hamburger/hamburger.js";

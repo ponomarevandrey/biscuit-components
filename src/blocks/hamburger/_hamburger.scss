@@ -1,0 +1,128 @@
+.hamburger {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-content: center;
+  z-index: $zindex-fixed;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  height: 70px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 2em;
+
+  list-style: none;
+
+  background-color: $color_black;
+  overflow-x: hidden;
+
+  @media screen and (min-width: $screen-md) {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    // change to "fixed" to make it sticky:
+    position: relative;
+  }
+
+  &__logo {
+    width: 10em;
+    margin: 1em 1em 1em 0;
+  }
+
+  &__menu {
+    display: none;
+    margin: 1rem 0;
+
+    color: $color_gray-lightest;
+    text-decoration: none;
+
+    @media screen and (min-width: $screen-md) {
+      display: block;
+
+      text-decoration: none;
+
+      transition: ease 0.3s;
+      outline: none;
+      transition: transform 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+  }
+
+  &__link {
+    display: inline;
+    padding: 0.3rem 0 0.3rem 0;
+
+    white-space: nowrap;
+    text-align: center;
+    line-height: $line-height_xxl;
+    color: $color_white;
+
+    @media screen and (min-width: $screen-md) {
+      padding: 0.3rem 0 0.3rem 1.5rem;
+    }
+
+    &:hover {
+      color: $color_gray-light;
+      cursor: pointer;
+    }
+  }
+
+  // opened menu:
+  &_active {
+    overflow-y: none; // change to "scrol"to enable vertical scrollbar
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    animation: transitionEffect 0.5s;
+    outline: none;
+    transition: transform 0.2s ease, background-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    & .hamburger__link {
+      display: block;
+    }
+
+    & .hamburger__menu {
+      display: block;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+
+    display: block;
+    cursor: pointer;
+
+    @media screen and (min-width: $screen-md) {
+      display: none;
+    }
+
+    &_item1,
+    &_item2,
+    &_item3 {
+      width: 35px;
+      height: 5px;
+      margin: 6px 0;
+
+      background-color: $color_white;
+      transition: 0.4s;
+    }
+
+    &_animate &_item1 {
+      transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    &_animate &_item2 {
+      opacity: 0;
+    }
+    &_animate &_item3 {
+      transform: rotate(45deg) translate(-8px, -8px);
+    }
+  }
+}
