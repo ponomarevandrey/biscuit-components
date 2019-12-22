@@ -1,3 +1,17 @@
+class Btn {
+  constructor(config) {
+    this._config = config;
+  }
+
+  handleEvent(e) {
+    if (e.type === "click") {
+      e.preventDefault();
+
+      this._config.modal.openModal(this._config.modal.dialog);
+    }
+  }
+}
+
 class Modal {
   constructor(config) {
     this._config = config;
@@ -102,13 +116,22 @@ class Modal {
 
 const modal = new Modal({
   IDs: {
-    dialog: "confirm-order-dialog",
+    dialog: "test-dialog",
   },
   /* all class names used in HTML related to modal window component: */
   classes: {
-    backdrop: "modal_confirm",
+    backdrop: "modal_backdrop",
     backdropStateModifier: "modal_visible",
     dialogStateModifier: "modal__dialog_visible",
     closeBtn: "modal__close-btn",
   },
 });
+
+const btnEl = document.querySelector("#modal-trigger");
+
+const btn = new Btn({
+  btn: btnEl,
+  modal: modal,
+});
+
+btnEl.addEventListener("click", btn);
