@@ -1,4 +1,4 @@
-# Hoow to use
+# How to use
 
 ```pug
 ul(class='breadcrumb')
