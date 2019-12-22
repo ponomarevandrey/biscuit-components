@@ -2,7 +2,7 @@ include ./../block-mixin.pug
 
 +block(
   { name: 'select',
-    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/select',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/tree/master/src/blocks/select',
     category: 'components',
     description: 'Custom select' }
 )
@@ -12,8 +12,16 @@ include ./../block-mixin.pug
         for='selectbox1' 
         class='form-group__label') Color
       div(class='form-group__container')
+      //-
         select(class='form-group__selectbox' id='selectbox1' name='country')
           option(value='australia') Red
           option(value='canada') Green
           option(value='usa') Blue
 
+  div(class='block__example')
+    div(class='select')
+      select(class='select__difficulty-select')
+        option(value='0') Select difficulty:
+        option(value='1') Easy
+        option(value='2') Moderate
+        option(value='3') Difficult

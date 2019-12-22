@@ -2,14 +2,15 @@ include ./../block-mixin.pug
 
 +block(
   { name: 'modal',
-    repository: 'https://github.com/ponomarevandrey/biscuit-components/blob/master/src/modal',
+    repository: 'https://github.com/ponomarevandrey/biscuit-components/tree/master/src/blocks/modal',
     category: 'components',
     description: 'Modal window' }
 )
   div(class='block__example')
+    a(class='btn btn_theme_black' href='###' id='modal-trigger') Click me to see a modal
 
-    div(class='modal modal_confirm')
+    div(class='modal modal_backdrop')
       span(class='modal__close-btn') &times;
 
-      div(class='modal__dialog modal__dialog_confirm' id='confirm-order-dialog')
+      div(class='modal__dialog modal__dialog_test' id='test-dialog')
         span(class='text text_display_inline') Content

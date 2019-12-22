@@ -114,3 +114,9 @@ import "./src/blocks/lightbox/lightbox.js";
 
 import "./src/blocks/hamburger/_hamburger.scss";
 import "./src/blocks/hamburger/hamburger.js";
+
+import "./src/blocks/modal/_modal.scss";
+import "./src/blocks/modal/modal.js";
+
+import "./src/blocks/select/_select.scss";
+import "./src/blocks/select/select.js";
