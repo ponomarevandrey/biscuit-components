@@ -1,3 +1,17 @@
+class Btn {
+  constructor(config) {
+    this._config = config;
+  }
+
+  handleEvent(e) {
+    if (e.type === "click") {
+      e.preventDefault();
+
+      this._config.modal.openModal(this._config.modal.dialog);
+    }
+  }
+}
+
 class Modal {
   constructor(config) {
     this._config = config;
@@ -11,8 +25,8 @@ class Modal {
     );
     this.dialog = document.querySelector(`#${this._config.IDs.dialog}`);
 
-    document.addEventListener('keydown', e => this.onKeydown(e));
-    document.addEventListener('click', e => this.onClick(e));
+    document.addEventListener("keydown", e => this.onKeydown(e));
+    document.addEventListener("click", e => this.onClick(e));
   }
 
   // confirm order moda:
@@ -25,14 +39,14 @@ class Modal {
   }
 
   onKeydown(e) {
-    if (this._openedDialog && e.code === 'Escape') {
+    if (this._openedDialog && e.code === "Escape") {
       const videoInModal = this._openedDialog.querySelector(
         `.${this._config.classes.video}`
       );
       if (videoInModal) this.stopVideo(videoInModal);
       this.toggleBackdrop();
       this._opened = false;
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
       return;
     }
   }
@@ -54,7 +68,7 @@ class Modal {
 
     this.showDialog(newDialog);
     this._openedDialog = newDialog;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }
 
   closeModal(el) {
@@ -71,7 +85,7 @@ class Modal {
       this.toggleBackdrop();
       delete this._openedDialog;
       this.hideDialog(el);
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
       return;
     }
   }
@@ -86,8 +100,8 @@ class Modal {
   stopVideo(element) {
     /* Stop an iframe or HTML5 <video> from playing.
      param { element} - the element that contains the video */
-    const iframe = element.querySelector('iframe');
-    const video = element.querySelector('video');
+    const iframe = element.querySelector("iframe");
+    const video = element.querySelector("video");
 
     if (iframe) {
       const iframeSrc = iframe.src;
@@ -102,13 +116,22 @@ class Modal {
 
 const modal = new Modal({
   IDs: {
-    dialog: 'confirm-order-dialog',
+    dialog: "test-dialog",
   },
   /* all class names used in HTML related to modal window component: */
   classes: {
-    backdrop: 'modal_confirm',
-    backdropStateModifier: 'modal_visible',
-    dialogStateModifier: 'modal__dialog_visible',
-    closeBtn: 'modal__close-btn',
+    backdrop: "modal_backdrop",
+    backdropStateModifier: "modal_visible",
+    dialogStateModifier: "modal__dialog_visible",
+    closeBtn: "modal__close-btn",
   },
 });
+
+const btnEl = document.querySelector("#modal-trigger");
+
+const btn = new Btn({
+  btn: btnEl,
+  modal: modal,
+});
+
+btnEl.addEventListener("click", btn);
