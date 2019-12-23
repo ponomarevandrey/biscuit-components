@@ -4,23 +4,11 @@ include ./../block-mixin.pug
   { name: 'select',
     repository: 'https://github.com/ponomarevandrey/biscuit-components/tree/master/src/blocks/select',
     category: 'components',
-    description: 'Custom select' }
+    description: 'Custom select box. Populate the select menu with items from plain JavaScript object or JSON file' }
 )
-  div(class='block__example')
-    div(class='form-group form-group_row')
-      label(
-        for='selectbox1' 
-        class='form-group__label') Color
-      div(class='form-group__container')
-      //-
-        select(class='form-group__selectbox' id='selectbox1' name='country')
-          option(value='australia') Red
-          option(value='canada') Green
-          option(value='usa') Blue
-
-  div(class='block__example')
-    div(class='select')
-      select(class='select__difficulty-select')
+  div(class='block__example' style="overflow: visible;")
+    div(class='select' id="select-difficulty")
+      select(class='select__system')
         option(value='0') Select difficulty:
         option(value='1') Easy
         option(value='2') Moderate
