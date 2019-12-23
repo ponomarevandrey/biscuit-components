@@ -1,111 +1,156 @@
-// Custom select box
+class Select {
+  constructor(config) {
+    this._config = config;
+    this._selectContainerEl = document.querySelector(
+      `#${config.IDs.selectContainer}`
+    );
 
-window.addEventListener("load", buildSelect);
+    this._systemSelectEl = document.querySelector(
+      `.${config.classes.systemSelect}`
+    );
 
-function buildSelect(e) {
-  const allSelectBlocks = document.getElementsByClassName("select");
-  console.log("allSelectBlocks: ", allSelectBlocks);
+    this.renderSelect();
 
-  for (let i = 0; i < allSelectBlocks.length; i++) {
-    // get default browser select box - <select>...</select>
-    const defaultSelectBox = allSelectBlocks[i].getElementsByTagName(
-      "select"
-    )[0];
+    this._optionsEl = document.querySelector(`.${config.classes.options}`);
+    this._selectedOptionEl = document.querySelector(
+      `.${config.classes.selectedOption}`
+    );
 
-    // create initial select box
-    const customSelectBox = document.createElement("div");
-    customSelectBox.setAttribute("class", "select-selected");
-    customSelectBox.innerHTML =
-      defaultSelectBox.options[defaultSelectBox.selectedIndex].innerHTML;
-    allSelectBlocks[i].appendChild(customSelectBox);
+    // close all select boxes when user clicks anywhere outside the select box
+    document.addEventListener("click", () => {
+      this.closeOptionsList();
+    });
 
-    // create options list
-    const customOptionsList = document.createElement("div");
-    customOptionsList.setAttribute("class", "select-items select-hide");
+    console.log(this);
+  }
 
-    for (let j = 1; j < defaultSelectBox.length; j++) {
-      const option = document.createElement("div");
-      option.innerHTML = defaultSelectBox.options[j].innerHTML;
+  buildSelectEl() {
+    const selectEl = document.createElement("div");
+    selectEl.classList.add(`${this._config.classes.selectedOption}`);
 
-      // eslint-disable-next-line no-inner-declarations
-      function updateSelectBox(e) {
-        // this === e.currentTarget === option
-        // this.parentNode === customOptionsList
-        // this.parentNode.parentNode === allSelectBlocks[0] === div class="select";
-        // console.log(this.parentNode.previousSibling, this)
-        const currentDefaultSelectBox = this.parentNode.parentNode.getElementsByTagName(
-          "select"
-        )[0];
-        // console.log(currentDefaultSelectBox);
-        const selectedOption = this.parentNode.previousSibling;
-        // selectedOption === div class="select-selected"
-        for (let k = 0; k < currentDefaultSelectBox.length; k++) {
-          if (currentDefaultSelectBox.options[k].innerHTML === this.innerHTML) {
-            currentDefaultSelectBox.selectedIndex = k;
-            selectedOption.innerHTML = this.innerHTML;
+    const selectedOptionIndex = this._systemSelectEl.selectedIndex;
+    const selectedOptionText = this._systemSelectEl.options[selectedOptionIndex]
+      .textContent;
 
-            const sameAsSelected = this.parentNode.getElementsByClassName(
-              "same-as-selected"
-            );
-            for (let l = 0; l < sameAsSelected.length; l++) {
-              sameAsSelected[l].removeAttribute("class");
-            }
-            this.setAttribute("class", "same-as-selected");
-            break;
-          }
-        }
-        // runs bubbling in order to trigger customSelectBox eventListener - "closeAllelect",
-        // in order to close options list after clicking on the selected item
-        selectedOption.click();
-      }
+    selectEl.classList.add(`${this._config.classes.arrowDown}`);
+    selectEl.append(selectedOptionText);
 
-      option.addEventListener("click", updateSelectBox);
-      customOptionsList.appendChild(option);
+    return selectEl;
+  }
+
+  buildOptionsEl() {
+    // create custom options list
+    const optionsContainerEl = document.createElement("div");
+    optionsContainerEl.classList.add(
+      `${this._config.classes.options}`,
+      `${this._config.classes.hiddenOptions}`
+    );
+
+    for (let systemOptionEl of this._systemSelectEl.options) {
+      const optionEl = document.createElement("div");
+      optionEl.textContent = systemOptionEl.textContent;
+
+      optionEl.addEventListener("click", e =>
+        this.updateSelectBox(e, optionEl)
+      );
+      optionsContainerEl.appendChild(optionEl);
     }
 
-    allSelectBlocks[i].appendChild(customOptionsList);
+    optionsContainerEl.classList.add(`${this._config.classes.options}`);
 
-    customSelectBox.addEventListener("click", function(e) {
-      // When the select box is clicked, close any other select boxes,
-      // and open/close the current select box:
-      // console.log(e.target);
+    return optionsContainerEl;
+  }
+
+  renderSelect() {
+    const selectEl = this.buildSelectEl.call(this);
+    const optionsEl = this.buildOptionsEl.call(this);
+
+    this._selectContainerEl.append(selectEl);
+    this._selectContainerEl.appendChild(optionsEl);
+
+    // display arrow
+
+    selectEl.addEventListener("click", e => {
       e.stopPropagation();
-      console.log(this == e.target, this == e.currentTarget); // true true
-      closeAllSelect(this);
-      // this.nextSibling === div class="select-items"
-      this.nextSibling.classList.toggle("select-hide");
-      this.classList.toggle("select-arrow-active");
+      //this.closeOptionsList(this);
+
+      optionsEl.classList.toggle(`${this._config.classes.hiddenOptions}`);
+      this.toggleArrow(selectEl);
     });
   }
 
-  function closeAllSelect(el) {
-    /* A function that will close all select boxes in the document,
-    except the current select box: */
-    const allCustomOptionsLists = document.getElementsByClassName(
-      "select-items"
-    );
-    const allCustomSelectBoxes = document.getElementsByClassName(
-      "select-selected"
-    );
-    const arrNo = [];
-
-    for (let m = 0; m < allCustomSelectBoxes.length; m++) {
-      console.log(el);
-      if (el === allCustomSelectBoxes[m]) arrNo.push(m);
-      else allCustomSelectBoxes[m].classList.remove("select-arrow-active");
-      console.log(arrNo);
-    }
-    console.log(arrNo);
-    for (let n = 0; n < allCustomOptionsLists.length; n++) {
-      //console.log(arrNo, n); -> [0], 0 // [0].indexOf(0) -> 0 // if (0) -> if (false)
-      if (arrNo.indexOf(n)) {
-        console.log("------------", n, arrNo, arrNo.indexOf(n));
-        allCustomOptionsLists[n].classList.add("select-hide");
-      }
+  toggleArrow(selectEl) {
+    if (selectEl.classList.contains("select__arrow_up")) {
+      selectEl.classList.remove("select__arrow_up");
+      selectEl.classList.add("select__arrow_down");
+      console.log("arow down");
+    } else {
+      selectEl.classList.add("select__arrow_up");
+      selectEl.classList.remove("select__arrow_down");
+      console.log("arow up");
     }
   }
 
-  /* If the user clicks anywhere outside the select box,
-  then close all select boxes: */
-  document.addEventListener("click", closeAllSelect);
+  openOptionsList() {}
+
+  closeOptionsList(el) {
+    this._optionsEl.classList.add(`${this._config.classes.hiddenOptions}`);
+    this._selectedOptionEl.classList.remove("select__arrow_up");
+
+    this.toggleArrow(this._selectedOptionEl);
+    console.log(this._selectedOptionEl);
+  }
+
+  updateSelectBox(e, selectedOptionEl) {
+    //console.log(selectedOptionEl, this);
+
+    const systemOptionEls = Array.from(this._systemSelectEl);
+    systemOptionEls.forEach((systemOptionEl, index) => {
+      if (systemOptionEl.textContent === selectedOptionEl.textContent) {
+        systemOptionEls.selectedIndex = index;
+        //console.log(systemOptionEls);
+
+        const currentlySelectedOptionEl = document.querySelector(
+          ".select__selected-option"
+        );
+
+        currentlySelectedOptionEl.textContent = selectedOptionEl.textContent;
+
+        // move to separate function "closeOptionsList"
+        this.closeOptionsList(e.target);
+        document
+          .querySelector(".select__options")
+          .classList.add("select__options_hidden");
+        console.log();
+        currentlySelectedOptionEl.classList.toggle("select__arrow_up");
+      }
+    });
+  }
 }
+
+//
+
+const config = {
+  IDs: {
+    selectContainer: "select-difficulty",
+  },
+  classes: {
+    systemSelect: "select__system",
+    options: "select__options",
+    hiddenOptions: "select__options_hidden",
+    selectedOption: "select__selected-option",
+    arrowUp: "select__arrow_up",
+    arrowDown: "select__arrow_down",
+  },
+};
+
+//
+
+window.addEventListener("load", () => {
+  const selectContainerEl = document.querySelector(
+    `#${config.IDs.selectContainer}`
+  );
+
+  const customSelect = new Select(config);
+  selectContainerEl.addEventListener("click", customSelect);
+});
