@@ -5,126 +5,129 @@ class Select {
       `#${config.IDs.selectContainer}`
     );
 
-    this._systemSelectEl = document.querySelector(
-      `.${config.classes.systemSelect}`
-    );
+    this._systemSelectEl = this.buildSystemSelectEl();
+    this._selectContainerEl.append(this._systemSelectEl);
 
-    this.renderSelect();
+    // Render select box.
+    this._selectedEl = this.buildSelectedOptionEl(this._config.defaultValue);
+    this._optionsEl = this.buildOptionEl();
+    this._selectContainerEl.append(this._selectedEl, this._optionsEl);
+    //
 
-    this._optionsEl = document.querySelector(`.${config.classes.options}`);
-    this._selectedOptionEl = document.querySelector(
-      `.${config.classes.selectedOption}`
-    );
-
-    // close all select boxes when user clicks anywhere outside the select box
-    document.addEventListener("click", () => {
-      this.closeOptionsList();
+    this._selectedEl.addEventListener("click", e => {
+      e.stopPropagation();
+      this.toggleOptionsEl();
     });
 
-    console.log(this);
+    document.addEventListener("click", () => {
+      if (!this.isOptionsElHidden()) this.toggleOptionsEl();
+    });
   }
 
-  buildSelectEl() {
-    const selectEl = document.createElement("div");
-    selectEl.classList.add(`${this._config.classes.selectedOption}`);
+  buildSystemSelectEl(defaultText) {
+    // FIX: ideally, instead of `${index + 1}` use some
+    // more meaningful values
 
-    const selectedOptionIndex = this._systemSelectEl.selectedIndex;
-    const selectedOptionText = this._systemSelectEl.options[selectedOptionIndex]
-      .textContent;
+    const selectEl = document.createElement("select");
+    selectEl.classList.add(this._config.classes.systemSelect);
 
-    selectEl.classList.add(`${this._config.classes.arrowDown}`);
-    selectEl.append(selectedOptionText);
+    this._config.options.forEach((optionName, index) => {
+      const optionEl = document.createElement("option");
+      optionEl.setAttribute("value", `${index + 1}`);
+      optionEl.textContent = optionName;
+
+      selectEl.append(optionEl);
+    });
 
     return selectEl;
   }
 
-  buildOptionsEl() {
-    // create custom options list
+  buildSelectedOptionEl(defaultText = "Select option") {
+    const selectEl = document.createElement("div");
+    selectEl.classList.add(`${this._config.classes.selectedOption}`);
+
+    // Use this code to set the default value from the options list,
+    // not from the passed "defaultText" argument
+    /*
+    const selectedIndex = this._systemSelectEl.selectedIndex;
+    const selectedOptionText = this._systemSelectEl.options[selectedIndex]
+      .textContent;
+    */
+
+    selectEl.classList.add(`${this._config.classes.arrowDown}`);
+    selectEl.append(defaultText);
+
+    return selectEl;
+  }
+
+  buildOptionEl() {
     const optionsContainerEl = document.createElement("div");
     optionsContainerEl.classList.add(
       `${this._config.classes.options}`,
-      `${this._config.classes.hiddenOptions}`
+      `${this._config.classes.hideOptions}`
     );
 
     for (let systemOptionEl of this._systemSelectEl.options) {
       const optionEl = document.createElement("div");
+      optionEl.classList.add("section__option");
       optionEl.textContent = systemOptionEl.textContent;
 
-      optionEl.addEventListener("click", e =>
-        this.updateSelectBox(e, optionEl)
-      );
       optionsContainerEl.appendChild(optionEl);
     }
 
-    optionsContainerEl.classList.add(`${this._config.classes.options}`);
+    optionsContainerEl.addEventListener("click", e => {
+      if (e.target.classList.contains("section__option")) {
+        const selectedOption = e.target;
+        this.updateSelectBox(selectedOption);
+      }
+    });
 
     return optionsContainerEl;
   }
 
-  renderSelect() {
-    const selectEl = this.buildSelectEl.call(this);
-    const optionsEl = this.buildOptionsEl.call(this);
+  toggleArrow() {
+    const arrowUpClassName = this._config.classes.arrowUp;
+    const arrowDownClassName = this._config.classes.arrowDown;
 
-    this._selectContainerEl.append(selectEl);
-    this._selectContainerEl.appendChild(optionsEl);
-
-    // display arrow
-
-    selectEl.addEventListener("click", e => {
-      e.stopPropagation();
-      //this.closeOptionsList(this);
-
-      optionsEl.classList.toggle(`${this._config.classes.hiddenOptions}`);
-      this.toggleArrow(selectEl);
-    });
-  }
-
-  toggleArrow(selectEl) {
-    if (selectEl.classList.contains("select__arrow_up")) {
-      selectEl.classList.remove("select__arrow_up");
-      selectEl.classList.add("select__arrow_down");
-      console.log("arow down");
+    if (this._selectedEl.classList.contains(arrowUpClassName)) {
+      this._selectedEl.classList.remove(arrowUpClassName);
+      this._selectedEl.classList.add(arrowDownClassName);
     } else {
-      selectEl.classList.add("select__arrow_up");
-      selectEl.classList.remove("select__arrow_down");
-      console.log("arow up");
+      this._selectedEl.classList.add(arrowUpClassName);
+      this._selectedEl.classList.remove(arrowDownClassName);
     }
   }
 
-  openOptionsList() {}
-
-  closeOptionsList(el) {
-    this._optionsEl.classList.add(`${this._config.classes.hiddenOptions}`);
-    this._selectedOptionEl.classList.remove("select__arrow_up");
-
-    this.toggleArrow(this._selectedOptionEl);
-    console.log(this._selectedOptionEl);
+  toggleOptionsEl() {
+    this._optionsEl.classList.toggle(`${this._config.classes.hideOptions}`);
+    this.toggleArrow();
   }
 
-  updateSelectBox(e, selectedOptionEl) {
-    //console.log(selectedOptionEl, this);
+  isOptionsElHidden() {
+    if (
+      this._optionsEl.classList.contains(`${this._config.classes.hideOptions}`)
+    ) {
+      return true;
+    }
+  }
 
+  updateSelectBox(selectedOptionEl) {
     const systemOptionEls = Array.from(this._systemSelectEl);
+
+    // FIX
     systemOptionEls.forEach((systemOptionEl, index) => {
       if (systemOptionEl.textContent === selectedOptionEl.textContent) {
         systemOptionEls.selectedIndex = index;
-        //console.log(systemOptionEls);
+        this._selectedEl.textContent = selectedOptionEl.textContent;
 
-        const currentlySelectedOptionEl = document.querySelector(
-          ".select__selected-option"
+        systemOptionEls[systemOptionEls.selectedIndex].setAttribute(
+          "selected",
+          "selected"
         );
-
-        currentlySelectedOptionEl.textContent = selectedOptionEl.textContent;
-
-        // move to separate function "closeOptionsList"
-        this.closeOptionsList(e.target);
-        document
-          .querySelector(".select__options")
-          .classList.add("select__options_hidden");
-        console.log();
-        currentlySelectedOptionEl.classList.toggle("select__arrow_up");
       }
     });
+
+    this.toggleOptionsEl();
   }
 }
 
@@ -137,11 +140,13 @@ const config = {
   classes: {
     systemSelect: "select__system",
     options: "select__options",
-    hiddenOptions: "select__options_hidden",
+    hideOptions: "select__options_hidden",
     selectedOption: "select__selected-option",
     arrowUp: "select__arrow_up",
     arrowDown: "select__arrow_down",
   },
+  defaultValue: "Select difficulty",
+  options: ["Easy", "Moderate", "Difficuly"],
 };
 
 //

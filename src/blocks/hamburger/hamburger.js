@@ -59,6 +59,11 @@ class Hamburger {
   }
 
   handleEvent(e) {
+    /*
+    const divWidth = parseInt(getComputedStyle(document.querySelector(".hamburger")).width;
+    if (divWidth <= 768) {}
+    */
+    // TODO: fix this slopy "if" condition
     if (
       (e.target.classList.contains("hamburger__link") ||
         e.target.parentElement.classList.contains("hamburger__btn") ||
