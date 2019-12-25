@@ -24,7 +24,7 @@ class Select {
     });
   }
 
-  buildSystemSelectEl(defaultText) {
+  buildSystemSelectEl() {
     // FIX: ideally, instead of `${index + 1}` use some
     // more meaningful values
 
