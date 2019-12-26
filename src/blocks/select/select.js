@@ -1,3 +1,9 @@
+/*
+TODO:
+- replace appropriate functions with getters and setters (get, set, especially those concerning localStorage)
+
+*/
+
 class Select {
   constructor(config) {
     this._config = config;
@@ -9,7 +15,7 @@ class Select {
     );
 
     this._selectedEl = this.selectedEl(
-      this.cachedSelectedOption().value || this._config.defaultValue
+      this.cachedSelectedOption.value || this._config.defaultValue
     );
 
     // Render select box.
@@ -38,15 +44,9 @@ class Select {
     });
   }
 
-  cachedSelectedOption() {
-    //if (document.querySelector("select")) {
-    //const systemSelect = document.querySelector("select");
-    //const systemSelected = document.querySelector("option:checked");
-
-    //console.log(systemSelect.selectedIndex);
-
+  get cachedSelectedOption() {
     if (localStorage.getItem("select") !== null) {
-      console.log("returned from localStorage");
+      console.log("Retrieved from localStorage");
       return JSON.parse(localStorage.getItem("select"))[
         this._config.IDs.selectContainer
       ];
@@ -164,7 +164,7 @@ class Select {
     //;
     systemOptionEls.forEach((systemOptionEl, index) => {
       if (systemOptionEl.textContent === customSelectedEl.textContent) {
-        systemOptionEls.selectedIndex = this.cachedSelectedOption().index; //index;
+        systemOptionEls.selectedIndex = this.cachedSelectedOption.index; //index;
 
         if (systemOptionEls[systemOptionEls.selectedIndex]) {
           this.updateSystemSelectedAttr(
@@ -184,8 +184,6 @@ class Select {
   }
 
   cacheSelected(index, selectedEl) {
-    const systemSelected = document.querySelector("option:checked");
-
     // Create object to store selected option. Object structure:
     // selectedItem = { select-difficulty: { index: 2
     //                                       value: moderate } }
