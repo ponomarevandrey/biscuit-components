@@ -1,9 +1,3 @@
-/*
-TODO:
-- replace appropriate functions with getters and setters (get, set, especially those concerning localStorage)
-- replace "load" event
-*/
-
 const config = {
   IDs: {
     container: "select-example",
