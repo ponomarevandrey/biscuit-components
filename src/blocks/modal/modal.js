@@ -1,29 +1,29 @@
 class Btn {
-  constructor(config) {
-    this._config = config;
+  constructor({ btnEl, modal }) {
+    this._btnEl = btnEl;
+    this._modal = modal;
   }
 
   handleEvent(e) {
     if (e.type === "click") {
       e.preventDefault();
 
-      this._config.modal.openModal(this._config.modal.dialog);
+      this._modal.openModal(this._modal.dialog);
     }
   }
 }
 
 class Modal {
-  constructor(config) {
-    this._config = config;
+  constructor({ IDs, classes }) {
+    this._IDs = IDs;
+    this._classes = classes;
 
-    this._backdrop = document.querySelector(
-      `.${this._config.classes.backdrop}`
-    );
+    this._backdrop = document.querySelector(`.${this._classes.backdrop}`);
     this._opened = false;
     this._closeBtn = document.querySelector(
-      `.${this._config.classes.backdrop} .${this._config.classes.closeBtn}`
+      `.${this._classes.backdrop} .${this._classes.closeBtn}`
     );
-    this.dialog = document.querySelector(`#${this._config.IDs.dialog}`);
+    this.dialog = document.querySelector(`#${this._IDs.dialog}`);
 
     document.addEventListener("keydown", e => this.onKeydown(e));
     document.addEventListener("click", e => this.onClick(e));
@@ -41,7 +41,7 @@ class Modal {
   onKeydown(e) {
     if (this._openedDialog && e.code === "Escape") {
       const videoInModal = this._openedDialog.querySelector(
-        `.${this._config.classes.video}`
+        `.${this._classes.video}`
       );
       if (videoInModal) this.stopVideo(videoInModal);
       this.toggleBackdrop();
@@ -52,13 +52,13 @@ class Modal {
   }
 
   toggleBackdrop() {
-    this._backdrop.classList.toggle(this._config.classes.backdropStateModifier);
+    this._backdrop.classList.toggle(this._classes.backdropStateModifier);
   }
 
   openModal(dialog) {
     const newDialog = document.querySelector(`#${dialog.id}`);
     const visibleDialog = document.querySelector(
-      `.${this._config.classes.dialogStateModifier}`
+      `.${this._classes.dialogStateModifier}`
     );
     this._opened = !this._opened;
 
@@ -76,7 +76,7 @@ class Modal {
       // handle video:
       const videoBlock =
         this._openedDialog &&
-        this._openedDialog.querySelector(`.${this._config.classes.video}`);
+        this._openedDialog.querySelector(`.${this._classes.video}`);
       if (videoBlock) this.stopVideo(videoBlock);
       //
 
@@ -91,10 +91,10 @@ class Modal {
   }
 
   hideDialog(dialog) {
-    dialog.classList.remove(this._config.classes.dialogStateModifier);
+    dialog.classList.remove(this._classes.dialogStateModifier);
   }
   showDialog(dialog) {
-    dialog.classList.add(this._config.classes.dialogStateModifier);
+    dialog.classList.add(this._classes.dialogStateModifier);
   }
 
   stopVideo(element) {
@@ -126,6 +126,8 @@ const modal = new Modal({
     closeBtn: "modal__close-btn",
   },
 });
+
+//
 
 const btnEl = document.querySelector("#modal-trigger");
 

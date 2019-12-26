@@ -1,26 +1,35 @@
-/*
-TODO:
-- replace appropriate functions with getters and setters (get, set, especially those concerning localStorage)
+const config = {
+  IDs: {
+    container: "select-example",
+  },
+  classes: {
+    systemSelect: "select__system",
+    options: "select__options",
+    hideOptions: "select__options_hidden",
+    selectedOption: "select__selected-option",
+    arrowUp: "select__arrow_up",
+    arrowDown: "select__arrow_down",
+  },
+  defaultValue: "Select option",
+  optionList: ["Easy", "Moderate", "Difficult"],
+};
 
-*/
+//
 
 class Select {
-  constructor(config) {
-    this._config = config;
-    this._selectContainerEl = document.querySelector(
-      `#${config.IDs.selectContainer}`
-    );
-    this._systemSelectMenuEl = this.systemSelectMenuEl(
-      this._config.defaultValue
-    );
+  constructor({ IDs, classes, defaultValue, optionList }) {
+    this._IDs = IDs;
+    this._classes = classes;
+    this._optionList = optionList;
 
-    this._selectedEl = this.selectedEl(
-      this.cachedSelectedOption.value || this._config.defaultValue
-    );
+    this._containerEl = document.querySelector(`#${this._IDs.container}`);
+    this._systemSelectMenuEl = this.systemSelectMenuEl(defaultValue);
+
+    this._selectedEl = this.selectedEl(this.cached.value || defaultValue);
+    this._menuEl = this.menuEl();
 
     // Render select box.
-    this._menuEl = this.menuEl();
-    this._selectContainerEl.append(
+    this._containerEl.append(
       this._systemSelectMenuEl,
       this._selectedEl,
       this._menuEl
@@ -34,8 +43,7 @@ class Select {
 
     this._menuEl.addEventListener("click", e => {
       if (e.target.classList.contains("section__option")) {
-        //this._selectedEl = e.target;
-        this.updateSelectContainer(e.target);
+        this.updatecontainer(e.target);
       }
     });
 
@@ -44,20 +52,18 @@ class Select {
     });
   }
 
-  get cachedSelectedOption() {
+  get cached() {
     if (localStorage.getItem("select") !== null) {
-      console.log("Retrieved from localStorage");
-      return JSON.parse(localStorage.getItem("select"))[
-        this._config.IDs.selectContainer
-      ];
+      // console.log("Retrieved from localStorage");
+      return JSON.parse(localStorage.getItem("select"))[this._IDs.container];
     } else return false;
   }
 
   systemSelectMenuEl(defaultOption) {
     const selectEl = document.createElement("select");
-    selectEl.classList.add(this._config.classes.systemSelect);
+    selectEl.classList.add(this._classes.systemSelect);
 
-    this._config.options.forEach(optionName => {
+    this._optionList.forEach(optionName => {
       const optionEl = document.createElement("option");
 
       const str = optionName.toLowerCase().replace(/\s/g, "-");
@@ -66,7 +72,7 @@ class Select {
       optionEl.textContent = optionName;
 
       if (optionName === defaultOption) {
-        console.log("default option set");
+        // console.log("Default option set");
         optionEl.setAttribute("selected", "");
       }
 
@@ -78,9 +84,8 @@ class Select {
 
   selectedEl(defaultOption) {
     const selectEl = document.createElement("div");
-    selectEl.classList.add(`${this._config.classes.selectedOption}`);
-
-    selectEl.classList.add(`${this._config.classes.arrowDown}`);
+    selectEl.classList.add(`${this._classes.selectedOption}`);
+    selectEl.classList.add(`${this._classes.arrowDown}`);
     selectEl.append(defaultOption);
 
     return selectEl;
@@ -89,8 +94,8 @@ class Select {
   menuEl() {
     const optionsContainerEl = document.createElement("div");
     optionsContainerEl.classList.add(
-      `${this._config.classes.options}`,
-      `${this._config.classes.hideOptions}`
+      `${this._classes.options}`,
+      `${this._classes.hideOptions}`
     );
 
     for (let systemOptionEl of this._systemSelectMenuEl.options) {
@@ -105,8 +110,8 @@ class Select {
   }
 
   toggleArrow() {
-    const arrowUpClassName = this._config.classes.arrowUp;
-    const arrowDownClassName = this._config.classes.arrowDown;
+    const arrowUpClassName = this._classes.arrowUp;
+    const arrowDownClassName = this._classes.arrowDown;
 
     if (this._selectedEl.classList.contains(arrowUpClassName)) {
       this._selectedEl.classList.remove(arrowUpClassName);
@@ -118,14 +123,12 @@ class Select {
   }
 
   toggleMenuEl() {
-    this._menuEl.classList.toggle(`${this._config.classes.hideOptions}`);
+    this._menuEl.classList.toggle(`${this._classes.hideOptions}`);
     this.toggleArrow();
   }
 
   isMenuElHidden() {
-    if (
-      this._menuEl.classList.contains(`${this._config.classes.hideOptions}`)
-    ) {
+    if (this._menuEl.classList.contains(`${this._classes.hideOptions}`)) {
       return true;
     }
   }
@@ -156,20 +159,15 @@ class Select {
     this._selectedEl.textContent = customSelectedEl.textContent;
   }
 
-  updateSelectContainer(customSelectedEl) {
+  updatecontainer(customSelectedEl) {
     const systemOptionEls = Array.from(this._systemSelectMenuEl);
 
-    // FIX:
-    // try to replace foreach loop with
-    //;
     systemOptionEls.forEach((systemOptionEl, index) => {
       if (systemOptionEl.textContent === customSelectedEl.textContent) {
-        systemOptionEls.selectedIndex = this.cachedSelectedOption.index; //index;
+        const index = (systemOptionEls.selectedIndex = this.cached.index);
 
-        if (systemOptionEls[systemOptionEls.selectedIndex]) {
-          this.updateSystemSelectedAttr(
-            systemOptionEls[systemOptionEls.selectedIndex]
-          );
+        if (systemOptionEls[index]) {
+          this.updateSystemSelectedAttr(systemOptionEls[index]);
         }
         this._selectedEl.textContent = customSelectedEl.textContent;
 
@@ -178,7 +176,6 @@ class Select {
         this.cacheSelected(index, customSelectedEl);
       }
     });
-    //
 
     this.toggleMenuEl();
   }
@@ -188,7 +185,7 @@ class Select {
     // selectedItem = { select-difficulty: { index: 2
     //                                       value: moderate } }
     const selectedOption = {};
-    const key = this._config.IDs.selectContainer;
+    const key = this._IDs.container;
     const value = selectedEl.textContent;
     selectedOption[key] = {
       index,
@@ -200,29 +197,9 @@ class Select {
 
 //
 
-const config = {
-  IDs: {
-    selectContainer: "select-difficulty",
-  },
-  classes: {
-    systemSelect: "select__system",
-    options: "select__options",
-    hideOptions: "select__options_hidden",
-    selectedOption: "select__selected-option",
-    arrowUp: "select__arrow_up",
-    arrowDown: "select__arrow_down",
-  },
-  defaultValue: "Select option",
-  options: ["Easy", "Moderate", "Difficult"],
-};
-
-//
-
 window.addEventListener("load", () => {
-  const selectContainerEl = document.querySelector(
-    `#${config.IDs.selectContainer}`
-  );
+  const containerEl = document.querySelector(`#${config.IDs.container}`);
 
   const customSelect = new Select(config);
-  selectContainerEl.addEventListener("click", customSelect);
+  containerEl.addEventListener("click", customSelect);
 });
