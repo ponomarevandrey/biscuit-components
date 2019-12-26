@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -11,7 +10,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const RunPostCSSAfterCompilationPlugin = require("run-postcss-after-compilation-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-// eslint-disable-next-line no-unused-vars
 module.exports = (env, options) => {
   // console.log(options.mode); // returns string "development" or "production"
   return {

@@ -36,8 +36,13 @@
     color: $color_white;
 
     border: 1px solid transparent;
-    border-color: transparent transparent $color_black transparent;
+
     cursor: pointer;
+  }
+
+  &__options div:not(:last-child),
+  &__selected-option:not(:last-child) {
+    border-color: transparent transparent $color_black transparent;
   }
 
   &__options div:hover {
