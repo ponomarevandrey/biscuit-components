@@ -187,7 +187,7 @@ class Select {
     const systemSelected = document.querySelector("option:checked");
 
     // Create object to store selected option. Object structure:
-    // selectedItem = { select-difficulty: { systemIndex: 2
+    // selectedItem = { select-difficulty: { index: 2
     //                                       value: moderate } }
     const selectedOption = {};
     const key = this._config.IDs.selectContainer;
