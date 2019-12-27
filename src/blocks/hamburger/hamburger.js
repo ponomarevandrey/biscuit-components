@@ -1,7 +1,7 @@
 /*
 FIX/TODO:
 
-If you'll encounter any troubles, change the value "1800" in the "handleEvent" method to a smaller value, equal to standard screen sizes (768, 992, ...). 
+If you'll encounter any troubles, change the value "5000" in the "handleEvent" method to a smaller value, equal to standard screen sizes (768, 992, ...). 
 
 But this hack should be fixed, rewrite this method
 */
@@ -76,7 +76,7 @@ class Hamburger {
       (e.target.classList.contains("hamburger__link") ||
         e.target.parentElement.classList.contains("hamburger__btn") ||
         e.target === this._btnEl) &&
-      document.documentElement.clientWidth < 1800
+      document.documentElement.clientWidth < 5000
     ) {
       this._containerEl.classList.toggle(`${this._config.classes.activeMenu}`);
       this._containerEl.classList.toggle(`${this._config.classes.animateBtn}`);

@@ -182,8 +182,8 @@ class Select {
 
   cacheSelected(index, selectedEl) {
     // Create object to store selected option. Object structure:
-    // selectedItem = { select-difficulty: { index: 2
-    //                                       value: moderate } }
+    // selectedItem = { <select container ID>: { index: 2
+    //                                           value: moderate } }
     const selectedOption = {};
     const key = this._IDs.container;
     const value = selectedEl.textContent;
@@ -194,8 +194,6 @@ class Select {
     localStorage.setItem("select", JSON.stringify(selectedOption));
   }
 }
-
-//
 
 window.addEventListener("load", () => {
   const containerEl = document.querySelector(`#${config.IDs.container}`);

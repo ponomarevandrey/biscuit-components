@@ -1,4 +1,6 @@
-// To use this component, replace all $screen-xxl in this file with $screen-md
+// To use this component, replace all $screen-demo in this file with $screen-md
+
+$screen-demo: 5000px;
 
 .hamburger {
   display: flex;
@@ -20,7 +22,7 @@
   background-color: $color_black;
   overflow-x: hidden;
 
-  @media screen and (min-width: $screen-xxl) {
+  @media screen and (min-width: $screen-demo) {
     z-index: 1;
     top: 0;
     left: 0;
@@ -40,7 +42,7 @@
     color: $color_gray-lightest;
     text-decoration: none;
 
-    @media screen and (min-width: $screen-xxl) {
+    @media screen and (min-width: $screen-demo) {
       display: block;
 
       text-decoration: none;
@@ -62,7 +64,7 @@
     line-height: $line-height_xxl;
     color: $color_white;
 
-    @media screen and (min-width: $screen-xxl) {
+    @media screen and (min-width: $screen-demo) {
       padding: 0.3rem 0 0.3rem 1.5rem;
     }
 
@@ -103,7 +105,7 @@
     display: block;
     cursor: pointer;
 
-    @media screen and (min-width: $screen-xxl) {
+    @media screen and (min-width: $screen-demo) {
       display: none;
     }
 
