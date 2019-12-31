@@ -1,12 +1,13 @@
 .code {
-  border-radius: $border_radius;
-  white-space: pre-wrap;
-  // word-wrap: break-word;
-  border: none;
-  font-family: $font-stack_consolas;
   box-sizing: border-box;
-  background-color: $color_code-bg;
+
+  white-space: pre-wrap;
   color: $color_code-text;
+  font-family: $font-stack_consolas;
+
+  border-radius: $border_radius;
+  border: none;
+  background-color: $color_code-bg;
 
   &_display_block {
     padding: 2em;

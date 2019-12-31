@@ -3,24 +3,24 @@
 $screen-demo: 5000px;
 
 .hamburger {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-content: center;
   z-index: $zindex-fixed;
   position: relative;
   top: 0;
   left: 0;
 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-content: center;
   height: 70px;
   width: 100%;
   box-sizing: border-box;
   padding: 0 2em;
+  overflow-x: hidden;
 
   list-style: none;
 
   background-color: $color_black;
-  overflow-x: hidden;
 
   @media screen and (min-width: $screen-demo) {
     z-index: 1;
@@ -103,6 +103,7 @@ $screen-demo: 5000px;
     right: 2em;
 
     display: block;
+
     cursor: pointer;
 
     @media screen and (min-width: $screen-demo) {

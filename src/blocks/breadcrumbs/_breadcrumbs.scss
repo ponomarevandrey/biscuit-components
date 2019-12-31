@@ -1,7 +1,9 @@
 .breadcrumb {
-  list-style: none;
-  background-color: $color_gray-lightest;
   padding: 0.8em 1em;
+
+  list-style: none;
+
+  background-color: $color_gray-lightest;
   border-radius: $border_radius;
 
   &__item {
@@ -9,8 +11,10 @@
   }
 
   &__item + &__item:before {
-    content: "/\00a0";
-    color: black;
     padding: 0.2rem;
+
+    color: black;
+
+    content: "/\00a0";
   }
 }

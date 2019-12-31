@@ -27,19 +27,16 @@
 
   &__three {
     grid-area: content;
-
     background-color: red;
   }
 
   &__four {
     grid-area: r-sidebar;
-
     background-color: yellow;
   }
 
   &__five {
     grid-area: footer;
-
     background-color: purple;
   }
 }

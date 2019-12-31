@@ -14,11 +14,12 @@
   }
 
   &_img {
+    position: relative;
+
     //background-image: url('./../../img/fullscreen-image.jpg');
     // make background image responsive:
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
   }
 }

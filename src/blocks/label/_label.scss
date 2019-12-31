@@ -2,23 +2,26 @@
   display: inline-block;
   margin: 0.2em 0.15em;
   padding: 0 0.6em;
+  box-sizing: border-box;
+
   vertical-align: baseline;
   white-space: nowrap;
   text-decoration: none;
+
   border-radius: $border_radius;
   outline: none;
-  box-sizing: border-box;
   transition: all 0.2s ease;
 
   // modifiers:
 
   &_theme_black {
-    background-color: $color_black;
-    color: $color_white;
-    font-weight: bold;
-    border: 1px solid $color_white;
     line-height: 1.8em;
     font-size: 0.8em;
+    color: $color_white;
+    font-weight: bold;
+
+    background-color: $color_black;
+    border: 1px solid $color_white;
 
     /*
     &:link {
@@ -27,9 +30,10 @@
 
     &:hover,
     &:focus {
-      background-color: $color_gray-dark;
       text-decoration: none;
       color: $color_white;
+
+      background-color: $color_gray-dark;
     }
 
     &:focus,
@@ -39,12 +43,13 @@
   }
 
   &_theme_white {
-    background-color: $color_white;
     color: $color_black;
     font-weight: bold;
-    border: 1px solid $color_black;
     line-height: 1.8em;
     font-size: 0.8em;
+
+    background-color: $color_white;
+    border: 1px solid $color_black;
 
     &:link {
       transition: all 0.2s ease;
@@ -52,9 +57,10 @@
 
     &:hover,
     &:focus {
-      background-color: $color_black;
       text-decoration: none;
       color: $color_white;
+
+      background-color: $color_black;
       border: 1px solid $color_white;
     }
 

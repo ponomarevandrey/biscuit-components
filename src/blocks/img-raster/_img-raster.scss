@@ -33,8 +33,10 @@
   }
 
   &_theme_black {
-    background-color: $color_black;
     padding: 1em;
+
     color: $color_gray-lightest;
+
+    background-color: $color_black;
   }
 }

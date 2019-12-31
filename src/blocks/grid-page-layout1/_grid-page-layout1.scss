@@ -14,37 +14,39 @@
   &__header {
     grid-row: row1-start;
     grid-column: 1 / span 14; /* it's also possible to put here grid-line names. But in the current case we used repeat() function so we have only implicitly named grid lines, thus we can refer to them by implicitly defined namees (1, 2, 3, ...) */
-    //background-color: yellow;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    //background-color: yellow;
   }
 
   &__ads-l {
+    z-index: 1;
+
     grid-row: row2-start / row3-end;
     grid-column: 14;
 
     //background-color: violet;
-    z-index: 1;
     //opacity: 0.5;
   }
 
   &__news1 {
     grid-row: row2-start;
     grid-column: 2 / span 4;
+
     //background-color: turquoise;
   }
 
   &__news2 {
     grid-row: row2-start;
     grid-column: 6 / span 8;
-    //background-color: yellowgreen;
-
     /* Now, lets make new grid out of grid item */
     display: grid;
     grid-template-columns: [col1-start] 1fr [col1-end col2-start] 4fr [col2-end col3-start] 2fr [col3-end col4-start] 1fr [col4-end];
     grid-gap: 1rem;
+
+    //background-color: yellowgreen;
 
     & > * {
       // add padding to all grid items
@@ -65,10 +67,10 @@
   &__footer {
     grid-row: row3-start;
     grid-column: 1 / span 14;
-    //background-color: orange;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    //background-color: orange;
   }
 }

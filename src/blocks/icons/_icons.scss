@@ -1,7 +1,9 @@
 .icons {
-  margin: 0em;
-  text-decoration: none;
   display: inline-block;
+  margin: 0em;
+
+  text-decoration: none;
+
   outline: none;
 
   /*
@@ -12,11 +14,10 @@
 
   &__img {
     background-size: cover;
+    align-self: center;
 
     /* Paths and strokes that overflow the viewBox can show in IE11. */
     overflow: hidden;
-
-    align-self: center;
     transition: opacity 0.2s ease;
 
     &:link,
@@ -119,11 +120,12 @@
 
     /* We use !important because we should not apply other styles to this hidden alternative text */
     position: absolute !important;
+
+    margin-right: 0.2em;
     width: 1px !important;
     height: 1px !important;
     overflow: hidden !important;
-    white-space: nowrap !important;
 
-    margin-right: 0.2em;
+    white-space: nowrap !important;
   }
 }

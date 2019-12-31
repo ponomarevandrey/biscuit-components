@@ -3,14 +3,16 @@
   flex-flow: row wrap;
 
   &__item {
-    border-radius: 50%;
-    font-family: $font-stack_lato;
-    font-size: 1rem;
+    box-sizing: border-box;
     padding: 0.5rem 1rem;
     margin: 0 0.2rem;
+
+    font-family: $font-stack_lato;
+    font-size: 1rem;
     text-decoration: none;
+
+    border-radius: 50%;
     outline: none;
-    box-sizing: border-box;
 
     &:link {
       color: $color_link;
@@ -33,8 +35,10 @@
 
     // Modifier: active
     &_active {
-      background-color: $color_black;
       color: $color_white;
+
+      background-color: $color_black;
+
       cursor: default;
 
       &:link,

@@ -23,12 +23,14 @@
   }
 
   &_anchor:after {
-    content: " ";
-    background-image: url("./link.svg");
-    width: 0.8em;
-    height: 0.8em;
-    background-size: 0.8em;
     display: inline-block;
     margin: 0 0 0 0.1em;
+    width: 0.8em;
+    height: 0.8em;
+
+    background-image: url("./link.svg");
+    background-size: 0.8em;
+
+    content: " ";
   }
 }

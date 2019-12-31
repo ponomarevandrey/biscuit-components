@@ -3,16 +3,15 @@
   position: fixed;
   left: 0;
   top: 0;
+  z-index: -1050;
 
   //display: none;
   width: 100%;
   height: 100%;
-  z-index: -1050;
 
   background-color: rgba(0, 0, 0, 0.7);
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-
   opacity: 0;
   visibility: hidden;
 
@@ -21,61 +20,62 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1050;
 
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    padding: 4rem 1rem 1rem 1rem;
 
     text-align: center;
 
-    padding: 4rem 1rem 1rem 1rem;
-    z-index: -1050;
     border-radius: 0;
     background-color: white;
-
     visibility: hidden;
 
     @media screen and (min-width: $screen-sm) {
       position: absolute;
       top: 50%;
       left: 50%;
+      z-index: -1050;
 
       height: auto;
-
-      padding: 2rem 2rem;
       width: 24rem;
-      z-index: -1050;
+      padding: 2rem 2rem;
 
       border-radius: 0.5rem;
       transform: translate(-50%, -50%);
       background-color: white;
-
       visibility: hidden;
     }
 
     &_video {
       padding: 4rem 0 0 0;
-      border-radius: 0;
       max-width: 100%;
       max-height: 100%;
 
+      border-radius: 0;
+
       @media screen and (min-width: $screen-sm) {
         padding: 0;
-        border-radius: 0;
         width: 700px;
         max-width: 100%;
         max-height: 100%;
+
+        border-radius: 0;
       }
     }
 
     &_test {
-      background-color: $color_white;
-      font-weight: bold;
       display: grid;
       grid-template-rows: 70px auto;
       grid-auto-flow: row;
       grid-gap: 1.5rem;
       justify-items: center;
+
+      font-weight: bold;
+
+      background-color: $color_white;
     }
 
     &_visible {
@@ -88,6 +88,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 1051;
 
     width: 1.5rem;
 
@@ -96,7 +97,6 @@
     font-size: 50px;
 
     transition: 0.5s;
-    z-index: 1051;
 
     cursor: pointer;
 
@@ -123,15 +123,15 @@
 
   /* toggle visibility of modal window by adding/removing this class: */
   &_visible {
-    /*overflow-y: hidden;
-      height: 100vh;
-*/
     position: fixed;
-
     z-index: 1050;
+
+    /*
+    overflow-y: hidden;
+    height: 100vh;
+    */
     transform: scale(1);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-
     opacity: 1;
     visibility: visible;
   }
