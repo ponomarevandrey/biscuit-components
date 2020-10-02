@@ -4,3 +4,4 @@
 # *.js linguist-vendored=false
 
 doc/* linguist-vendored
+*.pug linguist-vendored=false
