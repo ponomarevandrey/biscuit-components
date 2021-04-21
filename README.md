@@ -16,4 +16,4 @@ My primary goals were:
 
 # Current State
 
-Currently, I reached all of the aforementioned goals and stopped developing the project. I use code snippets from this library in all of my projects as a starting point.
+Currently, I reached the aforementioned goals, so the project is closed. I use code snippets from this library in some of my projects as a starting point.
